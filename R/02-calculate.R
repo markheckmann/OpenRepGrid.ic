@@ -138,7 +138,7 @@ network_graph_images <- function(x, min_clique_size = 3, show_edges = T, min_mat
   l2 <- list(img_all_constructs = img_all_constructs, 
              img_cliques_only = img_cliques_only,
              min_clique_size = min_clique_size,
-             cliques_list = nm,
+             cliques_list = clique_lists,
              min_matches = min_matches)
   append(l, l2)
 }

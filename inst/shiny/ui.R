@@ -27,7 +27,6 @@ suppressWarnings({
     library(reshape2)
     library(testthat)
     library(scales)
-    library(stringr)
     library(tidyverse)
     library(glue)
     library(splines)
