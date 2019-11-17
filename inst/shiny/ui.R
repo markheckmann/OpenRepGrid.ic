@@ -162,7 +162,7 @@ body <- dashboardBody(
                        tags$a(href = "#", "Interpretive clustering"),  "by",
                        tags$a(href = "#", "Burr, King, Heckmann and Jankowicz (2020)"),
                        "The authors describe a variant of construct clustering which uses a procedure from graph theory called", 
-                       tags$a(href = "https://en.wikipedia.org/wiki/Clique_problem#Listing_all_maximal_cliques", "maxmimal cliques enumeration."),
+                       tags$a(href = "https://en.wikipedia.org/wiki/Clique_problem#Listing_all_maximal_cliques", "maximal clique enumeration."),
                        "Given a similarity measure, in our case the number of matching scores between two constructs, a network graph of relatedness between constructs is construed.",
                        "A clique is a group of constructs in this network which are mutually related to each other, given some cut-off criterion for relatedness (e.g. 6 matching scores).",
                        "While an offline approach is also described to find the construct cliques, this software automates the process.",
