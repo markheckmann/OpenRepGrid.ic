@@ -103,8 +103,6 @@ sidebar <- dashboardSidebar(
         menuItem("Login", tabName = "tab_login", icon = icon("login")),
         menuItem("Info", tabName = "tab_start", icon = icon("info")),
         menuItem("Grid", tabName = "tab_grid", icon = icon("th"))
-      #  menuItem("Cliques", tabName = "tab_cliques", icon = icon("grid") ),
-       # menuItem("Interactive", tabName = "tab_interactive", icon = icon("grid") )
     )
   )
 )

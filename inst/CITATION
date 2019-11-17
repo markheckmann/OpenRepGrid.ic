@@ -1,10 +1,10 @@
-citHeader("To cite the OpenRepGrid R package in publications:")
+citHeader("To cite the OpenRepGrid.ic package in publications:")
 
 citEntry(entry = "article",
-  title = "OpenRepGrid: An R package for the analysis of repertory grids",
-  journal = "ZENODO",
-  author = "Mark Heckmann",
-	year = "2014",
-	note = "doi:10.5281/zenodo.8492",
-  textVersion = "Heckmann, M. (2014). OpenRepGrid: An R package for the analysis of repertory grids. ZENODO. doi:10.5281/zenodo.8492"
+  title = "Interpretrive Clustering",
+  journal = "tbd",
+  author = "Burr, King, Heckmann & Jankowicz",
+	year = "2020",
+	note = "tbd",
+  textVersion = "Burr, King, Heckmann & Jankowicz (2020). Interpretive Clustering"
 )

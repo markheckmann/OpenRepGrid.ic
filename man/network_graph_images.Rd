@@ -7,5 +7,6 @@
 network_graph_images(x, min_clique_size = 3, show_edges = T, min_matches = 6)
 }
 \description{
-Build network graph plots
+Detects maximal cliques and saves images of network graphs into tempfile.
+Tempfile paths and info on cliques are returned.
 }

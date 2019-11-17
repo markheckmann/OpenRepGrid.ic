@@ -5,7 +5,11 @@ output: html_document
 
 ## TODO
 
-* sylvias grid gives incorrect results for min clique size of 2
+* Add construct labels to network output images
+* color edges to indicate direction of relation
+* adjust cut-off for relatedness settings according to grid size
+* add full construct names to output page as table
+* colorize direction of matching scores matrix
 
 ## v0.1
 

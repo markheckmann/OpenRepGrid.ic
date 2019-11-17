@@ -31,7 +31,7 @@ calculate_similarity <- function(x, min_matches = 6)
   for (i in seq_along(x$preferred)) {
     p <- x$preferred[i]
     if (isTRUE(p == 0)) {
-      x[i, i_ratings] <- (as.numeric(x[i, 2:8]) * -1 + 1)
+      x[i, i_ratings] <- (as.numeric(x[i, i_ratings]) * -1 + 1)
       tmp <- x[i, i_left]
       x[i, i_left] <- x[i, i_right]  # change poale labels
       x[i, i_right] <- tmp
@@ -98,6 +98,8 @@ calculate_similarity <- function(x, min_matches = 6)
 
 #' Build network graph plots
 #' 
+#' Detects maximal cliques and saves images of network graphs into tempfile.
+#' Tempfile paths and info on cliques are returned.
 #' @export
 #' 
 network_graph_images <- function(x, min_clique_size = 3, show_edges = T, min_matches = 6) 
@@ -106,31 +108,30 @@ network_graph_images <- function(x, min_clique_size = 3, show_edges = T, min_mat
   MM <- l$MM
   edge.lty <- ifelse(show_edges, 3, 0)
     
-  g <- graph_from_adjacency_matrix(MM, diag = F, mode  = "undirected")
-  mc <- max_cliques(g, min = min_clique_size)
+  g <- igraph::graph_from_adjacency_matrix(MM, diag = F, mode  = "undirected")
+  mc <- igraph::max_cliques(g, min = min_clique_size)
   n_clique <- length(mc)
-  nm <- lapply(mc, attr, "names")
+  clique_lists <- lapply(mc, attr, "names")
   
-  # show all constructs
-  nms_keep <- nm %>% unlist %>% unique
+  ## show all constructs
+  nms_keep <- clique_lists %>% unlist %>% unique
   MM2 <- MM[nms_keep, nms_keep]
   img_all_constructs <- tempfile(fileext = ".png")
   png(img_all_constructs, width = 15, height = 15, units = "cm", res = 300)
   par(oma = c(0,0,0,0), mar = c(0,0,0,0))
-  plot.igraph(g, mark.groups = nm, mark.border = 1:n_clique, mark.col = alpha(1:n_clique, .2), 
+  igraph::plot.igraph(g, mark.groups = clique_lists, mark.border = 1:n_clique, mark.col = alpha(1:n_clique, .2), 
               mark.expand = 15, edge.arrow.size = 0, edge.lty = edge.lty, edge.width = 1)
   dev.off()
   
-  # show cliques only
-  g <- graph_from_adjacency_matrix(MM2, diag = F, mode  = "undirected")
-  mc <- max_cliques(g, min = 4)
-  n_clique <- length(mc)
-  gs <- simplify(g)
-  nm <- lapply(mc, attr, "names")
+  ## clique constructs only 
+  g2 <- igraph::graph_from_adjacency_matrix(MM2, diag = F, mode  = "undirected")
+  #mc <- igraph::max_cliques(g, min = min_clique_size)
+  #n_clique <- length(mc)
+  # nm <- lapply(mc, attr, "names")
   img_cliques_only <- tempfile(fileext = ".png")
   png(img_cliques_only, width = 15, height = 15, units = "cm", res = 300)
   par(oma = c(0,0,0,0), mar = c(0,0,0,0))
-  plot.igraph(gs, mark.groups = nm, mark.border = 1:n_clique, mark.col = alpha(1:n_clique, .1), 
+  igraph::plot.igraph(simplify(g2), mark.groups = clique_lists, mark.border = 1:n_clique, mark.col = alpha(1:n_clique, .1), 
               mark.expand = 15, edge.arrow.size = 0, edge.lty = edge.lty, edge.width = 1)
   dev.off()
   
