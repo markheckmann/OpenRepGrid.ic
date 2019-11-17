@@ -1,0 +1,16 @@
+---
+title: "NEWS"
+output: html_document
+---
+
+## TODO
+
+* sylvias grid gives incorrect results for min clique size of 2
+
+## v0.1
+
+* First working version with all necessary features
+
+
+
+
