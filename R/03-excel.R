@@ -8,7 +8,6 @@
 check_excel_input <- function(x) 
 {
   nms <- names(x)
-  
   nc <- ncol(x)
   i_left <- 1L
   i_preferred <- nc - 0
@@ -17,37 +16,42 @@ check_excel_input <- function(x)
   
   # preferred --
   
-  c1_res <- isTRUE(tail(nms, 1) == "preferred")
+  col_right <- tail(nms, 1)
+  c1_res <- isTRUE(col_right == "preferred")
   c1 <- list(
-    assert = "rightmost column is named 'preferred'",
+    assert = "Rightmost column is named 'preferred' (all lowercase letters)",
     passed = c1_res,
-    error = ifelse(c1_res, "", "Rightmost column must be named 'preferred'")
+    error = ifelse(c1_res, "", paste0("Currently, the rightmost column is named '", col_right, "'"))
   )
 
-  c2_res <- all(x$preferred %in% c(0, 1, NA))
+  ii <- x$preferred %in% c(0, 1, NA)
+  not_allowed <- x$preferred[!ii] %>% unique
+  c2_res <- all(ii)
   c2 <- list(
-    assert = "column 'preferred' contains values 0, 1, NA or empty cells",
+    assert = "Column 'preferred' only contains one of the following values: 0, 1, NA, empty cell",
     passed = c2_res,
-    error = ifelse(c2_res, "", "Column 'preferred' must only contain the values: 0, 1, NA or empty cells")
+    error = ifelse(c2_res, "", paste("The following values are not allowed:", paste(not_allowed, collapse = ", ")))
   )
   
   # ratings --
   
   ratings <- x[, i_ratings] %>% unlist %>% unname
-  c3_res <- all(ratings %in% c(0, 1, NA))
+  ii <- ratings %in% c(0, 1, NA)
+  not_allowed <- ratings[!ii] %>% unique
+  c3_res <- all(ii)
   c3 <- list(
-    assert = "ratings contain values 0, 1, NA or empty cells",
+    assert = "All ratings have one of the following values: 0, 1, NA, empty cell",
     passed = c3_res,
-    error = ifelse(c3_res, "", "Ratings must only contain the values: 0, 1, NA or empty cells")
+    error = ifelse(c3_res, "", paste("The following values are not allowed:", paste(not_allowed, collapse = ", ")))
   )
   
   # constructs --
   
   c_left <- x[[i_left]] %>% str_trim
   c_right <- x[[i_right]] %>% str_trim
-  c4_res <- all(c_left != "") && all(c_right != "")
+  c4_res <- all(c_left != "") #&& all(c_right != "")
   c4 <- list(
-    assert = "constructs are non-empty strings",
+    assert = "Left poles must have are non-empty strings (right pole may be emptym though not recommended)",
     passed = c4_res,
     error = ifelse(c4_res, "", "Some construct poles contain empty strings")
   )
@@ -55,27 +59,36 @@ check_excel_input <- function(x)
   # elements --
   
   elements <- names(x)[i_ratings] %>% str_trim
-  c_right <- x[[i_right]] %>% str_trim
-  c5_res <- all(elements != "") || any(duplicated(elements))
+  ii <- duplicated(elements)
+  c5_res <- all(!ii) 
+  dupes <- elements[ii] 
   c5 <- list(
-    assert = "all element names are unique and non-empty strings",
+    assert = "All element names must be unique",
     passed = c5_res,
-    error = ifelse(c5_res, "", "Some element names are not unique or contain non-empty string")
+    error = ifelse(c5_res, "", paste("The folowing names are not unique:", paste(dupes, collapse = ", ")))
+  )
+  
+  elements <- names(x)[i_ratings] %>% str_trim
+  ii <- elements != "" | is.na(elements)
+  c6_res <- all(ii)
+  c6 <- list(
+    assert = "All element names are non-empty strings and not missing",
+    passed = c6_res,
+    error = ifelse(c6_res, "", paste("The element names in the following columns are not correct:", paste(int2col(which(ii) + 1), collapse = ", ")))
   )
   
   # meta --
   rating_lowest <- names(x)[i_left] %>% as.numeric
   rating_highest <- names(x)[i_right] %>% as.numeric
-  c6_res <- (rating_lowest < rating_highest) || is.na(rating_lowest) || is.na(rating_highest)
-  c6 <- list(
-    assert = "meta data for highest and lowest ratuing values is given",
-    passed = c6_res,
-    error = ifelse(c6_res, "", "The highest lowest possible rating values must be given in the column name of the left and right pole.")
+  c7_res <- (rating_lowest < rating_highest) || is.na(rating_lowest) || is.na(rating_highest)
+  c7 <- list(
+    assert = "Meta data for highest and lowest ratuing values is given",
+    passed = c7_res,
+    error = ifelse(c7_res, "", "The highest lowest possible values are missing or not plausible.")
   )
   
-  l <- 
-    list(c1, c2, c3, c4, c5, c6) %>%
-    lapply(as.data.frame)
+  l <- list(c1, c2, c3, c4, c5, c6, c7) %>%
+          lapply(as.data.frame)
   do.call(rbind, l)
   
   #lapply(l, `class<-`, c("test", "list"))

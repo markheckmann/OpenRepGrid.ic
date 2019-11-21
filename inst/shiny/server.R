@@ -182,7 +182,7 @@ server <- function(input, output, session)
     
     grid_font_size <- input$grid_font_size
     grid_line_hight <- input$grid_line_height
-    
+    hide_preferred <- input$grid_hide_col_preferred
     min_matches <- input$par_min_match
     min_clique_size <- input$Par_min_clique_size
     
@@ -200,6 +200,8 @@ server <- function(input, output, session)
     # sanity check
     tests <- check_excel_input(x)
     all_passed <- all(tests$passed)
+    
+    # failed test
     if (!all_passed) {
       cat("\nsome tests failed")
       show("error_box")
@@ -220,57 +222,64 @@ server <- function(input, output, session)
                       columnDefs = list(
                         list(className = 'dt-center', targets = 1),
                         list(className = 'dt-left', targets = c(1,2))
-                        # list(visible = FALSE, targets = 9)
                       )
                     )) %>%
-        formatStyle(c("Result"), valueColumns = "Result", color = "white",
-                    backgroundColor = styleEqual(c(TRUE, FALSE, NA), c(green, red, neutral))) 
+          formatStyle(c("Result"), valueColumns = "Result", color = "white",
+                      backgroundColor = styleEqual(c(TRUE, FALSE, NA), c(green, red, neutral))) 
       return(dt)
+    } 
+      
+    # all test were passed
+    cat("\nall tests passed")
+    hide("error_box")
+    show("success_box")
+    show("down_btn")
+    show("settings_box_1")
+    show("settings_box_2")
+    # show("main_table")
+    # hide("grid_box")
+    
+    nms <- names(x) %>% str_replace_all("\\.", " ")
+    
+    if (input$grid_rotate_elements) {
+      header_callback <- JS(headerCallback)
     } else {
-      cat("\nall tests passed")
-      hide("error_box")
-      show("success_box")
-      show("down_btn")
-      show("settings_box_1")
-      show("settings_box_2")
-      # show("main_table")
-      # hide("grid_box")
-      
-      nms <- names(x) %>% str_replace_all("\\.", " ")
-      
-      if (input$grid_rotate_elements) {
-        header_callback <- JS(headerCallback)
-      } else {
-        header_callback <- NULL
-      }
-      
-      i_preferred <- which(names(x) == "preferred")
-      i_left <- 1
-      i_right <- i_preferred - 1
-      i_ratings <- (i_left + 1):(i_right - 1)
-      dt <- DT::datatable(x, rownames = FALSE, colnames = nms, 
-                    options = list(
-                      headerCallback = header_callback, #JS(headerCallback),
-                      paging = FALSE,
-                      ordering = FALSE,
-                      dom = 't',
-                      columnDefs = list(
-                        list(className = 'dt-center', targets = i_ratings - 1),
-                        list(className = 'dt-right', targets = 0)
-                        # list(visible = FALSE, targets = i_preferred)
-                      )
-                    )) %>%
-        formatStyle(c("0"), valueColumns = "preferred",
-                    color = styleEqual(c(0, 1, NA), c(green, red, neutral))) %>%
-        formatStyle(c("1"), valueColumns = "preferred",
-                    color = styleEqual(c(1, 0, NA), c(green, red, neutral))) %>%
-        formatStyle(columns = colnames(.$x$data),
-                    fontSize = paste0(grid_font_size, "pt")) %>%
-        formatStyle(columns = colnames(.$x$data), target = 'row',
-                    lineHeight = paste0(grid_line_hight, "%"))    
-      return(dt)
+      header_callback <- NULL
     }
     
+    i_preferred <- which(names(x) == "preferred")
+    i_left <- 1
+    i_right <- i_preferred - 1
+    i_ratings <- (i_left + 1):(i_right - 1)
+    
+
+    column_defs <- list(
+        list(className = 'dt-center', targets = i_ratings - 1),
+        list(className = 'dt-right', targets = 0)
+    )
+    if (hide_preferred) 
+      column_defs <- c(column_defs, list(list(visible = FALSE, targets = i_preferred - 1)))
+      
+    dt <- DT::datatable(x, rownames = FALSE, colnames = nms, 
+                  options = list(
+                    headerCallback = header_callback, #JS(headerCallback),
+                    paging = FALSE,
+                    ordering = FALSE,
+                    dom = 't',
+                    columnDefs = column_defs
+                  )
+      )  %>%
+      formatStyle(c("0"), valueColumns = "preferred",
+                  color = styleEqual(c(0, 1, NA), c(green, red, neutral))) %>%
+      formatStyle(c("1"), valueColumns = "preferred",
+                  color = styleEqual(c(1, 0, NA), c(green, red, neutral))) %>%
+      formatStyle(columns = colnames(.$x$data),
+                  fontSize = paste0(grid_font_size, "pt")) %>%
+      formatStyle(columns = colnames(.$x$data), target = 'row',
+                  lineHeight = paste0(grid_line_hight, "%"))    
+    
+    return(dt)
+      
   })
   
   

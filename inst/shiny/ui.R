@@ -172,11 +172,16 @@ body <- dashboardBody(
                                                              "?subject=Question regarding OpenRepGrid.ic v", packageVersion("OpenRepGrid.ic"),
                                                              "&body=Your question goes here."))
                       )              
-                    )
+                    ),
+                   box(width = NULL,
+                       img(src = "sylvia_raw.png", align = "left", style = "width: 100%")
+                   )
                 ), 
-                column(width = 6,
-                  img(src = "ic_logo.png", align = "left")
-                )
+                # column(width = 6,
+                #   # box(width = NULL,
+                    img(src = "ic_logo.png", align = "left")#, style = "width: 80%")
+                #   )
+                #)
               )
             )
     ),
@@ -218,22 +223,21 @@ body <- dashboardBody(
                          fileInput("excel_input", "Choose Excel File (.xlsx)", accept = ".xlsx")
                      ),
                      hidden(div(id = "settings_box_1",
-                       box(width = NULL, status = "warning", title = "Grid settings",
+                       box(width = NULL, status = "warning", title = "Grid settings", collapsible = TRUE, 
                           numericInput("grid_font_size", "Font size", 12, 6, 30, step = 1),
                           numericInput("grid_line_height", "Line height", value = 100, 50, 200, step = 10),
-                          
-                          awesomeCheckbox("grid_rotate_elements", "Rotate header", value = FALSE)
+                          awesomeCheckbox("grid_rotate_elements", "Rotate header", value = FALSE),
+                          awesomeCheckbox("grid_hide_col_preferred", "Hide preferred column", value = TRUE)
                       )
                      )),
                      hidden(div(id = "settings_box_2",
-                        box(width = NULL, status = "warning", title = "Output settings",
+                        box(width = NULL, status = "warning", title = "Output settings", collapsible = TRUE,
                             numericInput("par_min_match", "Number of matches for relatedness", value = 6, 2, 20),
                             numericInput("Par_min_clique_size", "Minimal cliques size", 3, 2, 10),
                              actionButton("btn_process", label = "Process data"),
                              disabled(
                                downloadButton(outputId = "btn_download_excel", style = "minimal", 
-                                              color = "primary", 
-                                              label = "Dowload results")
+                                              color = "primary", label = "Dowload results")
                             )
                         )
                      ))
