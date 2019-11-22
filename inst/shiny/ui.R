@@ -218,8 +218,8 @@ body <- dashboardBody(
               ),
               column(width = 3,
                      box(width = NULL, status = "warning", title = "Upload",
-                         p("Please upload an Excel file containing a grid."),
-                         p("You can download a sample file", downloadLink(outputId = "download_sample_excel", label = "here.")),
+                         p("Please upload an Excel file containing a grid.",
+                           "To get started, you can download a sample file", downloadLink(outputId = "download_sample_excel", label = "here.")),
                          fileInput("excel_input", "Choose Excel File (.xlsx)", accept = ".xlsx")
                      ),
                      hidden(div(id = "settings_box_1",

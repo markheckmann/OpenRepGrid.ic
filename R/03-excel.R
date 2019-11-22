@@ -25,7 +25,7 @@ check_excel_input <- function(x)
   )
 
   ii <- x$preferred %in% c(0, 1, NA)
-  not_allowed <- x$preferred[!ii] %>% unique
+  not_allowed <- x$preferred[!ii] %>% unique %>% head(10)
   c2_res <- all(ii)
   c2 <- list(
     assert = "Column 'preferred' only contains one of the following values: 0, 1, NA, empty cell",
@@ -37,7 +37,7 @@ check_excel_input <- function(x)
   
   ratings <- x[, i_ratings] %>% unlist %>% unname
   ii <- ratings %in% c(0, 1, NA)
-  not_allowed <- ratings[!ii] %>% unique
+  not_allowed <- ratings[!ii] %>% unique %>% head(10)
   c3_res <- all(ii)
   c3 <- list(
     assert = "All ratings have one of the following values: 0, 1, NA, empty cell",
