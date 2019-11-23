@@ -211,7 +211,7 @@ server <- function(input, output, session)
     
     # initialize settings after grid has been succesfully read in
     if (rv$data_status == "passed") {
-      n_elements <- ncol(rv$data) - 3
+      n_elements <- rv$no_of_elements
       updateNumericInput(session, "par_min_match", value = n_elements - 1, min = 2, max = n_elements)
     }
   })
@@ -226,7 +226,7 @@ server <- function(input, output, session)
   })
   
   
-  # __ TESTS ----
+  # __ FAILED----
   
   dt_failed_tests <- reactive({
     
@@ -266,7 +266,7 @@ server <- function(input, output, session)
   })
   
   
-  # __ GRID ----
+  # __ PASSED ----
   
   dt_tests_passed <- reactive({
     
@@ -306,6 +306,7 @@ server <- function(input, output, session)
     i_left <- 1
     i_right <- i_preferred - 1
     i_ratings <- (i_left + 1):(i_right - 1)
+    rv$no_of_elements <- length(i_ratings)
     
     column_defs <- list(
       list(className = 'dt-center', targets = i_ratings - 1),
@@ -333,7 +334,6 @@ server <- function(input, output, session)
                   lineHeight = paste0(grid_line_hight, "%"))    
     
     return(dt)
-    
   })
   
 
@@ -529,6 +529,18 @@ server <- function(input, output, session)
       introjs(session, 
               options = list("skipLabel" = "Cancel"),
               events = list("oncomplete" = 'alert("It is over")'))
+  })
+  
+  
+  observeEvent(input$par_min_match, {
+    n_elements <- rv$no_of_elements
+    criterion <- ifelse(is.null(n_elements), 0, n_elements)
+    criterion <- ceiling(criterion / 2)
+    feedbackWarning(
+      text = "Low criterion for relatedness",
+      inputId = "par_min_match",
+      condition = input$par_min_match <= criterion
+    )
   })
   
 }

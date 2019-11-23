@@ -18,6 +18,7 @@ suppressWarnings({
     library(shinyauthr)
     library(shinybusy)
     library(rintrojs)
+    library(shinyFeedback)
     
     library(data.table)
     library(formattable)
@@ -113,8 +114,7 @@ body <- dashboardBody(
   
   useShinyjs(),    
   introjsUI(),
-  # add_busy_spinner(spin = "fading-circle", color = "red", position = "full-page",
-  #                  height = "100px", width = "100px"),
+  useShinyFeedback(),
   add_busy_bar(color = "orange", height = "10px"),
   
   tags$head(tags$link(rel = "favicon", href = "favicon.png")), # show favicon
