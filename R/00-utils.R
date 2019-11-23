@@ -39,13 +39,13 @@ emptify_object <- function(x)
 dt_default <- function(text = "Waiting for data ...", 
                        header = "") 
 {
-  df <- data.frame(Spalte = text)
+  df <- data.frame(col1 = text)
   names(df) <- header
   
   # create datatable and format
   df %>%
-    datatable(filter= "none", 
-              selection ="none", 
+    datatable(filter = "none", 
+              selection = "none", 
               colnames = header,
               class = 'compact', rownames = FALSE, 
               options = list(

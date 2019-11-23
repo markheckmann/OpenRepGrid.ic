@@ -16,7 +16,7 @@ suppressWarnings({
     library(shinydashboardPlus)
     library(shinycssloaders)
     library(shinyauthr)
-    
+    library(rintrojs)
     library(data.table)
     library(formattable)
     library(openxlsx)
@@ -32,12 +32,9 @@ suppressWarnings({
     library(splines)
     library(plotly)
     library(officer)
-    
     library(igraph)
     # library(visNetwork)
-    
     library(OpenRepGrid.ic)
-    
   })
 })
 
@@ -112,7 +109,8 @@ sidebar <- dashboardSidebar(
 
 body <- dashboardBody(
   
-  useShinyjs(),             
+  useShinyjs(),    
+  introjsUI(),
   tags$head(tags$link(rel = "favicon", href = "favicon.png")), # show favicon
   # custom CSS
   tags$head(tags$style("
@@ -195,52 +193,111 @@ body <- dashboardBody(
                           box(width = NULL, status = "danger", solidHeader = T, #background = "red",
                               title = "Uuups. Something went wrong", 
                               p("I could not read your Excel file. Please see the comments below.",
-                                "Make sure your Excel file has the required format.")
-                          )
+                                "Make sure your Excel file has the required format.")                          )
                      )),
                     hidden(
-                      div(id = "success_box",
-                          box(width = NULL,
-                            infoBoxOutput("box_no_elements"),
-                            infoBoxOutput("box_no_constructs"),
-                            infoBoxOutput("box_no_missing")
-                        )
-                     )
+                        div(id = "success_box",
+                            introBox(data.step = 2, 
+                                     data.intro = "The boxes contain basic information about the grid you uploaded.",
+                            # box(width = NULL,
+                            fluidRow(
+                              infoBoxOutput("box_no_elements"),
+                              infoBoxOutput("box_no_constructs"),
+                              infoBoxOutput("box_no_missing")
+                          )
+                       )
+                      )
                     ),
                     # div(id = "grid_box",
-                     box(width = NULL, 
-                         div(#style = "font-size:120%", 
-                             id = "main_table",
-                             dataTableOutput("dt_grid") %>% withSpinner(color = "#D33724") 
-                         )
-                     )
+                    introBox(data.step = 3, 
+                             data.intro = "The table shows the grid data from the Excel file you uploaded.
+                                          Always double check that the data is correct before proceeding.",
+                       box(width = NULL, 
+                           div(#style = "font-size:120%", 
+                               id = "main_table",
+                               dataTableOutput("dt_grid") %>% withSpinner(color = "#D33724") 
+                           )
+                       )
+                    ),
+                    div(id = "excel_info_box",
+                    box(width = NULL, title = h4("Required Excel format"), collapsible = TRUE,
+                      p("The grid must be specified on the first sheet of an Excel file (.xlsx) using the following conventions:"),
+                      tags$ul(
+                        tags$li("The Excel sheet has a header row containing the element labels."), 
+                        tags$li("The first and second last columns contain the left and right construct poles, respectively.",
+                                "Right poles may be left blank."),
+                        tags$li("The ratings indicate which pole applies. 0 means that the left pole, 1 means that the right pole applies.",
+                                "Use NA or a blank cell for missing values."),
+                        tags$li("The rightmost column 'preferred' (all lower case letters) indicates which of the construct poles is the preferred pole.",
+                                "0  means that the left pole is preferred, 1 means that the right pole is preferred.",
+                                "Use NA or a blank cell if none of the poles is preferred.")
+                        ),
+                        p("Below you see a screenshot of a valid Excel format. The colors are for conveniecne only and are discarded by the software.",
+                                "You can download a valid sample Excel file in the right hand panel and use it as a template."),
+                        br(),
+                        HTML('<center><img src="excel_grid_format.png" width="85%"></center>')
+                        # img(src = "excel_grid_format.png", align = "center", style = "width: 90%")
+                    ))
                     
               ),
               column(width = 3,
-                     box(width = NULL, status = "warning", title = "Upload",
-                         p("Please upload an Excel file containing a grid.",
-                           "To get started, you can download a sample file", downloadLink(outputId = "download_sample_excel", label = "here.")),
-                         fileInput("excel_input", "Choose Excel File (.xlsx)", accept = ".xlsx")
+                     hidden(div(id = "tour_box",
+                        box(width = NULL, status = "warning", title = "Software Tour", collapsible = TRUE,
+                          actionBttn("start_tour", "Start tour", icon = icon("info"), color = "warning")
+                        )
+                     )),
+                     introBox(
+                       box(width = NULL, status = "warning", title = "Upload",
+                           p("Please upload an Excel file containing a grid.",
+                             "To get started, you can download a sample file", downloadLink(outputId = "download_sample_excel", label = "here.")),
+                           fileInput("excel_input", "Choose Excel File (.xlsx)", accept = ".xlsx")                     
+                       ),
+                       data.step = 1, 
+                       data.intro = "As you already know, you can upload an Excel file here. 
+                                     You may also download a sample file and use it as a template."
                      ),
                      hidden(div(id = "settings_box_1",
-                       box(width = NULL, status = "warning", title = "Grid settings", collapsible = TRUE, 
-                          numericInput("grid_font_size", "Font size", 12, 6, 30, step = 1),
-                          numericInput("grid_line_height", "Line height", value = 100, 50, 200, step = 10),
-                          awesomeCheckbox("grid_rotate_elements", "Rotate header", value = FALSE),
-                          awesomeCheckbox("grid_hide_col_preferred", "Hide preferred column", value = TRUE)
-                      )
+                        introBox(
+                            box(width = NULL, status = "warning", title = "Grid settings", collapsible = TRUE, 
+                              numericInput("grid_font_size", "Font size", 12, 6, 30, step = 1),
+                              numericInput("grid_line_height", "Line height", value = 100, 50, 200, step = 10),
+                              awesomeCheckbox("grid_rotate_elements", "Rotate header", value = FALSE),
+                              awesomeCheckbox("grid_hide_col_preferred", "Hide preferred column", value = TRUE)
+                            ),
+                            data.step = 4, 
+                            data.intro = "Settings to adjust the way the grid on the left is displayed. 
+                                          You can change the font size or line height and rotate the header 
+                                          if the element labels are very long."
+                        )
                      )),
                      hidden(div(id = "settings_box_2",
-                        box(width = NULL, status = "warning", title = "Output settings", collapsible = TRUE,
-                            numericInput("par_min_match", "Number of matches for relatedness", value = 6, 2, 20),
-                            numericInput("Par_min_clique_size", "Minimal cliques size", 3, 2, 10),
-                             actionButton("btn_process", label = "Process data"),
-                             disabled(
-                               downloadButton(outputId = "btn_download_excel", style = "minimal", 
-                                              color = "primary", label = "Dowload results")
-                            )
-                        )
-                     ))
+                      introBox(data.step = 5, 
+                               data.intro = "Specify the settings for the clique detection and start the calculation here.",
+                          box(width = NULL, status = "warning", title = "Output settings", collapsible = TRUE,
+                              introBox(data.step = 6, 
+                                       data.intro = "Set the minimal number of matches between two construct to consider them 'related'.
+                                                     By default it is set to the number of elements minus one.",
+                                  numericInput("par_min_match", "Number of matches for relatedness", value = 6, 2, 20)
+                              ),
+                              introBox(data.step = 7, 
+                                       data.intro = "Set the minimal number of mutually related construct that form a 'clique'.
+                                                     By default the value is set to three constructs.",
+                                       numericInput("par_min_clique_size", "Minimal cliques size", 3, 2, 10)
+                              ),
+                              introBox(data.step = 8, 
+                                       data.intro = "Process the grid data and generate an Excel file containing 
+                                                     the results for download.",
+                                  actionButton("btn_process", label = "Process data")
+                               ),
+                              introBox(data.step = 9, 
+                                       data.intro = "After the result file has been created, you can download it here.",
+                                disabled(
+                                 downloadButton(outputId = "btn_download_excel", style = "minimal", color = "primary", label = "Dowload results")
+                                )
+                              )
+                          )
+                      )
+                    ))
               )
          )
     )

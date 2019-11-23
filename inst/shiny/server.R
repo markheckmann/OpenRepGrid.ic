@@ -13,7 +13,6 @@ library(shinydashboardPlus)
 library(shinycssloaders)
 library(shinyauthr)
 
-
 # shared variables across users
 users = reactiveValues(count = 0)
 
@@ -59,8 +58,9 @@ server <- function(input, output, session)
 {
   
   rv <- reactiveValues()
-  
-  hide("down_btn")
+  rv$number_of_uploads <- 0  # used as trigger at new upload
+
+  hide("down_btn")  
   # hide("success_box")
   # hide("grid_box")
   
@@ -134,25 +134,30 @@ server <- function(input, output, session)
     dropdownMenu(msg, logout, icon = icon("users"), type = "messages", headerText = "")
   })
   
+  
+  #### .                       ####
+  #### _______________________ ####
+  #### UPLOAD ####
+  
+  # upload grid
+  observeEvent(input$excel_input, 
+   {
+     req(input$excel_input)
+     in_file <- input$excel_input
+     if (is.null(in_file))
+       return(NULL)
+     rv$data <- openxlsx::read.xlsx(in_file$datapath)
+     hide("down_btn")
+     disable("btn_download_excel")
+     # rv$data_status <- NULL  # set back data status
+     rv$number_of_uploads <- rv$number_of_uploads + 1
+   })
 
   #### .                       ####
   #### _______________________ ####
   #### TABLES ####
   
-  # upload grid
-  observeEvent(input$excel_input, 
-  {
-    req(input$excel_input)
-    in_file <- input$excel_input
-    if (is.null(in_file))
-     return(NULL)
-    rv$data <- openxlsx::read.xlsx(in_file$datapath)
-    hide("down_btn")
-    disable("btn_download_excel")
-    
-  })
 
-  
   output$box_no_elements <- renderInfoBox({
     req(input$excel_input)
     infoBox("Elements", ncol(rv$data) - 3, icon = icon("gem"), width = 3)
@@ -175,60 +180,108 @@ server <- function(input, output, session)
   })
   
   
-  output$dt_grid <- DT::renderDataTable(
-  {
+  # __ DATA STATUS ----
+  
+  # check if the data is valid and set a flag if this is the case
+  # the flag 'data_status' is needed so other processes can use the info
+  observeEvent(rv$data, {
+    x <- rv$data
+    cat("\ncheck data")
+    if (is.null(x)) {
+      rv$data_status <- "empty"
+    } else {
+      # sanity check
+      tests <- check_excel_input(x)
+      all_passed <- all(tests$passed)
+      if (all_passed) {
+        rv$data_status <- "passed"
+      } else {
+        rv$tests <- tests
+        rv$data_status <- "failed"
+      }
+    }
+  })
+  
+  
+  observe({
     req(rv$data)
-    req(input$excel_input)
+    # rv$data_status
+    rv$number_of_uploads # trigger when data is changed
     
-    grid_font_size <- input$grid_font_size
-    grid_line_hight <- input$grid_line_height
-    hide_preferred <- input$grid_hide_col_preferred
-    min_matches <- input$par_min_match
-    min_clique_size <- input$Par_min_clique_size
+    # initialize settings after grid has been succesfully read in
+    if (rv$data_status == "passed") {
+      n_elements <- ncol(rv$data) - 3
+      updateNumericInput(session, "par_min_match", value = n_elements - 1, min = 2, max = n_elements)
+    }
+  })
+  
+  
+  # __ NO DATA ----
+  
+  dt_null <- reactive({
+    rv$number_of_uploads # trigger when data is changed
+    dt_default("Use the upload button on the right hand side to get started ...") %>%
+      formatStyle(columns = 0, fontSize = "13pt", color = "black")
+  })
+  
+  
+  # __ TESTS ----
+  
+  dt_failed_tests <- reactive({
+    
+    rv$number_of_uploads # trigger when data is changed
     
     green <- "#00CC00"
     red <- "#BF0000"
     neutral <- "#CCCCCC"
     
-    # pass if NULL
-    x <- rv$data
-    if (is.null(x)) {
-      cat("\ndata is null")
-      return(dt_default())
-    }
+    cat("\nsome tests failed")
+    show("error_box")
+    hide("success_box")
+    hide("down_btn")
+    hide("settings_box_1")
+    hide("settings_box_2")
+    hide("tour_box")
+    show("excel_info_box")
     
-    # sanity check
-    tests <- check_excel_input(x)
-    all_passed <- all(tests$passed)
+    tests <- isolate(rv$tests)
+    failed <- 
+      tests %>% 
+      filter(!passed) %>% 
+      rename(Expecting = "assert", Result = "passed", Hint = "error")
+    dt <- DT::datatable(failed, rownames = FALSE,
+                        options = list(
+                          paging = FALSE,
+                          ordering = FALSE,
+                          dom = 't',
+                          columnDefs = list(
+                            list(className = 'dt-center', targets = 1),
+                            list(className = 'dt-left', targets = c(1,2))
+                          )
+                        )) %>%
+      formatStyle(c("Result"), valueColumns = "Result", color = "white",
+                  backgroundColor = styleEqual(c(TRUE, FALSE, NA), c(green, red, neutral))) 
+    return(dt)
+  })
+  
+  
+  # __ GRID ----
+  
+  dt_tests_passed <- reactive({
     
-    # failed test
-    if (!all_passed) {
-      cat("\nsome tests failed")
-      show("error_box")
-      hide("success_box")
-      hide("down_btn")
-      hide("settings_box_1")
-      hide("settings_box_2")
-      # show("main_table")
-      failed <- 
-        tests %>% 
-        filter(!passed) %>% 
-        rename(Expecting = "assert", Result = "passed", Hint = "error")
-      dt <- DT::datatable(failed, rownames = FALSE,
-                    options = list(
-                      paging = FALSE,
-                      ordering = FALSE,
-                      dom = 't',
-                      columnDefs = list(
-                        list(className = 'dt-center', targets = 1),
-                        list(className = 'dt-left', targets = c(1,2))
-                      )
-                    )) %>%
-          formatStyle(c("Result"), valueColumns = "Result", color = "white",
-                      backgroundColor = styleEqual(c(TRUE, FALSE, NA), c(green, red, neutral))) 
-      return(dt)
-    } 
-      
+    x <- isolate(rv$data)
+    rv$number_of_uploads # trigger when data is changed
+    
+    grid_font_size <- input$grid_font_size
+    grid_line_hight <- input$grid_line_height
+    hide_preferred <- input$grid_hide_col_preferred
+    min_matches <- input$par_min_match
+    min_clique_size <- input$par_min_clique_size
+    
+    green <- "#00CC00"
+    red <- "#BF0000"
+    neutral <- "#CCCCCC"
+    
     # all test were passed
     cat("\nall tests passed")
     hide("error_box")
@@ -236,7 +289,8 @@ server <- function(input, output, session)
     show("down_btn")
     show("settings_box_1")
     show("settings_box_2")
-    # show("main_table")
+    show("tour_box")
+    hide("excel_info_box")
     # hide("grid_box")
     
     nms <- names(x) %>% str_replace_all("\\.", " ")
@@ -252,23 +306,22 @@ server <- function(input, output, session)
     i_right <- i_preferred - 1
     i_ratings <- (i_left + 1):(i_right - 1)
     
-
     column_defs <- list(
-        list(className = 'dt-center', targets = i_ratings - 1),
-        list(className = 'dt-right', targets = 0)
+      list(className = 'dt-center', targets = i_ratings - 1),
+      list(className = 'dt-right', targets = 0)
     )
     if (hide_preferred) 
       column_defs <- c(column_defs, list(list(visible = FALSE, targets = i_preferred - 1)))
-      
+    
     dt <- DT::datatable(x, rownames = FALSE, colnames = nms, 
-                  options = list(
-                    headerCallback = header_callback, #JS(headerCallback),
-                    paging = FALSE,
-                    ordering = FALSE,
-                    dom = 't',
-                    columnDefs = column_defs
-                  )
-      )  %>%
+                        options = list(
+                          headerCallback = header_callback, #JS(headerCallback),
+                          paging = FALSE,
+                          ordering = FALSE,
+                          dom = 't',
+                          columnDefs = column_defs
+                        )
+    )  %>%
       formatStyle(c("0"), valueColumns = "preferred",
                   color = styleEqual(c(0, 1, NA), c(green, red, neutral))) %>%
       formatStyle(c("1"), valueColumns = "preferred",
@@ -279,9 +332,137 @@ server <- function(input, output, session)
                   lineHeight = paste0(grid_line_hight, "%"))    
     
     return(dt)
-      
+    
   })
   
+
+  # RENDER ----
+  
+  output$dt_grid <- DT::renderDataTable(
+  {
+    #req(rv$data)
+    #req(input$excel_input)
+    data_status <- rv$data_status
+    
+    if (is.null(data_status) || isTRUE(data_status == "empty")) {
+      cat("\ndata is null")
+      return(dt_null())
+    } else if (data_status == "failed") {
+      return(dt_failed_tests())
+    } else if (data_status == "passed") {
+      return(dt_tests_passed())
+    }
+  })
+  
+    # output$dt_grid <- DT::renderDataTable(
+  # {
+  #   #req(rv$data)
+  #   #req(input$excel_input)
+  #   
+  #   grid_font_size <- input$grid_font_size
+  #   grid_line_hight <- input$grid_line_height
+  #   hide_preferred <- input$grid_hide_col_preferred
+  #   min_matches <- input$par_min_match
+  #   min_clique_size <- input$par_min_clique_size
+  #   
+  #   green <- "#00CC00"
+  #   red <- "#BF0000"
+  #   neutral <- "#CCCCCC"
+  #   
+  #   # pass if NULL
+  #   x <- rv$data
+  #   if (is.null(x)) {
+  #     cat("\ndata is null")
+  #     return(dt_null())
+  #   }
+  #   
+  #   # sanity check
+  #   tests <- check_excel_input(x)
+  #   all_passed <- all(tests$passed)
+  #   
+  #   # failed test
+  #   if (!all_passed) {
+  #     cat("\nsome tests failed")
+  #     show("error_box")
+  #     hide("success_box")
+  #     hide("down_btn")
+  #     hide("settings_box_1")
+  #     hide("settings_box_2")
+  #     hide("tour_box")
+  #     show("excel_info_box")
+  #     # show("main_table")
+  #     failed <- 
+  #       tests %>% 
+  #       filter(!passed) %>% 
+  #       rename(Expecting = "assert", Result = "passed", Hint = "error")
+  #     dt <- DT::datatable(failed, rownames = FALSE,
+  #                   options = list(
+  #                     paging = FALSE,
+  #                     ordering = FALSE,
+  #                     dom = 't',
+  #                     columnDefs = list(
+  #                       list(className = 'dt-center', targets = 1),
+  #                       list(className = 'dt-left', targets = c(1,2))
+  #                     )
+  #                   )) %>%
+  #         formatStyle(c("Result"), valueColumns = "Result", color = "white",
+  #                     backgroundColor = styleEqual(c(TRUE, FALSE, NA), c(green, red, neutral))) 
+  #     return(dt)
+  #   } 
+  #     
+  #   # all test were passed
+  #   cat("\nall tests passed")
+  #   hide("error_box")
+  #   show("success_box")
+  #   show("down_btn")
+  #   show("settings_box_1")
+  #   show("settings_box_2")
+  #   show("tour_box")
+  #   hide("excel_info_box")
+  #   # hide("grid_box")
+  #   
+  #   nms <- names(x) %>% str_replace_all("\\.", " ")
+  #   
+  #   if (input$grid_rotate_elements) {
+  #     header_callback <- JS(headerCallback)
+  #   } else {
+  #     header_callback <- NULL
+  #   }
+  #   
+  #   i_preferred <- which(names(x) == "preferred")
+  #   i_left <- 1
+  #   i_right <- i_preferred - 1
+  #   i_ratings <- (i_left + 1):(i_right - 1)
+  # 
+  #   column_defs <- list(
+  #       list(className = 'dt-center', targets = i_ratings - 1),
+  #       list(className = 'dt-right', targets = 0)
+  #   )
+  #   if (hide_preferred) 
+  #     column_defs <- c(column_defs, list(list(visible = FALSE, targets = i_preferred - 1)))
+  #     
+  #   dt <- DT::datatable(x, rownames = FALSE, colnames = nms, 
+  #                 options = list(
+  #                   headerCallback = header_callback, #JS(headerCallback),
+  #                   paging = FALSE,
+  #                   ordering = FALSE,
+  #                   dom = 't',
+  #                   columnDefs = column_defs
+  #                 )
+  #     )  %>%
+  #     formatStyle(c("0"), valueColumns = "preferred",
+  #                 color = styleEqual(c(0, 1, NA), c(green, red, neutral))) %>%
+  #     formatStyle(c("1"), valueColumns = "preferred",
+  #                 color = styleEqual(c(1, 0, NA), c(green, red, neutral))) %>%
+  #     formatStyle(columns = colnames(.$x$data),
+  #                 fontSize = paste0(grid_font_size, "pt")) %>%
+  #     formatStyle(columns = colnames(.$x$data), target = 'row',
+  #                 lineHeight = paste0(grid_line_hight, "%"))    
+  #   
+  #   return(dt)
+  #     
+  # })
+  # 
   
   #### .                       ####
   #### _______________________ ####
@@ -295,7 +476,7 @@ server <- function(input, output, session)
     file <- input$excel_input$datapath
 
     min_matches <- input$par_min_match
-    min_clique_size <- input$Par_min_clique_size
+    min_clique_size <- input$par_min_clique_size
     
     withProgress(message = 'Creating Excel file: ', value = 0, min = 0, max = 2,
     {
@@ -309,11 +490,16 @@ server <- function(input, output, session)
     # allow download if excel has been created and saved succesfully
     if (file.exists(rv$excel_out_path)) {
       enable("btn_download_excel")
+      sendSweetAlert(session, title = "Calculation succesful", 
+                     text = "You can now download the Excel file containing the results by clicking on the 'Download results' button", 
+                     type = "success",
+                     btn_labels = "Ok", btn_colors = "#3085d6")
     }
   })
 
-  
+
   output$btn_download_excel <- downloadHandler(
+    
     filename = function() {
       filename <- input$excel_input$name
       str_replace(filename, ".xlsx", "_CLIQUES.xlsx")
@@ -321,9 +507,6 @@ server <- function(input, output, session)
     content = function(file) {
       file_out <- rv$excel_out_path
       file.copy(from = file_out, to = file)
-      # file_path <- input$excel_input$datapath
-      # wb <- openxlsx::loadWorkbook(file_path)
-      # saveWorkbook(wb, con)
     },
     contentType = "application/vnd.ms-excel"
   )
@@ -339,6 +522,13 @@ server <- function(input, output, session)
     },
     contentType = "application/vnd.ms-excel"
   )
+  
+  # start introjs when button is pressed 
+  observeEvent(input$start_tour,{
+      introjs(session, 
+              options = list("skipLabel" = "Cancel"),
+              events = list("oncomplete" = 'alert("It is over")'))
+  })
   
 }
 
