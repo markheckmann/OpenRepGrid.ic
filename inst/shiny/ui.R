@@ -16,7 +16,9 @@ suppressWarnings({
     library(shinydashboardPlus)
     library(shinycssloaders)
     library(shinyauthr)
+    library(shinybusy)
     library(rintrojs)
+    
     library(data.table)
     library(formattable)
     library(openxlsx)
@@ -111,6 +113,10 @@ body <- dashboardBody(
   
   useShinyjs(),    
   introjsUI(),
+  # add_busy_spinner(spin = "fading-circle", color = "red", position = "full-page",
+  #                  height = "100px", width = "100px"),
+  add_busy_bar(color = "orange", height = "10px"),
+  
   tags$head(tags$link(rel = "favicon", href = "favicon.png")), # show favicon
   # custom CSS
   tags$head(tags$style("
@@ -158,11 +164,11 @@ body <- dashboardBody(
                      h2("Interpretive Clustering"),
                      p("This website accompanies the paper", 
                        tags$a(href = "#", "Interpretive clustering"),  "by",
-                       tags$a(href = "#", "Burr, King, Heckmann and Jankowicz (2020)"),
+                       tags$a(href = "#", "Burr, King, and Heckmann (forthcoming)"),
                        "The authors describe a variant of construct clustering which uses a procedure from graph theory called", 
                        tags$a(href = "https://en.wikipedia.org/wiki/Clique_problem#Listing_all_maximal_cliques", "maximal clique enumeration."),
                        "Given a similarity measure, in our case the number of matching scores between two constructs, a network graph of relatedness between constructs is construed.",
-                       "A clique is a group of constructs in this network which are mutually related to each other, given some cut-off criterion for relatedness (e.g. 6 matching scores).",
+                       "A clique is a group of constructs in this network which are mutually related to each other, given some cut-off criterion for relatedness (e.g. >= 6 matching scores for a 7 element grid).",
                        "While an offline approach is also described to find the construct cliques, this software automates the process.",
                        "On the left you see the resulting cliques for Sylvia's sample grid as discussed in our paper."),
                      p("In case you have any questions, please",

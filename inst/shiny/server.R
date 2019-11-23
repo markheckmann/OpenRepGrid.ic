@@ -149,6 +149,7 @@ server <- function(input, output, session)
      rv$data <- openxlsx::read.xlsx(in_file$datapath)
      hide("down_btn")
      disable("btn_download_excel")
+Sys.sleep(2)
      # rv$data_status <- NULL  # set back data status
      rv$number_of_uploads <- rv$number_of_uploads + 1
    })
