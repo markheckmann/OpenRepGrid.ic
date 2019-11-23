@@ -16,7 +16,6 @@ suppressWarnings({
     library(shinydashboardPlus)
     library(shinycssloaders)
     library(shinyauthr)
-    library(shinybusy)
     library(rintrojs)
     library(shinyFeedback)
     
@@ -115,8 +114,7 @@ body <- dashboardBody(
   useShinyjs(),    
   introjsUI(),
   useShinyFeedback(),
-  add_busy_bar(color = "orange", height = "10px"),
-  
+
   tags$head(tags$link(rel = "favicon", href = "favicon.png")), # show favicon
   # custom CSS
   tags$head(tags$style("

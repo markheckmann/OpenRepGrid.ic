@@ -13,7 +13,6 @@ output: html_document
 ## v0.2
 
 * warn for low number of matches for relatedness
-* indicator bar on top when server is busy
 * image and description of file format
 * introduction tour
 * auto adjusting cut-off values for relatedness according to grid size
