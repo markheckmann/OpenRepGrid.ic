@@ -5,6 +5,7 @@ output: html_document
 
 ## TODO
 
+* add information on searched min clique size to excel output
 * Add construct labels to network output images
 * color edges to indicate direction of relation
 * add full construct names to output page as table
