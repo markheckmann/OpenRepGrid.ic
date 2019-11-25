@@ -276,8 +276,6 @@ server <- function(input, output, session)
     grid_font_size <- input$grid_font_size
     grid_line_hight <- input$grid_line_height
     hide_preferred <- input$grid_hide_col_preferred
-    min_matches <- input$par_min_match
-    min_clique_size <- input$par_min_clique_size
     
     green <- "#00CC00"
     red <- "#BF0000"

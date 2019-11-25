@@ -236,8 +236,8 @@ body <- dashboardBody(
                                 "0  means that the left pole is preferred, 1 means that the right pole is preferred.",
                                 "Use NA or a blank cell if none of the poles is preferred.")
                         ),
-                        p("Below you see a screenshot of a valid Excel format. The colors are for conveniecne only and are discarded by the software.",
-                                "You can download a valid sample Excel file in the right hand panel and use it as a template."),
+                        p("Below you see a screenshot of a valid Excel format. The colors are for convenience only and are discarded by the software.",
+                          "You can download a valid sample Excel file in the right hand panel and use it as a template."),
                         br(),
                         HTML('<center><img src="excel_grid_format.png" width="85%"></center>')
                         # img(src = "excel_grid_format.png", align = "center", style = "width: 90%")
