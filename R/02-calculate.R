@@ -116,24 +116,29 @@ network_graph_images <- function(x, min_clique_size = 3, show_edges = T, min_mat
   ## show all constructs
   nms_keep <- clique_lists %>% unlist %>% unique
   MM2 <- MM[nms_keep, nms_keep]
+  mark_border <- ifelse(n_clique == 0, NA, 1:n_clique)
+  mark_col <- ifelse(n_clique == 0, NA, alpha(1:n_clique, .2))
   img_all_constructs <- tempfile(fileext = ".png")
   png(img_all_constructs, width = 15, height = 15, units = "cm", res = 300)
-  par(oma = c(0,0,0,0), mar = c(0,0,0,0))
-  igraph::plot.igraph(g, mark.groups = clique_lists, mark.border = 1:n_clique, mark.col = alpha(1:n_clique, .2), 
-              mark.expand = 15, edge.arrow.size = 0, edge.lty = edge.lty, edge.width = 1)
+    par(oma = c(0,0,0,0), mar = c(0,0,0,0))
+    igraph::plot.igraph(g, mark.groups = clique_lists, mark.border = mark_border, mark.col = mark_col, 
+                mark.expand = 15, edge.arrow.size = 0, edge.lty = edge.lty, edge.width = 1)
   dev.off()
   
   ## clique constructs only 
   g2 <- igraph::graph_from_adjacency_matrix(MM2, diag = F, mode  = "undirected")
-  #mc <- igraph::max_cliques(g, min = min_clique_size)
-  #n_clique <- length(mc)
-  # nm <- lapply(mc, attr, "names")
   img_cliques_only <- tempfile(fileext = ".png")
   png(img_cliques_only, width = 15, height = 15, units = "cm", res = 300)
-  par(oma = c(0,0,0,0), mar = c(0,0,0,0))
-  igraph::plot.igraph(simplify(g2), mark.groups = clique_lists, mark.border = 1:n_clique, mark.col = alpha(1:n_clique, .1), 
-              mark.expand = 15, edge.arrow.size = 0, edge.lty = edge.lty, edge.width = 1)
-  dev.off()
+    par(oma = c(0,0,0,0), mar = c(0,0,0,0))
+    if (n_clique > 0) {
+          igraph::plot.igraph(simplify(g2), mark.groups = clique_lists, mark.border = mark_border, mark.col = mark_col, 
+                          mark.expand = 15, edge.arrow.size = 0, edge.lty = edge.lty, edge.width = 1)
+    } else {
+      plot.new()
+      text(.5, .5, "No cliques detected", cex = 1.5, adj = c(.5, .5))
+    } 
+  dev.off()    
+
   
   l2 <- list(img_all_constructs = img_all_constructs, 
              img_cliques_only = img_cliques_only,
