@@ -133,10 +133,10 @@ network_graph_images <- function(x, min_clique_size = 3, show_edges = T, min_mat
   png(img_cliques_only, width = 15, height = 15, units = "cm", res = 300)
     par(oma = c(0,0,0,0), mar = c(0,0,0,0))
     if (n_clique > 0) {
-          igraph::plot.igraph(simplify(g2), mark.groups = clique_lists, 
-                              mark.border = mark_border, mark.col = mark_col, 
-                              mark.expand = 15, edge.arrow.size = 0, 
-                              edge.lty = edge.lty, edge.width = 1)
+      igraph::plot.igraph(simplify(g2), mark.groups = clique_lists, 
+                          mark.border = mark_border, mark.col = mark_col, 
+                          mark.expand = 15, edge.arrow.size = 0, 
+                          edge.lty = edge.lty, edge.width = 1)
     } else {
       plot.new()
       text(.5, .5, "No cliques detected", cex = 1.5, adj = c(.5, .5))
