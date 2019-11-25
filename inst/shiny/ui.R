@@ -296,7 +296,7 @@ body <- dashboardBody(
                               introBox(data.step = 9, 
                                        data.intro = "After the result file has been created, you can download it here.",
                                 disabled(
-                                 downloadButton(outputId = "btn_download_excel", style = "minimal", color = "primary", label = "Dowload results")
+                                 downloadButton(outputId = "btn_download_excel", style = "minimal", color = "primary", label = "Download results")
                                 )
                               )
                           )
