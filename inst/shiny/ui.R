@@ -193,25 +193,25 @@ body <- dashboardBody(
     tabItem(tabName = "tab_grid",
         fluidRow(
               column(width = 9,
-                     hidden(div(id = "error_box",
+                      hidden(div(id = "error_box",
                           box(width = NULL, status = "danger", solidHeader = T, #background = "red",
                               title = "Uuups. Something went wrong", 
                               p("I could not read your Excel file. Please see the comments below.",
                                 "Make sure your Excel file has the required format.")                          )
-                     )),
-                    hidden(
-                        div(id = "success_box",
-                            introBox(data.step = 2, 
-                                     data.intro = "The boxes contain basic information about the grid you uploaded.",
-                            # box(width = NULL,
-                            fluidRow(
-                              infoBoxOutput("box_no_elements"),
-                              infoBoxOutput("box_no_constructs"),
-                              infoBoxOutput("box_no_missing")
-                          )
-                       )
-                      )
-                    ),
+                      )),
+                      hidden(
+                          div(id = "success_box",
+                              introBox(data.step = 2, 
+                                       data.intro = "The boxes contain basic information about the grid you uploaded.",
+                              # box(width = NULL,
+                              fluidRow(
+                                infoBoxOutput("box_no_elements"),
+                                infoBoxOutput("box_no_constructs"),
+                                infoBoxOutput("box_no_missing")
+                            )
+                         )
+                        )
+                      ),
                     # div(id = "grid_box",
                     introBox(data.step = 3, 
                              data.intro = "The table shows the grid data from the Excel file you uploaded.

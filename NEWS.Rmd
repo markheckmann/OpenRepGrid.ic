@@ -12,9 +12,10 @@ output: html_document
 
 ## v0.2
 
+* no detected cliques will no longer cause an error
 * warn for low number of matches for relatedness
 * image and description of file format
-* introduction tour
+* software introduction tour
 * auto adjusting cut-off values for relatedness according to grid size
 
 ## v0.1

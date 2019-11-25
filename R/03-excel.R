@@ -134,13 +134,10 @@ create_excel_output <- function(file, data = list())
   
   # Calculations ----
   
-  removeWorksheet 
-  
   sheet <- "calculations"
   if (isTRUE(sheet %in% nms))
     removeWorksheet(wb, sheet)
   addWorksheet(wb, sheet)
-  
   writeData(wb, sheet, "Relatedness scores", startRow = 1, startCol = 1)
   writeData(wb, sheet, R, startRow = 3, startCol = 1, colNames = TRUE, rowNames = TRUE)
   
@@ -150,7 +147,6 @@ create_excel_output <- function(file, data = list())
   writeData(wb, sheet, D, startRow = i + 2, startCol = 1, colNames = TRUE, rowNames = TRUE)
   setColWidths(wb, sheet, cols = 2L:(ncol(R) + 1), widths = "auto")
   setColWidths(wb, sheet, cols = 1, widths = 8)
-  
   
   # Clique enumeration ----
   
@@ -175,6 +171,9 @@ create_excel_output <- function(file, data = list())
   
   writeData(wb, sheet, "Clique Nr.", startRow = 9, startCol = 1)
   addStyle(wb, sheet, style_bold, rows = 9, cols = 1)  
+  n_cliques <- length(cliques_list)
+  if (n_cliques == 0) 
+    cliques_list[[1]] <- c("No cliques detected")  # show this hint if not cliques were found
   for (i in seq_along(cliques_list)) {
     cc <- cliques_list[[i]]
     writeData(wb, sheet, i, startRow = 9 + i, startCol = 1)
