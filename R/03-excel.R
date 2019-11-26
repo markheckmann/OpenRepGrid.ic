@@ -138,11 +138,11 @@ create_excel_output <- function(file, data = list())
   if (isTRUE(sheet %in% nms))
     removeWorksheet(wb, sheet)
   addWorksheet(wb, sheet)
-  writeData(wb, sheet, "Relatedness scores", startRow = 1, startCol = 1)
+  writeData(wb, sheet, "Number of matches between constructs", startRow = 1, startCol = 1)
   writeData(wb, sheet, R, startRow = 3, startCol = 1, colNames = TRUE, rowNames = TRUE)
   
   i <- 3 + nrow(R) + 2
-  txt <- paste0("Relatedness by criterion (score >= ", min_matches, ")")
+  txt <- paste0("Relatedness by criterion (matches >= ", min_matches, ")")
   writeData(wb, sheet, txt, startRow = i, startCol = 1)
   writeData(wb, sheet, D, startRow = i + 2, startCol = 1, colNames = TRUE, rowNames = TRUE)
   setColWidths(wb, sheet, cols = 2L:(ncol(R) + 1), widths = "auto")
