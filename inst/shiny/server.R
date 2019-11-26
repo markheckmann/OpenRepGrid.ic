@@ -18,15 +18,15 @@ users = reactiveValues(count = 0)
 
 # dataframe that holds usernames, passwords and other user data
 user_base <- data.frame(
-  user = c("admin"),
-  password = c("admin"), 
+  user = c("ic"),
+  password = c("ic"), 
   permissions = c("standard"),
   name = c("Admin"),
   stringsAsFactors = FALSE,
   row.names = NULL
 )
 
-SHOW_LOGIN <- F   # set FALSE for dev puposes 
+SHOW_LOGIN <- options()$ic.login   # set FALSE for dev puposes 
 
 
 headerCallback <- c(
@@ -141,7 +141,7 @@ server <- function(input, output, session)
   
   # upload grid
   observeEvent(input$excel_input, 
-   {
+  {
      req(input$excel_input)
      in_file <- input$excel_input
      if (is.null(in_file))
