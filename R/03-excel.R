@@ -19,7 +19,7 @@ check_excel_input <- function(x)
   col_right <- tail(nms, 1)
   c1_res <- isTRUE(col_right == "preferred")
   c1 <- list(
-    assert = "Rightmost column is named 'preferred' (all lowercase letters)",
+    assert = "Rightmost column is named 'preferred' (must be lowercase letters)",
     passed = c1_res,
     error = ifelse(c1_res, "", paste0("Currently, the rightmost column is named '", col_right, "'"))
   )
@@ -51,9 +51,9 @@ check_excel_input <- function(x)
   c_right <- x[[i_right]] %>% str_trim
   c4_res <- all(c_left != "") #&& all(c_right != "")
   c4 <- list(
-    assert = "Left poles must have are non-empty strings (right pole may be emptym though not recommended)",
+    assert = "Left poles must be non-empty strings (right poles may contain empty strings, though this is not recommended)",
     passed = c4_res,
-    error = ifelse(c4_res, "", "Some construct poles contain empty strings")
+    error = ifelse(c4_res, "", "Some left poles contain empty strings")
   )
   
   # elements --
@@ -65,7 +65,7 @@ check_excel_input <- function(x)
   c5 <- list(
     assert = "All element names must be unique",
     passed = c5_res,
-    error = ifelse(c5_res, "", paste("The folowing names are not unique:", paste(dupes, collapse = ", ")))
+    error = ifelse(c5_res, "", paste("The following element names are not unique:", paste(dupes, collapse = ", ")))
   )
   
   elements <- names(x)[i_ratings] %>% str_trim
@@ -82,7 +82,7 @@ check_excel_input <- function(x)
   rating_highest <- names(x)[i_right] %>% as.numeric
   c7_res <- (rating_lowest < rating_highest) || is.na(rating_lowest) || is.na(rating_highest)
   c7 <- list(
-    assert = "Meta data for highest and lowest ratuing values is given",
+    assert = "Meta data for highest and lowest rating values is given",
     passed = c7_res,
     error = ifelse(c7_res, "", "The highest lowest possible values are missing or not plausible.")
   )

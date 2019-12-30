@@ -3,9 +3,51 @@
 \docType{package}
 \name{OpenRepGrid.ic-package}
 \alias{OpenRepGrid.ic-package}
-\title{\pkg{OpenRepGrid.ic} - OpenRepGrid.ic}
+\title{\pkg{OpenRepGrid.ic} - interpretive clustering for repgrids.}
 \description{
-\pkg{OpenRepGrid.ic} - OpenRepGrid.ic
+The \pkg{OpenRepGrid.ic} package implements \emph{interpretive clustering}
+as introduced in Burr, King, and Heckmann (forthcoming). The authors describe
+a variant of construct clustering which uses a procedure from graph theory
+called \href{https://en.wikipedia.org/wiki/Clique_problem#Listing_all_maximal_cliques}{maxmimal cliques enumeration}.
+Given a similarity measure, in our case the number of matching scores between
+two constructs, a network graph of relatedness between constructs is
+construed. A clique is a group of constructs which are all mutually related,
+given some cut-off criterion for relatedness (e.g. 6 matching scores in a
+grid with 7 elements). While the paper also describes an offline approach to identify
+the construct cliques, this software automates the process. Under the hood, 
+the package uses the \code{igraph} package for clique identification. 
+
+The package also contains a shiny based UI you can start via the function 
+\code{ic()}. Visit \url{http://ic.openrepgrid.org} for an online version. 
+Below you find an example of how to process a repgrid in an Excel
+file using code only.
+}
+\examples{
+# The shiny package is just a small UI wrapper around the 
+# the workhorse core functions. Here is how to call them.
+
+\dontrun{
+  
+library(tidyverse)
+library(openxlsx)
+library(igraph)
+library(OpenRepGrid.ic)
+
+file <- system.file("extdata/Sylvia grid.xlsx", package = "OpenRepGrid.ic")
+file_out <- str_replace(file, ".xlsx$", " CLIQUES.xlsx") \%>\% basename
+
+x <- read.xlsx(file)
+tests <- check_excel_input(x)  # check if input format is correct
+l <- network_graph_images(x, min_clique_size = 3, show_edges = T, min_matches = 7)
+file_tmp <- create_excel_output(file, l)
+file.copy(file_tmp, file_out, overwrite = TRUE)  
+
+}
+
+
+}
+\references{
+Burr, King, and Heckmann (forthcoming). Interpretive Clustering. Manuscript submitted.
 }
 \keyword{OpenRepGrid.ic}
 \keyword{package}

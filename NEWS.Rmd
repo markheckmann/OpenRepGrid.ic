@@ -5,13 +5,18 @@ output: html_document
 
 ## TODO
 
+* remove password protection
 * Add construct labels to network output images
 * color edges to indicate direction of relation
 * add full construct names to output page as table
 * colorize direction of matching scores matrix
 
+## v0.3 (under construction)
+
+
 ## v0.2
 
+* package help and examples for workhorse functions added
 * no detected cliques will no longer cause an error
 * warn for low number of matches for relatedness
 * image and description of file format

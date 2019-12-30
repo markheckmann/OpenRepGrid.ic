@@ -263,7 +263,7 @@ body <- dashboardBody(
                      ),
                      hidden(div(id = "settings_box_1",
                         introBox(
-                            box(width = NULL, status = "warning", title = "Grid settings", collapsible = TRUE, 
+                            box(width = NULL, status = "warning", title = "Grid settings", collapsible = TRUE, collapsed = TRUE, 
                               numericInput("grid_font_size", "Font size", 12, 6, 30, step = 1),
                               numericInput("grid_line_height", "Line height", value = 100, 50, 200, step = 10),
                               awesomeCheckbox("grid_rotate_elements", "Rotate header", value = FALSE),
