@@ -26,7 +26,7 @@ test_that("Sylvia's grid is read and processed correctly", {
 
 test_that("input file format is checked correctly", {
   
-  file <- system.file("extdata/incorrect_format.xlsx", package = "OpenRepGrid.ic")
+  file <- system.file("extdata/incorrect_formats.xlsx", package = "OpenRepGrid.ic")
   x <- read.xlsx(file)
   tests <- check_excel_input(x)  # check if input format is correct
   
