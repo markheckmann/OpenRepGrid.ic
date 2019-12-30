@@ -36,6 +36,7 @@
 #' shinycssloaders
 #' shinyFeedback
 #' shinyauthr
+#' reactlog
 #' rintrojs
 #' data.table
 #' formattable

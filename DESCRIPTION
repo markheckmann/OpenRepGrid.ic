@@ -5,7 +5,7 @@ Type: Package
 LazyLoad: yes
 Authors@R: c(person("Mark", "Heckmann", email = "heckmann.mark@gmail.com", role = c("aut", "cre")))
 Description: This package finds cliques of related constructs in repertory grids.
-Version: 0.2.1
+Version: 0.2.2
 Date: 2019-12-30
 Imports:
     shiny,
@@ -18,6 +18,7 @@ Imports:
     shinycssloaders,
     shinyFeedback,
     shinyauthr,
+    reactlog,
     rintrojs,
     data.table,
     formattable,

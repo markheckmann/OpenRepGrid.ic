@@ -33,11 +33,13 @@ suppressWarnings({
     library(igraph)
     # library(visNetwork)
     library(OpenRepGrid.ic)
+    
+    library(reactlog)
+    options(shiny.reactlog = TRUE) 
   })
 })
 
-library(reactlog)
-options(shiny.reactlog = TRUE) 
+
 
 
 sidebar_right = rightSidebar(
