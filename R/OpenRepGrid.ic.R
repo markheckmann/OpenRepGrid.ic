@@ -25,36 +25,29 @@
 #' @keywords package OpenRepGrid.ic
 #' @name OpenRepGrid.ic-package
 #' @docType package
-#' @import 
-#' shiny 
-#' shinyjs 
-#' shinyBS 
+#' @import
+#' shiny
+#' shinyjs
+#' shinyBS
 #' shinythemes
 #' shinyWidgets
-#' shinyauthr
 #' shinydashboard
 #' shinydashboardPlus
 #' shinycssloaders
+#' shinyFeedback
+#' shinyauthr
+#' rintrojs
 #' data.table
 #' formattable
 #' openxlsx
 #' DT
-#' stringr
 #' magrittr
 #' tidyverse
-#' tidyr
 #' reshape2
 #' testthat
 #' scales
-#' stringr
-#' ggplot2
-#' dplyr
 #' splines
-#' crayon
-#' plotly
-#' readxl
-#' magrittr
-#' officer
+#' igraph
 NULL
 
 

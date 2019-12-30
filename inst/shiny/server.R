@@ -337,7 +337,7 @@ server <- function(input, output, session)
 
   # RENDER ----
   
-  output$dt_grid <- DT::renderDataTable(
+  output$dt_grid <- renderDataTable(
   {
     #req(rv$data)
     #req(input$excel_input)
@@ -353,7 +353,7 @@ server <- function(input, output, session)
     }
   })
   
-    # output$dt_grid <- DT::renderDataTable(
+    # output$dt_grid <- renderDataTable(
   # {
   #   #req(rv$data)
   #   #req(input$excel_input)
