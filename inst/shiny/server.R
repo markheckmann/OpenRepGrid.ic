@@ -26,8 +26,7 @@ user_base <- data.frame(
   row.names = NULL
 )
 
-SHOW_LOGIN <- options()$ic.login   # set FALSE for dev puposes 
-
+SHOW_LOGIN <- FALSE #options()$ic.login   # set FALSE for dev puposes 
 
 headerCallback <- c(
   "function(thead, data, start, end, display){",
@@ -81,43 +80,43 @@ server <- function(input, output, session)
   })
   
   
-  # call the logout module with reactive trigger to hide/show
-  if (SHOW_LOGIN) {
-    logout_init <- callModule(shinyauthr::logout, id = "logout", 
-                              active = reactive(credentials()$user_auth))
-    
-    # call login module supplying data frame, user and password cols and reactive trigger
-    credentials <- callModule(shinyauthr::login, 
-                              id = "login", 
-                              data = user_base,
-                              user_col = user,
-                              pwd_col = password,
-                              log_out = reactive(logout_init()))    
-  } else {
-    # suppress for dev purposes
-    credentials <- reactive({
-      list(user_auth = T)
-    })
-  }
-  
-  
-  # on login / logout
-  observe({
-    if (isTRUE(credentials()$user_auth)) {
-      # on Login
-      cat("\nUI update on login")
-      show(selector = ".sidebar-menu")
-      show("sidebarCollapsed")
-      hide(selector = '[data-value="tab_login"]')
-      removeClass(id = "logout-button", class = "shinyjs-hide")
-      updateTabItems(session, "sidebar", "tab_start")
-    } else {
-      # on Logout
-      cat("\nUI update on logout")
-      hide("sidebarCollapsed")
-      updateTabItems(session, "sidebar", "tab_login")
-    }
-  })
+  # # call the logout module with reactive trigger to hide/show
+  # if (SHOW_LOGIN) {
+  #   logout_init <- callModule(shinyauthr::logout, id = "logout", 
+  #                             active = reactive(credentials()$user_auth))
+  #   
+  #   # call login module supplying data frame, user and password cols and reactive trigger
+  #   credentials <- callModule(shinyauthr::login, 
+  #                             id = "login", 
+  #                             data = user_base,
+  #                             user_col = user,
+  #                             pwd_col = password,
+  #                             log_out = reactive(logout_init()))    
+  # } else {
+  #   # suppress for dev purposes
+  #   credentials <- reactive({
+  #     list(user_auth = T)
+  #   })
+  # }
+  # 
+  # 
+  # # on login / logout
+  # observe({
+  #   if (isTRUE(credentials()$user_auth)) {
+  #     # on Login
+  #     cat("\nUI update on login")
+  #     show(selector = ".sidebar-menu")
+  #     show("sidebarCollapsed")
+  #     hide(selector = '[data-value="tab_login"]')
+  #     removeClass(id = "logout-button", class = "shinyjs-hide")
+  #     updateTabItems(session, "sidebar", "tab_start")
+  #   } else {
+  #     # on Logout
+  #     cat("\nUI update on logout")
+  #     hide("sidebarCollapsed")
+  #     updateTabItems(session, "sidebar", "tab_login")
+  #   }
+  # })
   
   
   #### .                       ####

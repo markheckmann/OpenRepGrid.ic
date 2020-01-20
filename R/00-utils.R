@@ -57,26 +57,22 @@ dt_default <- function(text = "Waiting for data ...",
 }
 
 
-#' Spezieller String Split für Alter Definition
+#' String splitter for comma seperated values in Excel cell
 #' 
-#' Alter in denen eine Maßnahme statfinden soll
-#' können als in einem String als Abfolge eingegeben
-#' werden. 
-#' 
-#' @param x String zum splitten
+#' @param x String to be split
 #' @export
 #' @keywords internal
 #' @examples
-#' alter_split("10, 20,30" )
-#' alter_split("; ,  10  ,,,  20;30,," ) # sehr robust
+#' cell_text_split("10, 20,30" )
+#' cell_text_split("; ,  10  ,,,  20;30,," ) # sehr robust
 #' 
-alter_split <- function(x)
+cell_text_split <- function(x)
 {
   x %>% 
-    str_replace_all(" +|;+", ",") %>%   # space, semicolon zu Komma
-    str_replace_all(",+", ",") %>%      # meherer kommas zu einem
-    str_replace_all("^,+|,+$", "") %>%  # kommas am anfang und ende entfernen
-    strsplit(",")                       # string am komma splitten
+    str_replace_all(" +|;+", ",") %>%   # space, semicolon to comma
+    str_replace_all(",+", ",") %>%      # several commas to one
+    str_replace_all("^,+|,+$", "") %>%  # remove leading and trainling commas
+    strsplit(",")                       # split string at comma
 }
 
 
@@ -96,9 +92,9 @@ make_names_vec <- function(x)
 }
 
 
-#' standardisierte variablen namen 
+#' standardized variable names
 #'
-#' @param x Dataframe oder Vektor
+#' @param x Dataframe or vector
 #' @keywords internal
 #' @rdname make-names
 #' @export
@@ -111,15 +107,16 @@ make_names <- function(x)
   x
 }
 
-#' Zahl sauber mit zwei Stellen
+
+#' Format as x digit number
 #' 
 #' @export
 #' @keywords internal
 #' 
-fnum <- function(x, digits=2)
+fnum <- function(x, digits = 2)
 {
   x <- round(x, digits)
-  formatC(x, digits =digits, format="f")
+  formatC(x, digits = digits, format = "f")
 }
 
 

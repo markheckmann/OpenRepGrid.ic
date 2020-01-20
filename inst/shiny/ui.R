@@ -35,7 +35,7 @@ suppressWarnings({
     library(OpenRepGrid.ic)
     
     library(reactlog)
-    options(shiny.reactlog = TRUE) 
+    options(shiny.reactlog = FALSE) 
   })
 })
 
@@ -94,13 +94,14 @@ menuSubItem(text, tabName = NULL, href = NULL, newtab = TRUE,
 
 sidebar <- dashboardSidebar(
   
-  hidden(
+  #hidden(
     sidebarMenu(id = "sidebar",
-        menuItem("Login", tabName = "tab_login", icon = icon("login")),
-        menuItem("Info", tabName = "tab_start", icon = icon("info")),
-        menuItem("Grid", tabName = "tab_grid", icon = icon("th"))
+        # menuItem("Login", tabName = "tab_login", icon = icon("login")),
+        menuItem("Home", tabName = "tab_start", icon = icon("home")),
+        menuItem("Method", tabName = "tab_method", icon = icon("info")),
+        menuItem("Analysis", tabName = "tab_grid", icon = icon("th"))
     )
-  )
+  #)
 )
 
 
@@ -117,6 +118,105 @@ body <- dashboardBody(
   # custom CSS
   tags$head(tags$style("
   
+  table a:link {
+	color: #666;
+	font-weight: bold;
+	text-decoration:none;
+  }
+  table a:visited {
+  	color: #999999;
+  	font-weight:bold;
+  	text-decoration:none;
+  }
+  table a:active,
+  table a:hover {
+  	color: #bd5a35;
+  	text-decoration:underline;
+  }
+  table {
+  	font-family:Arial, Helvetica, sans-serif;
+  	color:#666;
+  	font-size:12px;
+  	text-shadow: 1px 1px 0px #fff;
+  	background:#eaebec;
+  	margin:20px;
+  	border:#ccc 1px solid;
+  
+  	-moz-border-radius:3px;
+  	-webkit-border-radius:3px;
+  	border-radius:3px;
+  
+  	-moz-box-shadow: 0 1px 2px #d1d1d1;
+  	-webkit-box-shadow: 0 1px 2px #d1d1d1;
+  	box-shadow: 0 1px 2px #d1d1d1;
+  }
+  table th {
+  	padding: 10px 12px 10px 12px;
+  	border-top:1px solid #fafafa;
+  	border-bottom:1px solid #e0e0e0;
+  
+  	background: #ededed;
+  	background: -webkit-gradient(linear, left top, left bottom, from(#ededed), to(#ebebeb));
+  	background: -moz-linear-gradient(top,  #ededed,  #ebebeb);
+  }
+  table th:first-child {
+  	text-align: left;
+  	padding-left:12px;
+  }
+  table tr:first-child th:first-child {
+  	-moz-border-radius-topleft:3px;
+  	-webkit-border-top-left-radius:3px;
+  	border-top-left-radius:3px;
+  }
+  table tr:first-child th:last-child {
+  	-moz-border-radius-topright:3px;
+  	-webkit-border-top-right-radius:3px;
+  	border-top-right-radius:3px;
+  }
+  table tr {
+  	text-align: center;
+  	padding-left:20px;
+  }
+  table td:first-child {
+  	text-align: left;
+  	padding-left:12px;
+  	border-left: 0;
+  }
+  table td {
+  	padding:18px;
+  	border-top: 1px solid #ffffff;
+  	border-bottom:1px solid #e0e0e0;
+  	border-left: 1px solid #e0e0e0;
+  
+  	background: #fafafa;
+  	background: -webkit-gradient(linear, left top, left bottom, from(#fbfbfb), to(#fafafa));
+  	background: -moz-linear-gradient(top,  #fbfbfb,  #fafafa);
+  }
+  table tr.even td {
+  	background: #f6f6f6;
+  	background: -webkit-gradient(linear, left top, left bottom, from(#f8f8f8), to(#f6f6f6));
+  	background: -moz-linear-gradient(top,  #f8f8f8,  #f6f6f6);
+  }
+  table tr:last-child td {
+  	border-bottom:0;
+  }
+  table tr:last-child td:first-child {
+  	-moz-border-radius-bottomleft:3px;
+  	-webkit-border-bottom-left-radius:3px;
+  	border-bottom-left-radius:3px;
+  }
+  table tr:last-child td:last-child {
+  	-moz-border-radius-bottomright:3px;
+  	-webkit-border-bottom-right-radius:3px;
+  	border-bottom-right-radius:3px;
+  }
+  table tr:hover td {
+  	background: #f2f2f2;
+  	background: -webkit-gradient(linear, left top, left bottom, from(#f2f2f2), to(#f0f0f0));
+  	background: -moz-linear-gradient(top,  #f2f2f2,  #f0f0f0);	
+  }
+
+
     .shiny-notification {
       top: 50% !important;
       left: 50% !important;
@@ -141,14 +241,14 @@ body <- dashboardBody(
     
     #### __ LOGIN  ####
     
-    tabItem(tabName = "tab_login",
-            shinyauthr::loginUI(id = "login", 
-                                title = "Please log in",
-                                login_title = "Login",
-                                user_title = "User",
-                                pass_title = "Password",
-                                error_message = "Incorrect user or password!")
-    ),
+    # tabItem(tabName = "tab_login",
+    #         shinyauthr::loginUI(id = "login", 
+    #                             title = "Please log in",
+    #                             login_title = "Login",
+    #                             user_title = "User",
+    #                             pass_title = "Password",
+    #                             error_message = "Incorrect user or password!")
+    # ),
     
     #### __ START  ####
     
@@ -160,31 +260,44 @@ body <- dashboardBody(
                      h2("Interpretive Clustering"),
                      p("This website accompanies the paper", 
                        tags$a(href = "#", "Interpretive clustering"),  "by",
-                       tags$a(href = "#", "Burr, King, and Heckmann (forthcoming)."),
-                       "The authors describe a variant of construct clustering which uses a procedure from graph theory called", 
+                       tags$a(href = "#", "Burr, King, and Heckmann (forthcoming).")),
+                     p("We describe a variant of construct clustering for repertory grid data which capitalizes on a procedure from graph theory called", 
                        tags$a(href = "https://en.wikipedia.org/wiki/Clique_problem#Listing_all_maximal_cliques", "maximal clique enumeration."),
                        "Given a similarity measure, in our case the number of matching scores between two constructs, a network graph of relatedness between constructs is construed.",
                        "A clique is a group of constructs which are all mutually related, given some cut-off criterion for relatedness (e.g. >= 6 matching scores for a 7 element grid).",
                        "While an offline approach is also described to find the construct cliques, this software automates the procedure.",
-                       "On the left you see the resulting cliques for Sylvia's sample grid.",
-                       "In the paper, the interpretation of the discovered cliques is discussed in detail."),
+                       "On the left you see the resulting construct cliques for Sylvia's sample grid."),
+                     p("Under the bullet point", tags$em("Method"), "in the left sidebar you will find a step-by-step description of the manual process
+                       to generate the construct clusters. To upload and analyse a grid programatically, click on", 
+                       tags$em("Analysis"), "in the sidebar."),
                      p("In case you have any questions, please",
                        tags$a("email us.", href = paste0("mailto:heckmann.mark@gmail.com",
                                                              "?subject=Question regarding OpenRepGrid.ic v", packageVersion("OpenRepGrid.ic"),
                                                              "&body=Your question goes here."))
                       )              
-                    ),
-                   box(width = NULL,
-                       img(src = "sylvia_raw.png", align = "left", style = "width: 100%")
-                   )
+                    )
+                   # box(width = NULL,
+                   #     img(src = "sylvia_raw.png", align = "left", style = "width: 100%")
+                   # )
                 ), 
-                # column(width = 6,
+                column(width = 6,
                 #   # box(width = NULL,
-                    img(src = "ic_logo.png", align = "left")#, style = "width: 80%")
-                #   )
+                    # img(src = "sylvia_cliques_drawn.png", align = "left")#, style = "width: 80%")
+                    img(src = "sylvia_cliques.png", align = "left")#, style = "width: 80%")
+               )
                 #)
               )
             )
+    ),
+    
+    
+    #### __ METHOD  ####
+    
+    tabItem(tabName = "tab_method",
+          div( id = "tab_method_text",
+               # includeMarkdown("www/method.md")
+               includeHTML("www/method.html")
+          )
     ),
     
     #### __ GRID  ####
@@ -288,11 +401,16 @@ body <- dashboardBody(
                                        numericInput("par_min_clique_size", "Minimal cliques size", 3, 2, 10)
                               ),
                               introBox(data.step = 8, 
+                                       data.intro = "Whether to show full or abbreviated construct labels (C1, C2 etc.) in the output graphs.
+                                                     By default full labels are shown.",
+                                       awesomeCheckbox("par_abbr_labels", "Abbreviate construct labels", value = FALSE)
+                              ),
+                              introBox(data.step = 9, 
                                        data.intro = "Process the grid data and generate an Excel file containing 
                                                      the results for download.",
                                   actionButton("btn_process", label = "Process data")
                                ),
-                              introBox(data.step = 9, 
+                              introBox(data.step = 10, 
                                        data.intro = "After the result file has been created, you can download it here.",
                                 disabled(
                                  downloadButton(outputId = "btn_download_excel", style = "minimal", color = "primary", label = "Download results")

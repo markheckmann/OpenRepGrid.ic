@@ -2,11 +2,11 @@
 % Please edit documentation in R/00-utils.R
 \name{fnum}
 \alias{fnum}
-\title{Zahl sauber mit zwei Stellen}
+\title{Format as x digit number}
 \usage{
 fnum(x, digits = 2)
 }
 \description{
-Zahl sauber mit zwei Stellen
+Format as x digit number
 }
 \keyword{internal}

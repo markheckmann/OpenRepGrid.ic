@@ -5,14 +5,18 @@ output: html_document
 
 ## TODO
 
-* remove password protection
-* Add construct labels to network output images
-* color edges to indicate direction of relation
-* add full construct names to output page as table
-* colorize direction of matching scores matrix
+* move to CRAN
 
 ## v0.3 (under construction)
 
+* password protection removed
+* method description added directly to app
+* method description sheet added to Excel output
+* direction in matrix colorized
+* legend added to sheet calculations  
+* construct labels left of relatedness matrix
+* colored edges to indicate direction of construct relatedness
+* abbreviated and full construct labels in network output images
 
 ## v0.2
 

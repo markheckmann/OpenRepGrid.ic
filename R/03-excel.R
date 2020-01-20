@@ -88,7 +88,7 @@ check_excel_input <- function(x)
   )
   
   l <- list(c1, c2, c3, c4, c5, c6, c7) %>%
-          lapply(as.data.frame)
+           lapply(as.data.frame)
   do.call(rbind, l)
   
   #lapply(l, `class<-`, c("test", "list"))
@@ -114,41 +114,88 @@ create_excel_output <- function(file, data = list())
 {
   wb <- loadWorkbook(file)
   nms <- names(wb)
-  
+  constructs_df <- data.frame("constructs" = data$constructs, stringsAsFactors = FALSE)
   R <- data$R
   D <- data$D
   cliques_list <- data$cliques_list
+  clique_lists_full_names <- data$clique_lists_full_names
   img_all_constructs <- data$img_all_constructs
+  img_all_constructs_full_labels <- data$img_all_constructs_full_labels
   img_cliques_only <- data$img_cliques_only
+  img_cliques_only_full_labels <- data$img_cliques_only_full_labels
   min_clique_size <- data$min_clique_size
   min_matches <- data$min_matches
   
-  # Styles ----
+  # Styles -----------------------------------------------
 
   style_h1 <- createStyle(fontColour = "#000000", fontSize = 14,
                           fgFill = "#cccccc",
                           halign = "left", valign = "center", 
                           textDecoration = "bold")
   style_italic <- createStyle(textDecoration = "italic")
+  style_right <- createStyle(halign = "right")
   style_bold <- createStyle(textDecoration = "bold")
+  neg_style <- createStyle(fontColour = "#9C0006", bgFill = "#FFC7CE")
+  pos_style <- createStyle(fontColour = "#006100", bgFill = "#C6EFCE")
   
-  # Calculations ----
+  # Method description ------------------------------------------
+  
+  # add method explanation found on https://hhs.hud.ac.uk/InterpretiveClustering/
+  # to have all in one place
+  
+  sheet <- "method"
+  if (isTRUE(sheet %in% nms))
+    removeWorksheet(wb, sheet)
+  addWorksheet(wb, sheet)
+  file <- system.file("extdata/interpretive_clustering_method.png", package = "OpenRepGrid.ic")
+  insertImage(wb, sheet, file, width = 1763 * 2, height = 5199 * 2, units = "px")
+  
+  
+  # Calculations ------------------------------------------
   
   sheet <- "calculations"
   if (isTRUE(sheet %in% nms))
     removeWorksheet(wb, sheet)
   addWorksheet(wb, sheet)
-  writeData(wb, sheet, "Number of matches between constructs", startRow = 1, startCol = 1)
-  writeData(wb, sheet, R, startRow = 3, startCol = 1, colNames = TRUE, rowNames = TRUE)
+
+  # legends
+  row <- 1
+  writeData(wb, sheet, "Legend", startRow = row, startCol = 1)
+  addStyle(wb, sheet, style = style_bold, rows = row, cols = 1) 
+  lgnd <- data.frame(text = 
+    c("* Positive construct poles (as indicated by column 'preferred') are aligned on the left",
+    "** 1 = positive relatedness, -1 = negative relatedness"), stringsAsFactors = FALSE)
+  writeData(wb, sheet, lgnd, startRow = row + 2, startCol = 1, colNames = FALSE, rowNames = FALSE)
   
-  i <- 3 + nrow(R) + 2
-  txt <- paste0("Relatedness by criterion (matches >= ", min_matches, ")")
+  # matches
+  row <- 6
+  writeData(wb, sheet, "Number of matches between constructs*", startRow = row, startCol = 1)
+  addStyle(wb, sheet, style = style_bold, gridExpand = TRUE, rows = row, cols = 1) 
+  writeData(wb, sheet, constructs_df, startRow = row + 2, startCol = 1, colNames = TRUE, rowNames = FALSE)
+  addStyle(wb, sheet, style = style_right, rows = row + 2, cols = 1) 
+  addStyle(wb, sheet, style = style_italic, rows = row + 2, cols = 1, stack = TRUE) 
+  addStyle(wb, sheet, style = style_right, gridExpand = TRUE, rows = 1L:nrow(R) + row + 2, cols = 1) 
+  writeData(wb, sheet, R, startRow = row + 2, startCol = 2, colNames = TRUE, rowNames = TRUE)
+  
+  # direction
+  i <- row + nrow(R) + 4
+  txt <- paste0("Relatedness by criterion (matches >= ", min_matches, ")**")
   writeData(wb, sheet, txt, startRow = i, startCol = 1)
-  writeData(wb, sheet, D, startRow = i + 2, startCol = 1, colNames = TRUE, rowNames = TRUE)
-  setColWidths(wb, sheet, cols = 2L:(ncol(R) + 1), widths = "auto")
-  setColWidths(wb, sheet, cols = 1, widths = 8)
+  addStyle(wb, sheet, style = style_bold, gridExpand = TRUE, rows = i, cols = 1) 
+  writeData(wb, sheet, constructs_df, startRow = i + 2, startCol = 1, colNames = TRUE, rowNames = FALSE)
+  addStyle(wb, sheet, style = style_right, rows = i + 2, cols = 1) 
+  addStyle(wb, sheet, style = style_italic, rows = i + 2, cols = 1, stack = TRUE) 
+  addStyle(wb, sheet, style = style_right, gridExpand = TRUE, rows = 1L:nrow(R) + i + 2, cols = 1) 
+  writeData(wb, sheet, D, startRow = i + 2, startCol = 2, colNames = TRUE, rowNames = TRUE)
+  setColWidths(wb, sheet, cols = 1, widths = "60")
+  setColWidths(wb, sheet, cols = 2L:(ncol(R) + 2), widths = "auto")
+  conditionalFormatting(wb, sheet, cols = 1L:nrow(R) + 2, rows = 1L:nrow(R) + i + 2, rule = "<0", style = neg_style)
+  conditionalFormatting(wb, sheet, cols = 1L:nrow(R) + 2, rows = 1L:nrow(R) + i + 2, rule = ">0", style = pos_style)
   
-  # Clique enumeration ----
+  
+  # setColWidths(wb, sheet, cols = 1, widths = 30)
+  
+  # Clique enumeration ----------------------------------
   
   sheet <- "cliques"
   if (isTRUE(sheet %in% nms))
@@ -169,6 +216,7 @@ create_excel_output <- function(file, data = list())
     addStyle(wb, sheet, style_italic, rows = i + 2, cols = 1)  
   }
   
+  # Abbreviated constructs
   writeData(wb, sheet, "Clique Nr.", startRow = 9, startCol = 1)
   addStyle(wb, sheet, style_bold, rows = 9, cols = 1)  
   n_cliques <- length(cliques_list)
@@ -182,30 +230,70 @@ create_excel_output <- function(file, data = list())
     }
   }
   
-  # Network graphs ----
+  # Full construct labels per clique
+  row <- 11 + i
+  writeData(wb, sheet, "Clique Nr.", startRow = row, startCol = 1)
+  writeData(wb, sheet, "Construct", startRow = row, startCol = 2)
+  writeData(wb, sheet, "Label", startRow = row, startCol = 3)
+  addStyle(wb, sheet, style_bold, rows = row, cols = 1:3)  
+  n_cliques <- length(clique_lists_full_names)
+  if (n_cliques == 0) 
+    clique_lists_full_names[[1]] <- c(" " = "No cliques detected")  # show this hint if not cliques were found
   
-  i2 <- 11 + i
+  for (i in seq_along(clique_lists_full_names)) {
+    row <- row + 1
+    cc <- clique_lists_full_names[[i]]
+    n <- length(cc)
+    writeData(wb, sheet, i, startRow = row, startCol = 1)
+    for (j in seq_along(cc)) {
+      row <- row + 1
+      writeData(wb, sheet, names(cc[j]), startRow = row, startCol = 2)  
+      writeData(wb, sheet, cc[j], startRow = row, startCol = 3)  
+    }
+  }
+  
+  # Network graphs -------------------------------------
+  
+  row <- row + 2
+
+  i2 <- row
   start_col <- 1
-  writeData(wb, sheet, "Figure 1: Network diagram for all constructs", startRow = i2, startCol = start_col)
+  writeData(wb, sheet, "Figure 1a: Network diagram for all constructs (full labels)", startRow = i2, startCol = start_col)
   addStyle(wb, sheet, style = style_bold, gridExpand = TRUE, rows = i2, cols = start_col) 
   writeData(wb, sheet, "Lines represent relatedness of constructs", startRow = i2 + 1, startCol = start_col)
   writeData(wb, sheet, "Colored hull indicates a clique", startRow = i2 + 2, startCol = start_col)
   addStyle(wb, sheet, style = style_italic, gridExpand = TRUE, rows = i2 + 1:2, cols = start_col) 
-  insertImage(wb, sheet, img_all_constructs, width = 15, height = 15, units = "cm", startRow = i2 + 4, startCol = start_col)
+  insertImage(wb, sheet, img_all_constructs_full_labels, width = 20, height = 20, units = "cm", startRow = i2 + 4, startCol = start_col)
   
-  i2 <- 11 + i
-  start_col <- 11
-  writeData(wb, sheet, "Figure 2: Network diagram for constructs inside cliques only", startRow = i2, startCol = start_col)
+  start_col <- 13
+  writeData(wb, sheet, "Figure 2a: Network diagram for constructs inside cliques only (full labels)", startRow = i2, startCol = start_col)
+  addStyle(wb, sheet, style = style_bold, gridExpand = TRUE, rows = i2, cols = start_col)
+  writeData(wb, sheet, "Lines represent relatedness of constructs", startRow = i2 + 1, startCol = start_col)
+  writeData(wb, sheet, "Colored hull indicates a clique", startRow = i2 + 2, startCol = start_col)
+  addStyle(wb, sheet, style = style_italic, gridExpand = TRUE, rows = i2 + 1:2, cols = start_col)
+  insertImage(wb, sheet, img_cliques_only_full_labels, width = 20, height = 20, units = "cm", startRow = i2 + 4, startCol = start_col)
+  
+  row <- row + 45
+  i2 <- row
+  start_col <- 1
+  writeData(wb, sheet, "Figure 1b: Network diagram for all constructs (construct no. as labels)", startRow = i2, startCol = start_col)
   addStyle(wb, sheet, style = style_bold, gridExpand = TRUE, rows = i2, cols = start_col) 
   writeData(wb, sheet, "Lines represent relatedness of constructs", startRow = i2 + 1, startCol = start_col)
   writeData(wb, sheet, "Colored hull indicates a clique", startRow = i2 + 2, startCol = start_col)
   addStyle(wb, sheet, style = style_italic, gridExpand = TRUE, rows = i2 + 1:2, cols = start_col) 
-  insertImage(wb, sheet, img_cliques_only, width = 15, height = 15, units = "cm", startRow = i2 + 4, startCol = start_col)
+  insertImage(wb, sheet, img_all_constructs, width = 20, height = 20, units = "cm", startRow = i2 + 4, startCol = start_col)
+  
+  start_col <- 13
+  writeData(wb, sheet, "Figure 2b: Network diagram for constructs inside cliques only (construct no. as labels)", startRow = i2, startCol = start_col)
+  addStyle(wb, sheet, style = style_bold, gridExpand = TRUE, rows = i2, cols = start_col) 
+  writeData(wb, sheet, "Lines represent relatedness of constructs", startRow = i2 + 1, startCol = start_col)
+  writeData(wb, sheet, "Colored hull indicates a clique", startRow = i2 + 2, startCol = start_col)
+  addStyle(wb, sheet, style = style_italic, gridExpand = TRUE, rows = i2 + 1:2, cols = start_col) 
+  insertImage(wb, sheet, img_cliques_only, width = 20, height = 20, units = "cm", startRow = i2 + 4, startCol = start_col)
   
   tmp_file <- tempfile(fileext = ".xlsx")
   saveWorkbook(wb, tmp_file, overwrite = TRUE)
   tmp_file
-  
 }
 
 

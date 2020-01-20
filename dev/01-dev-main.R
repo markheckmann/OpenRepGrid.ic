@@ -18,7 +18,9 @@ file_out <- str_replace(file, ".xlsx$", " CLIQUES.xlsx") %>% basename
 
 x <- read.xlsx(file)
 tests <- check_excel_input(x)  # check if input format is correct
-l <- network_graph_images(x, min_clique_size = 3, show_edges = T, min_matches = 7)
+l <- network_graph_images(x, min_clique_size = 3, show_edges = T, min_matches = 6, 
+                          label_abbreviate = T, label_wrap_width = 15, label_max_length = -1,
+                          indicate_direction = T, colorize_direction = T)
 file_tmp <- create_excel_output(file, l)
 file.copy(file_tmp, file_out, overwrite = TRUE)
 

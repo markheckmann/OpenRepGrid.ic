@@ -4,7 +4,17 @@
 \alias{network_graph_images}
 \title{Build network graph plots}
 \usage{
-network_graph_images(x, min_clique_size = 3, show_edges = T, min_matches = 6)
+network_graph_images(
+  x,
+  min_clique_size = 3,
+  show_edges = T,
+  min_matches = 6,
+  label_abbreviate = FALSE,
+  label_wrap_width = 15,
+  label_max_length = -1,
+  indicate_direction = TRUE,
+  colorize_direction = TRUE
+)
 }
 \description{
 Detects maximal cliques and saves images of network graphs into tempfile.

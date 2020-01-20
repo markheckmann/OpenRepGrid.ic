@@ -3,16 +3,16 @@
 \name{make_names_vec}
 \alias{make_names_vec}
 \alias{make_names}
-\title{standardisierte variablen namen}
+\title{standardized variable names}
 \usage{
 make_names_vec(x)
 
 make_names(x)
 }
 \arguments{
-\item{x}{Dataframe oder Vektor}
+\item{x}{Dataframe or vector}
 }
 \description{
-standardisierte variablen namen
+standardized variable names
 }
 \keyword{internal}
