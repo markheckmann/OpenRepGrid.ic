@@ -163,7 +163,7 @@ create_excel_output <- function(file, data = list())
   writeData(wb, sheet, "Legend", startRow = row, startCol = 1)
   addStyle(wb, sheet, style = style_bold, rows = row, cols = 1) 
   lgnd <- data.frame(text = 
-    c("* Positive construct poles (as indicated by column 'preferred') are aligned on the left",
+    c("* Positive construct poles (as indicated by column 'preferred') are aligned on the right",
     "** 1 = positive relatedness, -1 = negative relatedness"), stringsAsFactors = FALSE)
   writeData(wb, sheet, lgnd, startRow = row + 2, startCol = 1, colNames = FALSE, rowNames = FALSE)
   
@@ -209,7 +209,9 @@ create_excel_output <- function(file, data = list())
     "A clique is a subgraph in which all vertexes (here constructs) are connected to each other.",
     "A clique is maximal if it is not part of a bigger clique.",
     paste0("The minimal size of a cliques, ie. the minimal number of constructs that can form a clique, has been set to ", min_clique_size, "."),
-    paste0("The minimal number of matching or inversely matching rating scores for two constructs to be considered 'related' has been set to ", min_matches, "."))
+    paste0("The minimal number of matching or inversely matching rating scores for two constructs to be considered 'related' has been set to ", min_matches, "."),
+    "Positive poles are right-aligned, i.e. the second pole of the construct is always the preferred pole."
+  )
   
   for (i in seq_along(intro)) {
     writeData(wb, sheet, intro[i], startRow = i + 2, startCol = 1)  
@@ -217,21 +219,22 @@ create_excel_output <- function(file, data = list())
   }
   
   # Abbreviated constructs
-  writeData(wb, sheet, "Clique Nr.", startRow = 9, startCol = 1)
-  addStyle(wb, sheet, style_bold, rows = 9, cols = 1)  
+  row <- 10
+  writeData(wb, sheet, "Clique Nr.", startRow = row, startCol = 1)
+  addStyle(wb, sheet, style_bold, rows = row, cols = 1)  
   n_cliques <- length(cliques_list)
   if (n_cliques == 0) 
     cliques_list[[1]] <- c("No cliques detected")  # show this hint if not cliques were found
   for (i in seq_along(cliques_list)) {
     cc <- cliques_list[[i]]
-    writeData(wb, sheet, i, startRow = 9 + i, startCol = 1)
+    writeData(wb, sheet, i, startRow = row + i, startCol = 1)
     for (j in seq_along(cc)) {
-      writeData(wb, sheet, cc[j], startRow = 9 + i, startCol = 1 + j)  
+      writeData(wb, sheet, cc[j], startRow = row + i, startCol = 1 + j)  
     }
   }
   
   # Full construct labels per clique
-  row <- 11 + i
+  row <- 12 + i
   writeData(wb, sheet, "Clique Nr.", startRow = row, startCol = 1)
   writeData(wb, sheet, "Construct", startRow = row, startCol = 2)
   writeData(wb, sheet, "Label", startRow = row, startCol = 3)

@@ -245,6 +245,7 @@ body <- dashboardBody(
     #         shinyauthr::loginUI(id = "login", 
     #                             title = "Please log in",
     #                             login_title = "Login",
+    
     #                             user_title = "User",
     #                             pass_title = "Password",
     #                             error_message = "Incorrect user or password!")
