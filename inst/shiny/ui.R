@@ -400,17 +400,17 @@ body <- dashboardBody(
                                                      By default the value is set to three constructs.",
                                        numericInput("par_min_clique_size", "Minimal cliques size", 3, 2, 10)
                               ),
+                              # introBox(data.step = 8, 
+                              #          data.intro = "Whether to show full or abbreviated construct labels (C1, C2 etc.) in the output graphs.
+                              #                        By default full labels are shown.",
+                              #          awesomeCheckbox("par_abbr_labels", "Abbreviate construct labels", value = FALSE)
+                              # ),
                               introBox(data.step = 8, 
-                                       data.intro = "Whether to show full or abbreviated construct labels (C1, C2 etc.) in the output graphs.
-                                                     By default full labels are shown.",
-                                       awesomeCheckbox("par_abbr_labels", "Abbreviate construct labels", value = FALSE)
-                              ),
-                              introBox(data.step = 9, 
                                        data.intro = "Process the grid data and generate an Excel file containing 
                                                      the results for download.",
                                   actionButton("btn_process", label = "Process data")
                                ),
-                              introBox(data.step = 10, 
+                              introBox(data.step = 9, 
                                        data.intro = "After the result file has been created, you can download it here.",
                                 disabled(
                                  downloadButton(outputId = "btn_download_excel", style = "minimal", color = "primary", label = "Download results")
