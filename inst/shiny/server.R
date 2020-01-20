@@ -11,7 +11,7 @@ library(shinyWidgets)
 library(shinydashboard)
 library(shinydashboardPlus)
 library(shinycssloaders)
-library(shinyauthr)
+# library(shinyauthr)
 
 # shared variables across users
 users = reactiveValues(count = 0)
@@ -129,8 +129,8 @@ server <- function(input, output, session)
     msg <- messageItem( from = "", 
                         message = paste("Number of current users:", users$count),
                         icon = icon("users"))
-    logout <- tags$li(shinyauthr::logoutUI(id = "logout", label = "Logout"))
-    dropdownMenu(msg, logout, icon = icon("users"), type = "messages", headerText = "")
+    # logout <- tags$li(shinyauthr::logoutUI(id = "logout", label = "Logout"))
+    dropdownMenu(msg, icon = icon("users"), type = "messages", headerText = "")
   })
   
   

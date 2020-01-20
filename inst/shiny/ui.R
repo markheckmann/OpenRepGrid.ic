@@ -15,7 +15,7 @@ suppressWarnings({
     library(shinydashboard)
     library(shinydashboardPlus)
     library(shinycssloaders)
-    library(shinyauthr)
+    # library(shinyauthr)
     library(rintrojs)
     library(shinyFeedback)
     library(data.table)
