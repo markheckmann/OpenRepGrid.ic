@@ -256,6 +256,10 @@ body <- dashboardBody(
               div( id = "tab_start_text", 
               fluidRow(
                 column(width = 6, 
+                   box(width = NULL, 
+                       tags$span(style = "color:grey; font-style: italic", "Please use a recent version of Chrome, Firefox or the Edge browser for optimal performance."),
+                       status = "danger"
+                   ),
                    box(width = NULL,
                      h2("Interpretive Clustering"),
                      p("This website accompanies the paper", 
@@ -274,11 +278,11 @@ body <- dashboardBody(
                        tags$a("email us.", href = paste0("mailto:heckmann.mark@gmail.com",
                                                              "?subject=Question regarding OpenRepGrid.ic v", packageVersion("OpenRepGrid.ic"),
                                                              "&body=Your question goes here."))
-                      )              
+                      )
                     )
-                   # box(width = NULL,
-                   #     img(src = "sylvia_raw.png", align = "left", style = "width: 100%")
-                   # )
+                    # box(width = NULL,
+                    #     img(src = "sylvia_raw.png", align = "left", style = "width: 100%")
+                    # )
                 ), 
                 column(width = 6,
                 #   # box(width = NULL,
