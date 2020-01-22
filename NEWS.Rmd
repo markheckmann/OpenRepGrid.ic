@@ -5,7 +5,7 @@ output: html_document
 
 ## TODO
 
-* move to CRAN
+* move to CRAN (reduce global imports)
 * table CSS issues (at least on shinyapps.io)
 
 ## v0.3 (under construction)
