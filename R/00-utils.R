@@ -63,15 +63,16 @@ dt_default <- function(text = "Waiting for data ...",
 #' @export
 #' @keywords internal
 #' @examples
+#' 
 #' cell_text_split("10, 20,30" )
 #' cell_text_split("; ,  10  ,,,  20;30,," ) # sehr robust
 #' 
 cell_text_split <- function(x)
 {
   x %>% 
-    str_replace_all(" +|;+", ",") %>%   # space, semicolon to comma
-    str_replace_all(",+", ",") %>%      # several commas to one
-    str_replace_all("^,+|,+$", "") %>%  # remove leading and trainling commas
+    stringr::str_replace_all(" +|;+", ",") %>%   # space, semicolon to comma
+    stringr::str_replace_all(",+", ",") %>%      # several commas to one
+    stringr::str_replace_all("^,+|,+$", "") %>%  # remove leading and trainling commas
     strsplit(",")                       # split string at comma
 }
 
@@ -81,13 +82,13 @@ cell_text_split <- function(x)
 make_names_vec <- function(x) 
 {
   nms <- tolower(x)
-  nms <- str_replace_all(nms, "[[:blank:]]+", "_")       # Leerzeichen ersetzen
-  nms <- str_replace_all(nms, "\\.|-|/|\\(|\\)|&|\\?", "_")  # punkte, bindestrich, (back-)slashes, Fragezeichen zu unterstrich
-  nms <- str_replace_all(nms, "[_]+", "_")               # mehrere unterstriche zu einem
-  nms <- str_replace_all(nms, "[_]+$", "")               # unterstriche am ende entfernen
-  nms <- str_replace_all(nms, "\u00E4", "ae")            # umlaute ersetzen
-  nms <- str_replace_all(nms, "\u00FC", "ue") 
-  nms <- str_replace_all(nms, "\u00F6", "oe") 
+  nms <- stringr::str_replace_all(nms, "[[:blank:]]+", "_")       # Leerzeichen ersetzen
+  nms <- stringr::str_replace_all(nms, "\\.|-|/|\\(|\\)|&|\\?", "_")  # punkte, bindestrich, (back-)slashes, Fragezeichen zu unterstrich
+  nms <- stringr::str_replace_all(nms, "[_]+", "_")               # mehrere unterstriche zu einem
+  nms <- stringr::str_replace_all(nms, "[_]+$", "")               # unterstriche am ende entfernen
+  nms <- stringr::str_replace_all(nms, "\u00E4", "ae")            # umlaute ersetzen
+  nms <- stringr::str_replace_all(nms, "\u00FC", "ue") 
+  nms <- stringr::str_replace_all(nms, "\u00F6", "oe") 
   nms
 }
 
