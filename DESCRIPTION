@@ -40,6 +40,6 @@ Suggests:
     rmarkdown
 Encoding: UTF-8
 URL: https://github.com/markheckmann/OpenRepGrid.ic.git
-BugReports: https://github.com/markheckmann/OpenRepGrid.ic.git/issues
+BugReports: https://github.com/markheckmann/OpenRepGrid.ic/issues
 VignetteBuilder: knitr
 RoxygenNote: 7.0.2
