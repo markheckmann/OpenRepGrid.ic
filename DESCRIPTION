@@ -1,10 +1,10 @@
 Package: OpenRepGrid.ic
 License: MIT
-Title: Interpretive clustering for reppertory grids
+Title: Interpretive clustering for repertory grids
 Type: Package
 LazyLoad: yes
 Authors@R: c(person("Mark", "Heckmann", email = "heckmann.mark@gmail.com", role = c("aut", "cre")))
-Description: This package finds cliques of related constructs in repertory grids.
+Description: Shiny UI to identify cliques of related constructs in repertory grid data.
 Version: 0.3
 Date: 2020-01-20
 Imports:
