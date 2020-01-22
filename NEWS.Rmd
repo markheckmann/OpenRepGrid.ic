@@ -10,6 +10,7 @@ output: html_document
 
 ## v0.3 (under construction)
 
+* added Richard's grid
 * password protection removed
 * method description added directly to app
 * method description sheet added to Excel output
