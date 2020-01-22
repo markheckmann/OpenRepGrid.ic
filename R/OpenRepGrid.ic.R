@@ -55,7 +55,7 @@
 NULL
 
 
-#' launch app
+#' Launch app in browser
 #'
 #' @param display.mode \code{auto} by default, can also be \code{showcase}. See
 #'   \link[shiny]{runApp}.

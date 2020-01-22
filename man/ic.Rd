@@ -2,7 +2,7 @@
 % Please edit documentation in R/OpenRepGrid.ic.R
 \name{ic}
 \alias{ic}
-\title{launch app}
+\title{Launch app in browser}
 \usage{
 ic(display.mode = "auto", launch.browser = TRUE)
 }
@@ -14,7 +14,7 @@ ic(display.mode = "auto", launch.browser = TRUE)
 the browser. See \link[shiny]{runApp}.}
 }
 \description{
-launch app
+Launch app in browser
 }
 \examples{
 \dontrun{
