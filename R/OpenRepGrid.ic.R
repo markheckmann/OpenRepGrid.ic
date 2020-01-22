@@ -25,7 +25,11 @@
 #' @keywords package OpenRepGrid.ic
 #' @name OpenRepGrid.ic-package
 #' @docType package
+#' @importFrom  magrittr "%>%"
 #' @import
+#' graphics
+#' utils
+#' grDevices
 #' shiny
 #' shinyjs
 #' shinyBS
@@ -41,8 +45,8 @@
 #' formattable
 #' openxlsx
 #' DT
-#' magrittr
-#' tidyverse
+#' stringr
+#' dplyr
 #' reshape2
 #' testthat
 #' scales

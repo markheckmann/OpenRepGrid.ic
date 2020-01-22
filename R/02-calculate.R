@@ -18,9 +18,10 @@ count_matches <- function(ci, cj, inverse = F)
 #' Calculate similarity matrix
 #' 
 #' @param x Grid data.
+#' @param min_matches Minimal number of matches to considers constructs as related.
 #' @export
 #' 
-calculate_similarity <- function(x, min_matches = 6, use_labels = FALSE)
+calculate_similarity <- function(x, min_matches = 6) #, use_labels = FALSE)
 {
   i_preferred <- which(names(x) == "preferred")
   i_left <- 1
@@ -106,18 +107,32 @@ calculate_similarity <- function(x, min_matches = 6, use_labels = FALSE)
 # https://stackoverflow.com/questions/55910373/generating-distinct-groups-of-nodes-in-a-network
 
 #' Build network graph plots
-#' 
+#'
 #' Detects maximal cliques and saves images of network graphs into tempfile.
 #' Tempfile paths and info on cliques are returned.
+#'
+#' @param x A dataframe with a grid.
+#' @param min_clique_size miniaml size of cliquesto be considered.
+#' @param show_edges Whether to show edges in plot.
+#' @param min_matches Minimal number of matching scores between constructs to be
+#'   marked as related.
+#' @param label_wrap_width Width of wrapped element label text.
+#' @param label_max_length Trim element label at max length characters.
+#' @param indicate_direction,colorize_direction Indicate direction of
+#'   relatedness by \code{+/-} sign and edge color repsectively.
 #' @export
 #' 
-network_graph_images <- function(x, min_clique_size = 3, show_edges = T, 
-                                 min_matches = 6, label_abbreviate = FALSE,
-                                 label_wrap_width = 15, label_max_length = -1,
+network_graph_images <- function(x, 
+                                 min_clique_size = 3, 
+                                 show_edges = TRUE, 
+                                 min_matches = 6, 
+                                # label_abbreviate = FALSE,
+                                 label_wrap_width = 15, 
+                                 label_max_length = -1,
                                  indicate_direction = TRUE, 
                                  colorize_direction = TRUE) 
 {
-  l <- calculate_similarity(x, min_matches = min_matches, use_labels = F)
+  l <- calculate_similarity(x, min_matches = min_matches) #, use_labels = F)
   MM <- l$MM
   D <- l$D
   edge.lty <- ifelse(show_edges, 3, 0)

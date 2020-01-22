@@ -16,7 +16,7 @@ check_excel_input <- function(x)
   
   # preferred --
   
-  col_right <- tail(nms, 1)
+  col_right <- utils::tail(nms, 1)
   c1_res <- isTRUE(col_right == "preferred")
   c1 <- list(
     assert = "Rightmost column is named 'preferred' (must be lowercase letters)",
@@ -47,8 +47,8 @@ check_excel_input <- function(x)
   
   # constructs --
   
-  c_left <- x[[i_left]] %>% str_trim
-  c_right <- x[[i_right]] %>% str_trim
+  c_left <- stringr::str_trim(x[[i_left]])
+  c_right <- stringr::str_trim(x[[i_right]])
   c4_res <- all(c_left != "") #&& all(c_right != "")
   c4 <- list(
     assert = "Left poles must be non-empty strings (right poles may contain empty strings, though this is not recommended)",
@@ -58,7 +58,7 @@ check_excel_input <- function(x)
   
   # elements --
   
-  elements <- names(x)[i_ratings] %>% str_trim
+  elements <- stringr::str_trim(names(x)[i_ratings])
   ii <- duplicated(elements)
   c5_res <- all(!ii) 
   dupes <- elements[ii] 
@@ -68,7 +68,7 @@ check_excel_input <- function(x)
     error = ifelse(c5_res, "", paste("The following element names are not unique:", paste(dupes, collapse = ", ")))
   )
   
-  elements <- names(x)[i_ratings] %>% str_trim
+  elements <- stringr::str_trim(names(x)[i_ratings])
   ii <- elements != "" | is.na(elements)
   c6_res <- all(ii)
   c6 <- list(

@@ -7,14 +7,30 @@
 network_graph_images(
   x,
   min_clique_size = 3,
-  show_edges = T,
+  show_edges = TRUE,
   min_matches = 6,
-  label_abbreviate = FALSE,
   label_wrap_width = 15,
   label_max_length = -1,
   indicate_direction = TRUE,
   colorize_direction = TRUE
 )
+}
+\arguments{
+\item{x}{A dataframe with a grid.}
+
+\item{min_clique_size}{miniaml size of cliquesto be considered.}
+
+\item{show_edges}{Whether to show edges in plot.}
+
+\item{min_matches}{Minimal number of matching scores between constructs to be
+marked as related.}
+
+\item{label_wrap_width}{Width of wrapped element label text.}
+
+\item{label_max_length}{Trim element label at max length characters.}
+
+\item{indicate_direction, colorize_direction}{Indicate direction of
+relatedness by \code{+/-} sign and edge color repsectively.}
 }
 \description{
 Detects maximal cliques and saves images of network graphs into tempfile.

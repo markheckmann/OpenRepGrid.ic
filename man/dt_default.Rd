@@ -8,6 +8,8 @@ dt_default(text = "Waiting for data ...", header = "")
 }
 \arguments{
 \item{text}{Text to be shown}
+
+\item{header}{Table header, defaults to an  empty string.}
 }
 \description{
 Default datatable output when loading
