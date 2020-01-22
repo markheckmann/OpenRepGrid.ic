@@ -336,7 +336,7 @@ body <- dashboardBody(
                        box(width = NULL, 
                            div(#style = "font-size:120%", 
                                id = "main_table",
-                               dataTableOutput("dt_grid") %>% withSpinner(color = "#D33724") 
+                               DT::dataTableOutput("dt_grid") %>% withSpinner(color = "#D33724") 
                            )
                        )
                     ),

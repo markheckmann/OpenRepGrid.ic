@@ -1,6 +1,6 @@
 Package: OpenRepGrid.ic
 License: MIT
-Title: Interpretive clustering for repertory grids
+Title: Interpretive Clustering for Repertory Grids
 Type: Package
 LazyLoad: yes
 Authors@R: c(person("Mark", "Heckmann", email = "heckmann.mark@gmail.com", role = c("aut", "cre")))
@@ -22,7 +22,6 @@ Imports:
     shinyFeedback,
     reactlog,
     rintrojs,
-    data.table,
     formattable,
     openxlsx,
     DT,

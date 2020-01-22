@@ -1,6 +1,6 @@
 
 
-#' \pkg{OpenRepGrid.ic} - interpretive clustering for repgrids.
+#' \pkg{OpenRepGrid.ic} -  Interpretive Clustering for Repertory Grids
 #'  
 #' @description The \pkg{OpenRepGrid.ic} package implements \emph{interpretive clustering}
 #' as introduced in Burr, King, and Heckmann (forthcoming). The authors describe
@@ -26,11 +26,14 @@
 #' @name OpenRepGrid.ic-package
 #' @docType package
 #' @importFrom  magrittr "%>%"
+#' @importFrom  dplyr filter select group_by
+#' @rawNamespace import(graphics, except = box)
+#' @rawNamespace import(shinyjs, except = runExample)
+#' @rawNamespace import(igraph, except = compare)
+#' @rawNamespace import(shiny, except = c(dataTableOutput, renderDataTable))
 #' @import
-#' graphics
 #' utils
 #' grDevices
-#' shiny
 #' shinyjs
 #' shinyBS
 #' shinythemes
@@ -41,17 +44,14 @@
 #' shinyFeedback
 #' reactlog
 #' rintrojs
-#' data.table
-#' formattable
 #' openxlsx
 #' DT
 #' stringr
-#' dplyr
 #' reshape2
 #' testthat
 #' scales
 #' splines
-#' igraph
+#' formattable
 NULL
 
 

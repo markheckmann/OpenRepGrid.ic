@@ -3,7 +3,7 @@
 \docType{package}
 \name{OpenRepGrid.ic-package}
 \alias{OpenRepGrid.ic-package}
-\title{\pkg{OpenRepGrid.ic} - interpretive clustering for repgrids.}
+\title{\pkg{OpenRepGrid.ic} -  Interpretive Clustering for Repertory Grids}
 \description{
 The \pkg{OpenRepGrid.ic} package implements \emph{interpretive clustering}
 as introduced in Burr, King, and Heckmann (forthcoming). The authors describe
