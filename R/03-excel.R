@@ -127,7 +127,7 @@ create_excel_output <- function(file, data = list())
   min_matches <- data$min_matches
   
   # Styles -----------------------------------------------
-
+  
   style_h1 <- createStyle(fontColour = "#000000", fontSize = 14,
                           fgFill = "#cccccc",
                           halign = "left", valign = "center", 

@@ -25,33 +25,16 @@
 #' @keywords package OpenRepGrid.ic
 #' @name OpenRepGrid.ic-package
 #' @docType package
-#' @importFrom  magrittr "%>%"
-#' @importFrom  dplyr filter select group_by
-#' @rawNamespace import(graphics, except = box)
-#' @rawNamespace import(shinyjs, except = runExample)
+#' @importFrom magrittr "%>%"
+#' @importFrom dplyr filter select group_by recode
 #' @rawNamespace import(igraph, except = compare)
-#' @rawNamespace import(shiny, except = c(dataTableOutput, renderDataTable))
 #' @import
 #' utils
+#' graphics
 #' grDevices
-#' shinyjs
-#' shinyBS
-#' shinythemes
-#' shinyWidgets
-#' shinydashboard
-#' shinydashboardPlus
-#' shinycssloaders
-#' shinyFeedback
-#' reactlog
-#' rintrojs
 #' openxlsx
-#' DT
 #' stringr
 #' reshape2
-#' testthat
-#' scales
-#' splines
-#' formattable
 NULL
 
 
@@ -62,15 +45,11 @@ NULL
 #' @param launch.browser Boolean, set \code{TRUE} (default) to open the app in
 #'   the browser. See \link[shiny]{runApp}.
 #' @export
-#' @import shiny
-#' @import shinythemes
-#' @import shinyBS
 #' @examples
 #' \dontrun{
 #' ic()
 #' }
-ic <- function(display.mode = "auto",
-                    launch.browser = TRUE) 
+ic <- function(display.mode = "auto", launch.browser = TRUE) 
 {
   appDir <- system.file("shiny", package = "OpenRepGrid.ic")
   if (appDir == "") {

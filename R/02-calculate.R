@@ -43,7 +43,14 @@ calculate_similarity <- function(x, min_matches = 6) #, use_labels = FALSE)
   
   s <- x[, i_ratings]   # remove construct poles
   S <- as.matrix(s)
-  constructs <- paste(x[, i_left], "-", x[, i_right])
+  pole_left <- x[, i_left]
+  pole_right <- x[, i_right]
+  constructs <- paste(pole_left, "-", pole_right)
+  
+  # all positive poles (or neutral) are right pole by default
+  valence_right <- recode(x$preferred, `1` = 1, `0` = -1)
+  valence_right <- tidyr::replace_na(valence_right, 0)
+  valence_left <- valence_right * -1
   
   # measure for construct relatedness: e.g. identical responses in 6 out of 7 cases (= matches)
   criterion_ <- min_matches
@@ -92,14 +99,24 @@ calculate_similarity <- function(x, min_matches = 6) #, use_labels = FALSE)
   # } else {
   #   labels <- paste0("C", 1L:nrow(MM))
   # }
+  
   labels <- paste0("C", 1L:nrow(MM))
   colnames(R) <- colnames(D) <- colnames(MM) <- labels
   rownames(R) <- rownames(D) <- rownames(MM) <- labels
-  names(constructs) <- paste0("C", 1L:nrow(MM))
-  list(R = R,    # relatedness 0/1
-       D = D,    # direction -1/1
-       MM = MM,  # no of matches 
-       constructs = constructs)  # labels
+  names(constructs) <- labels
+  names(pole_left) <- labels
+  names(pole_right) <- labels
+  names(valence_left) <- labels
+  names(valence_right) <- labels
+
+  list(R = R,    # no of matches 
+       MM = MM,  # relatedness 0/1
+       D = D,    # direction of relation -1/1
+       constructs = constructs,
+       pole_left = pole_left,
+       pole_right = pole_right,
+       valence_left = valence_left,
+       valence_right = valence_right)
 }
 
 
@@ -273,7 +290,7 @@ network_graph_images <- function(x,
   
   # abbreviated construct labels
   vertex.labels <- NULL
-  vertex.size = 15
+  vertex.size = 30
   vertex.label.cex <- 1
   img_cliques_only <- tempfile(fileext = ".png")
   set.seed(0)
@@ -310,7 +327,7 @@ network_graph_images <- function(x,
     cnames[cns] %>%
     str_sub(start = 1, end = label_max_length) %>%
     str_wrap(width = label_wrap_width)
-    vertex.size <- 22
+    vertex.size <- 30
     vertex.label.cex <- .6
   img_cliques_only_full_labels <- tempfile(fileext = ".png")
   set.seed(0)

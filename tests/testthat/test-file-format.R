@@ -7,7 +7,7 @@ library(openxlsx)
 test_that("Sylvia's grid is read and processed correctly", {
   
   file <- system.file("extdata/sylvia.xlsx", package = "OpenRepGrid.ic")
-  x <- openxlsx::read.xlsx(file)
+  x <- read.xlsx(file)
   tests <- check_excel_input(x)   # check if input format is correct
   
   expect_true(all(tests$passed))  # all format tests have been passed
