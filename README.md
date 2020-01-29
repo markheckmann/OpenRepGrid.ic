@@ -8,3 +8,20 @@ This package accompanies the paper [Interpretive Clustering](#) by [Burr, King, 
 A clique is a group of constructs which are all mutually related, given some cut-off criterion for relatedness (e.g. 6 matching scores in a grid with 7 elements). While an offline approach is also described to find the construct cliques, this software automates the process. Below you see the resulting cliques for Sylvia's sample grid. In the paper, the interpretation of the discovered cliques is discussed in detail.
                        
 ![example](inst/shiny/www/sylvia_cliques.png "Construct cliques for Sylvias's grid")
+
+
+## Installation
+
+You can install tha latest official release version from CRAN
+
+``` r
+install.packages("OpenRepGrid.ic")
+```
+
+or the development version from GitHub
+
+``` r
+# install.packages("devtools")
+devtools::install_github("markheckmann/OpenRepGrid.ic")
+```
+ 
