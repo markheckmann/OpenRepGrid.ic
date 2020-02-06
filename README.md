@@ -27,7 +27,7 @@ or the development version from GitHub
 devtools::install_github("markheckmann/OpenRepGrid.ic")
 ```
  
-# Datasets
+## Datasets
 
 You can find the datasets used in the publication on Zenodo
 
