@@ -1,4 +1,3 @@
-# TO BE UPDATED BEFORE SUBMISSION
 
 ## Submission info
 
