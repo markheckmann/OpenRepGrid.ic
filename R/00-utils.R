@@ -36,7 +36,7 @@ emptify_object <- function(x)
 #' @param text Text to be shown
 #' @param header Table header, defaults to an  empty string.
 #' @export
-#' 
+#' @keywords internal
 dt_default <- function(text = "Waiting for data ...", 
                        header = "") 
 {

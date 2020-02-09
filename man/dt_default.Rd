@@ -14,3 +14,4 @@ dt_default(text = "Waiting for data ...", header = "")
 \description{
 Default datatable output when loading
 }
+\keyword{internal}
