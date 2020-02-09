@@ -28,9 +28,9 @@
 #' @importFrom magrittr "%>%"
 #' @importFrom dplyr filter select group_by recode
 #' @rawNamespace import(igraph, except = compare)
+#' @rawNamespace import(graphics, except = box)
 #' @import
 #' utils
-#' graphics
 #' grDevices
 #' openxlsx
 #' stringr

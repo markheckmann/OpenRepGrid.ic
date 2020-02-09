@@ -45,7 +45,7 @@ dt_default <- function(text = "Waiting for data ...",
   
   # create datatable and format
   df %>%
-    datatable(filter = "none", 
+    (DT::datatable)(filter = "none", 
               selection = "none", 
               colnames = header,
               class = 'compact', rownames = FALSE, 

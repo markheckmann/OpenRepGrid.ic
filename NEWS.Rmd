@@ -5,11 +5,11 @@ output: html_document
 
 ## TODO
 
-* move to CRAN (reduce global imports)
 * table CSS issues (at least on shinyapps.io)
 
-## v0.3 (under construction)
+## v0.3
 
+* link to all datasets used in publication
 * travis CI added
 * added Richard's grid
 * password protection removed

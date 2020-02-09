@@ -15,7 +15,6 @@ suppressWarnings({
     library(shinydashboard)
     library(shinydashboardPlus)
     library(shinycssloaders)
-    # library(shinyauthr)
     library(rintrojs)
     library(shinyFeedback)
     library(data.table)
@@ -269,7 +268,7 @@ body <- dashboardBody(
                      p("We describe a variant of construct clustering for repertory grid data which capitalizes on a procedure from graph theory called", 
                        tags$a(href = "https://en.wikipedia.org/wiki/Clique_problem#Listing_all_maximal_cliques", "maximal clique enumeration."),
                        "Given a similarity measure, in our case the number of matching scores between two constructs, a network graph of relatedness between constructs is construed.",
-                       "A clique is a group of constructs which are all mutually related, given some cut-off criterion for relatedness (e.g. >= 6 matching scores for a 7 element grid).",
+                       "A clique is a group of constructs which are all mutually related, given some cut-off criterion for relatedness (e.g. ", HTML("&ge;"), "6 matching scores for a 7 element grid).",
                        "While an offline approach is also described to find the construct cliques, this software automates the procedure.",
                        "On the left you see the resulting construct cliques for Sylvia's sample grid."),
                      p("Under the bullet point", tags$em("Method"), "in the left sidebar you will find a step-by-step description of the manual process
@@ -370,7 +369,9 @@ body <- dashboardBody(
                      introBox(
                        box(width = NULL, status = "warning", title = "Upload",
                            p("Please upload an Excel file containing a grid.",
-                             "To get started, you can download a sample file", downloadLink(outputId = "download_sample_excel", label = "here.")),
+                             "To get started, you can download a sample file", downloadLink(outputId = "download_sample_excel", label = "here."),
+                              "More datasets can be found", 
+                              tags$a(href = "https://doi.org/10.5281/zenodo.3629868", target="_blank", "here.")),
                            fileInput("excel_input", "Choose Excel File (.xlsx)", accept = ".xlsx")                     
                        ),
                        data.step = 1, 

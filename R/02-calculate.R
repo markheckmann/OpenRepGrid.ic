@@ -168,7 +168,7 @@ network_graph_images <- function(x,
   nms_keep <- clique_lists %>% unlist %>% unique
   MM2 <- MM[nms_keep, nms_keep]
   mark_border <- ifelse(n_clique == 0, NA, 1L:n_clique)
-  mark_col <- ifelse(n_clique == 0, NA, alpha(1L:n_clique, .2))
+  mark_col <- ifelse(n_clique == 0, NA, scales::alpha(1L:n_clique, .2))
   
   # colorize edges by direction
   edges <- ends(g, E(g))   # edge from to as rowwise matrix

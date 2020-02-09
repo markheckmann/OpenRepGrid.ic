@@ -1,12 +1,12 @@
 Package: OpenRepGrid.ic
-License: MIT
+License: MIT + file LICENSE
 Title: Interpretive Clustering for Repertory Grids
 Type: Package
 LazyLoad: yes
 Authors@R: c(person("Mark", "Heckmann", email = "heckmann.mark@gmail.com", role = c("aut", "cre")))
 Description: Shiny UI to identify cliques of related constructs in repertory grid data.
 Version: 0.3
-Date: 2020-01-20
+Date: 2020-02-09
 Imports:
     graphics,
     grDevices,
@@ -33,7 +33,8 @@ Imports:
     scales,
     splines,
     igraph,
-    testthat
+    testthat,
+    tidyr
 Suggests:
     knitr,
     rmarkdown,
