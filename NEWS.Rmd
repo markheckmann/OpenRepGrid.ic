@@ -9,6 +9,7 @@ output: html_document
 
 ## v0.3
 
+* all data files from publication added
 * link to all datasets used in publication
 * travis CI added
 * added Richard's grid
