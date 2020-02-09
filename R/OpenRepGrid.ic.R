@@ -23,7 +23,7 @@
 #' Burr, King, and Heckmann (forthcoming). Interpretive Clustering. Manuscript submitted.
 #' @example inst/examples/01-process-excel-file.R
 #' @keywords package OpenRepGrid.ic
-#' @name OpenRepGrid.ic-package
+#' @name OpenRepGrid.ic
 #' @docType package
 #' @importFrom magrittr "%>%"
 #' @importFrom dplyr filter select group_by recode
