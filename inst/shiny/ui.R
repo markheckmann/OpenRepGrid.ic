@@ -32,9 +32,6 @@ suppressWarnings({
     library(igraph)
     # library(visNetwork)
     library(OpenRepGrid.ic)
-    
-    library(reactlog)
-    options(shiny.reactlog = FALSE) 
   })
 })
 
