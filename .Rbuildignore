@@ -9,3 +9,4 @@ NEWS.Rmd$
 dev$
 ^appveyor\.yml$
 ^codecov\.yml$
+^CRAN-RELEASE$
