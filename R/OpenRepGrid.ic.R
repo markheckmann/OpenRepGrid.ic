@@ -5,7 +5,7 @@
 #' @description The \pkg{OpenRepGrid.ic} package implements \emph{interpretive clustering}
 #' as introduced in Burr, King, and Heckmann (forthcoming). The authors describe
 #' a variant of construct clustering which uses a procedure from graph theory
-#' called \href{https://en.wikipedia.org/wiki/Clique_problem#Listing_all_maximal_cliques}{maxmimal cliques enumeration}.
+#' called \href{https://en.wikipedia.org/wiki/Clique_problem#Listing_all_maximal_cliques}{maximal cliques enumeration}.
 #' Given a similarity measure, in our case the number of matching scores between
 #' two constructs, a network graph of relatedness between constructs is
 #' construed. A clique is a group of constructs which are all mutually related,

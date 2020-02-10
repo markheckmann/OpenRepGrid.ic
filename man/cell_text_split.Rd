@@ -2,7 +2,7 @@
 % Please edit documentation in R/00-utils.R
 \name{cell_text_split}
 \alias{cell_text_split}
-\title{String splitter for comma seperated values in Excel cell}
+\title{String splitter for comma separated values in Excel cell}
 \usage{
 cell_text_split(x)
 }
@@ -10,7 +10,7 @@ cell_text_split(x)
 \item{x}{String to be split}
 }
 \description{
-String splitter for comma seperated values in Excel cell
+String splitter for comma separated values in Excel cell
 }
 \examples{
 

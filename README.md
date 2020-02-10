@@ -14,7 +14,7 @@ A clique is a group of constructs which are all mutually related, given some cut
 
 ## Installation
 
-You can install tha latest official release version from CRAN
+You can install the latest official release version from CRAN
 
 ``` r
 install.packages("OpenRepGrid.ic")

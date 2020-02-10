@@ -18,7 +18,7 @@ network_graph_images(
 \arguments{
 \item{x}{A dataframe with a grid.}
 
-\item{min_clique_size}{miniaml size of cliquesto be considered.}
+\item{min_clique_size}{Minimal size of cliques to be considered.}
 
 \item{show_edges}{Whether to show edges in plot.}
 
@@ -30,7 +30,7 @@ marked as related.}
 \item{label_max_length}{Trim element label at max length characters.}
 
 \item{indicate_direction, colorize_direction}{Indicate direction of
-relatedness by \code{+/-} sign and edge color repsectively.}
+relatedness by \code{+/-} sign and edge color respectively.}
 }
 \description{
 Detects maximal cliques and saves images of network graphs into tempfile.

@@ -129,14 +129,14 @@ calculate_similarity <- function(x, min_matches = 6) #, use_labels = FALSE)
 #' Tempfile paths and info on cliques are returned.
 #'
 #' @param x A dataframe with a grid.
-#' @param min_clique_size miniaml size of cliquesto be considered.
+#' @param min_clique_size Minimal size of cliques to be considered.
 #' @param show_edges Whether to show edges in plot.
 #' @param min_matches Minimal number of matching scores between constructs to be
 #'   marked as related.
 #' @param label_wrap_width Width of wrapped element label text.
 #' @param label_max_length Trim element label at max length characters.
 #' @param indicate_direction,colorize_direction Indicate direction of
-#'   relatedness by \code{+/-} sign and edge color repsectively.
+#'   relatedness by \code{+/-} sign and edge color respectively.
 #' @export
 #' 
 network_graph_images <- function(x, 

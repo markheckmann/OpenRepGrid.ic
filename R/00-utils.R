@@ -58,7 +58,7 @@ dt_default <- function(text = "Waiting for data ...",
 }
 
 
-#' String splitter for comma seperated values in Excel cell
+#' String splitter for comma separated values in Excel cell
 #' 
 #' @param x String to be split
 #' @export
