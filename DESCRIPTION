@@ -6,7 +6,7 @@ LazyLoad: yes
 Authors@R: c(person("Mark", "Heckmann", email = "heckmann.mark@gmail.com", role = c("aut", "cre")))
 Description: Shiny UI to identify cliques of related constructs in repertory grid data.
 Version: 0.3.0
-Date: 2020-02-10
+Date: 2020-02-22
 Imports:
     graphics,
     grDevices,
