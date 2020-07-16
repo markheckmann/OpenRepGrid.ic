@@ -1,7 +1,12 @@
 
 ## Submission info
 
-Resubmission with suggested changes from first submission (2020-03-01)
+Resubmission with suggested changes from first submission (2020-03-01):
+
+* DOI of accompanying publication added to DESCRIPTION 
+* `seed` is now an argument for `set.seed` inside the function (is needed)
+* `on.exit` added to restore user par when function is exited
+* `\dontrun{}` replaced by `if(interactive())` in examples of `ic()` function
 
 ## Test environments
 
