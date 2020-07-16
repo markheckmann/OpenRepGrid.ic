@@ -17,7 +17,7 @@ the browser. See \link[shiny]{runApp}.}
 Launch app in browser
 }
 \examples{
-\donttest{
-ic()
+if (interactive()) { 
+ ic()
 }
 }

@@ -47,8 +47,8 @@ NULL
 #'   the browser. See \link[shiny]{runApp}.
 #' @export
 #' @examples
-#' \donttest{
-#' ic()
+#' if (interactive()) { 
+#'  ic()
 #' }
 ic <- function(display.mode = "auto", launch.browser = TRUE) 
 {
