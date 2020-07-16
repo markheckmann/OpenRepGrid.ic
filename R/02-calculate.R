@@ -137,6 +137,8 @@ calculate_similarity <- function(x, min_matches = 6) #, use_labels = FALSE)
 #' @param label_max_length Trim element label at max length characters.
 #' @param indicate_direction,colorize_direction Indicate direction of
 #'   relatedness by \code{+/-} sign and edge color respectively.
+#' @param seed Seed number passed to \code{set.seed}. Will determine the 
+#'   orientiation of the graph.
 #' @export
 #' 
 network_graph_images <- function(x, 
@@ -147,7 +149,8 @@ network_graph_images <- function(x,
                                  label_wrap_width = 15, 
                                  label_max_length = -1,
                                  indicate_direction = TRUE, 
-                                 colorize_direction = TRUE) 
+                                 colorize_direction = TRUE,
+                                 seed = 0) 
 {
   l <- calculate_similarity(x, min_matches = min_matches) #, use_labels = F)
   MM <- l$MM
@@ -197,15 +200,18 @@ network_graph_images <- function(x,
   #   vertex.label.cex <- .6
   # }
   
+  oldpar <- par(no.readonly = TRUE) 
+  on.exit(par(oldpar))   
+  
   # abbreviated labels
   vertex.labels <- NULL
   vertex.size = 15
   vertex.label.cex <- 1
   img_all_constructs <- tempfile(fileext = ".png")
-  set.seed(0)
+#  set.seed(seed)
   png(img_all_constructs, width = 20, height = 20, units = "cm", res = 300)
     par(oma = c(0,0,0,0), mar = c(0,0,0,0))
-    set.seed(0)
+    set.seed(seed)
     igraph::plot.igraph(g, 
                         mark.groups = clique_lists, 
                         mark.border = mark_border, 
@@ -235,10 +241,10 @@ network_graph_images <- function(x,
     vertex.size <- 22
     vertex.label.cex <- .6
   img_all_constructs_full_labels <- tempfile(fileext = ".png")
-  set.seed(0)
+  set.seed(seed)
   png(img_all_constructs_full_labels, width = 20, height = 20, units = "cm", res = 300)
-  par(oma = c(0,0,0,0), mar = c(0,0,0,0))
-  igraph::plot.igraph(g, 
+    par(oma = c(0,0,0,0), mar = c(0,0,0,0))
+    igraph::plot.igraph(g, 
                       mark.groups = clique_lists, 
                       mark.border = mark_border, 
                       mark.col = mark_col, 
@@ -293,7 +299,7 @@ network_graph_images <- function(x,
   vertex.size = 30
   vertex.label.cex <- 1
   img_cliques_only <- tempfile(fileext = ".png")
-  set.seed(0)
+  set.seed(seed)
   png(img_cliques_only, width = 20, height = 20, units = "cm", res = 300)
     par(oma = c(0,0,0,0), mar = c(0,0,0,0))
     if (n_clique > 0) {
@@ -330,11 +336,11 @@ network_graph_images <- function(x,
     vertex.size <- 30
     vertex.label.cex <- .6
   img_cliques_only_full_labels <- tempfile(fileext = ".png")
-  set.seed(0)
+  set.seed(seed)
   png(img_cliques_only_full_labels, width = 20, height = 20, units = "cm", res = 300)
-  par(oma = c(0,0,0,0), mar = c(0,0,0,0))
-  if (n_clique > 0) {
-    igraph::plot.igraph(g2, 
+    par(oma = c(0,0,0,0), mar = c(0,0,0,0))
+    if (n_clique > 0) {
+      igraph::plot.igraph(g2, 
                         mark.groups = clique_lists, 
                         mark.border = mark_border, 
                         mark.col = mark_col, 
@@ -352,10 +358,10 @@ network_graph_images <- function(x,
                         vertex.label.family = "sans",
                         vertex.color = grey(.9),
                         vertex.frame.color = grey(.5))
-  } else {
-    plot.new()
-    text(.5, .5, "No cliques detected", cex = 1.5, adj = c(.5, .5))
-  } 
+    } else {
+      plot.new()
+      text(.5, .5, "No cliques detected", cex = 1.5, adj = c(.5, .5))
+    } 
   dev.off()   
   
   l2 <- list(img_all_constructs = img_all_constructs, 

@@ -5,8 +5,8 @@
 \alias{OpenRepGrid.ic}
 \title{\pkg{OpenRepGrid.ic} -  Interpretive Clustering for Repertory Grids}
 \description{
-The \pkg{OpenRepGrid.ic} package implements \emph{interpretive clustering}
-as introduced in Burr, King, and Heckmann (forthcoming). The authors describe
+The \pkg{OpenRepGrid.ic} package implements \emph{Interpretive Clustering (IC)} 
+as introduced in Burr, King, and Heckmann (2020). The authors describe
 a variant of construct clustering which uses a procedure from graph theory
 called \href{https://en.wikipedia.org/wiki/Clique_problem#Listing_all_maximal_cliques}{maximal cliques enumeration}.
 Given a similarity measure, in our case the number of matching scores between
@@ -53,7 +53,8 @@ s
 
 }
 \references{
-Burr, King, and Heckmann (forthcoming). Interpretive Clustering. Manuscript submitted.
+Burr, V. King, N. & Heckmann, M. (2020) The qualitative analysis of repertory grid data: Interpretive Clustering, 
+    Qualitative Research in Psychology, DOI: 10.1080/14780887.2020.1794088
 }
 \keyword{OpenRepGrid.ic}
 \keyword{package}

@@ -2,8 +2,8 @@
 
 #' \pkg{OpenRepGrid.ic} -  Interpretive Clustering for Repertory Grids
 #'  
-#' @description The \pkg{OpenRepGrid.ic} package implements \emph{interpretive clustering}
-#' as introduced in Burr, King, and Heckmann (forthcoming). The authors describe
+#' @description The \pkg{OpenRepGrid.ic} package implements \emph{Interpretive Clustering (IC)} 
+#' as introduced in Burr, King, and Heckmann (2020). The authors describe
 #' a variant of construct clustering which uses a procedure from graph theory
 #' called \href{https://en.wikipedia.org/wiki/Clique_problem#Listing_all_maximal_cliques}{maximal cliques enumeration}.
 #' Given a similarity measure, in our case the number of matching scores between
@@ -20,7 +20,8 @@
 #' file using code only.
 #' 
 #' @references 
-#' Burr, King, and Heckmann (forthcoming). Interpretive Clustering. Manuscript submitted.
+#' Burr, V. King, N. & Heckmann, M. (2020) The qualitative analysis of repertory grid data: Interpretive Clustering, 
+#'     Qualitative Research in Psychology, DOI: 10.1080/14780887.2020.1794088
 #' @example inst/examples/01-process-excel-file.R
 #' @keywords package OpenRepGrid.ic
 #' @name OpenRepGrid.ic
@@ -46,7 +47,7 @@ NULL
 #'   the browser. See \link[shiny]{runApp}.
 #' @export
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' ic()
 #' }
 ic <- function(display.mode = "auto", launch.browser = TRUE) 

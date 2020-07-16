@@ -1,7 +1,7 @@
 
 ## Submission info
 
-First submission
+Resubmission with suggested changes (2020-03-01)
 
 ## Test environments
 

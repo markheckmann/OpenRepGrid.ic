@@ -16,7 +16,7 @@ l <- calculate_similarity(x, min_matches = 6)
 
 # Interpretive clustering
 
-*Please see our publication for additional details*
+*Please see our <a href="https://www.tandfonline.com/doi/full/10.1080/14780887.2020.1794088" target="_blank">publication</a> for additional details*
 
 On this page, we explain in detail the steps you need to follow in performing an Interpretive Clustering analysis on Repertory Grid data using a binary scoring method (for example ticks and crosses or 0s and 1s. We illustrate the steps using our own research. This was a Repertory Grid study of the meanings that ‘nature’ has for people. The constructs were elicited by asking participants to compare images (in triads) of a wide range of outdoor spaces.
 

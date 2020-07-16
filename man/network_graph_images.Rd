@@ -12,7 +12,8 @@ network_graph_images(
   label_wrap_width = 15,
   label_max_length = -1,
   indicate_direction = TRUE,
-  colorize_direction = TRUE
+  colorize_direction = TRUE,
+  seed = 0
 )
 }
 \arguments{
@@ -31,6 +32,9 @@ marked as related.}
 
 \item{indicate_direction, colorize_direction}{Indicate direction of
 relatedness by \code{+/-} sign and edge color respectively.}
+
+\item{seed}{Seed number passed to \code{set.seed}. Will determine the 
+orientiation of the graph.}
 }
 \description{
 Detects maximal cliques and saves images of network graphs into tempfile.
