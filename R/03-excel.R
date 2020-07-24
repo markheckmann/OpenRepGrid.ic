@@ -147,7 +147,7 @@ create_excel_output <- function(file, data = list())
   if (isTRUE(sheet %in% nms))
     removeWorksheet(wb, sheet)
   addWorksheet(wb, sheet)
-  file <- system.file("extdata/interpretive_clustering_method.png", package = "OpenRepGrid.ic")
+  file <- system.file("extdata", "interpretive_clustering_method.png", package = "OpenRepGrid.ic")
   insertImage(wb, sheet, file, width = 1763 * 2, height = 5199 * 2, units = "px")
   
   
@@ -202,7 +202,7 @@ create_excel_output <- function(file, data = list())
     removeWorksheet(wb, sheet)
   addWorksheet(wb, sheet)
   writeData(wb, sheet, "Clique identification", startRow = 1, startCol = 1)
-  addStyle(wb, sheet, style_h1, rows = 1, cols = 1:100, gridExpand = T)
+  addStyle(wb, sheet, style_h1, rows = 1, cols = 1:100, gridExpand = TRUE)
   
   intro <-   
     c("The results of the maximal clique identification are shown below.",

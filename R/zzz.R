@@ -1,9 +1,12 @@
 
+
 .onLoad <- function(libname, pkgname) {
-  op <- options()
+  
   op.ic <- list(
-    # ic.login = FALSE
+    # OpenRepGrid.ic.login = FALSE
   )
+  
+  op <- options()
   toset <- !(names(op.ic) %in% names(op))
   if (any(toset)) options(op.ic[toset])
   

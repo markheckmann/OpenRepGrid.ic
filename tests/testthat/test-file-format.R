@@ -6,13 +6,13 @@ library(openxlsx)
 
 test_that("Sylvia's grid is read and processed correctly", {
   
-  file <- system.file("extdata/sylvia.xlsx", package = "OpenRepGrid.ic")
+  file <- system.file("extdata", "sylvia.xlsx", package = "OpenRepGrid.ic")
   x <- read.xlsx(file)
   tests <- check_excel_input(x)   # check if input format is correct
   
   expect_true(all(tests$passed))  # all format tests have been passed
   
-  l <- network_graph_images(x, min_clique_size = 3, show_edges = T, min_matches = 6)
+  l <- network_graph_images(x, min_clique_size = 3, show_edges = TRUE, min_matches = 6)
   cl <- l$cliques_list %>% lapply(sort)
   
   expect_equal(length(cl), 3)                              # three cliques identified
@@ -26,7 +26,7 @@ test_that("Sylvia's grid is read and processed correctly", {
 
 test_that("input file format is checked correctly", {
   
-  file <- system.file("extdata/incorrect_formats.xlsx", package = "OpenRepGrid.ic")
+  file <- system.file("extdata", "incorrect_formats.xlsx", package = "OpenRepGrid.ic")
   x <- read.xlsx(file)
   tests <- check_excel_input(x)  # check if input format is correct
   

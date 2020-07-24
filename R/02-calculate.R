@@ -5,13 +5,13 @@
 # number of matches / non-matches for two constructs 
 # missing values lead to neither a match nor non-match
 #
-count_matches <- function(ci, cj, inverse = F) 
+count_matches <- function(ci, cj, inverse = FALSE) 
 {
   if (inverse)
     matched <- ci != cj   # non-matches / inverse match count
   else 
     matched <- ci == cj   # matches
-  sum(matched, na.rm = T)
+  sum(matched, na.rm = TRUE)
 }
 
 
@@ -62,8 +62,8 @@ calculate_similarity <- function(x, min_matches = 6) #, use_labels = FALSE)
     for (j in 1L:nr) {
       c_i <- S[i, ]
       c_j <- S[j, ]
-      M[i, j] <- count_matches(c_i, c_j)                # matches
-      Mi[i, j] <- count_matches(c_i, c_j, inverse = T)  # mismatches
+      M[i, j] <- count_matches(c_i, c_j)                   # matches
+      Mi[i, j] <- count_matches(c_i, c_j, inverse = TRUE)  # mismatches
     }
   }
   
@@ -152,13 +152,13 @@ network_graph_images <- function(x,
                                  colorize_direction = TRUE,
                                  seed = 0) 
 {
-  l <- calculate_similarity(x, min_matches = min_matches) #, use_labels = F)
+  l <- calculate_similarity(x, min_matches = min_matches) #, use_labels = FALSE)
   MM <- l$MM
   D <- l$D
   edge.lty <- ifelse(show_edges, 3, 0)
   cnames <- l$constructs
 
-  g <- igraph::graph_from_adjacency_matrix(MM, diag = F, mode  = "undirected")
+  g <- igraph::graph_from_adjacency_matrix(MM, diag = FALSE, mode  = "undirected")
   mc <- igraph::max_cliques(g, min = min_clique_size)
   n_clique <- length(mc)
   
@@ -199,7 +199,6 @@ network_graph_images <- function(x,
   #   vertex.size <- 22
   #   vertex.label.cex <- .6
   # }
-  
   oldpar <- par(no.readonly = TRUE) 
   on.exit(par(oldpar))   
   
@@ -267,7 +266,7 @@ network_graph_images <- function(x,
   
   ## clique constructs only 
   
-  g2 <- igraph::graph_from_adjacency_matrix(MM2, diag = F, mode  = "undirected")
+  g2 <- igraph::graph_from_adjacency_matrix(MM2, diag = FALSE, mode  = "undirected")
   
   # colorize edges by direction
   edges <- ends(g2, E(g2))   # edge from to as rowwise matrix

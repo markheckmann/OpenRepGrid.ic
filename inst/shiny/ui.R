@@ -306,7 +306,7 @@ body <- dashboardBody(
         fluidRow(
               column(width = 9,
                       hidden(div(id = "error_box",
-                          box(width = NULL, status = "danger", solidHeader = T, #background = "red",
+                          box(width = NULL, status = "danger", solidHeader = TRUE, #background = "red",
                               title = "Uuups. Something went wrong", 
                               p("I could not read your Excel file. Please see the comments below.",
                                 "Make sure your Excel file has the required format.")                          )
@@ -367,7 +367,7 @@ body <- dashboardBody(
                            p("Please upload an Excel file containing a grid.",
                              "To get started, you can download a sample file", downloadLink(outputId = "download_sample_excel", label = "here."),
                               "More datasets can be found", 
-                              tags$a(href = "https://doi.org/10.5281/zenodo.3629868", target="_blank", "here.")),
+                              tags$a(href = "https://doi.org/10.5281/zenodo.3629868", target = "_blank", "here.")),
                            fileInput("excel_input", "Choose Excel File (.xlsx)", accept = ".xlsx")                     
                        ),
                        data.step = 1, 

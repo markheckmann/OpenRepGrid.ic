@@ -95,7 +95,7 @@ server <- function(input, output, session)
   # } else {
   #   # suppress for dev purposes
   #   credentials <- reactive({
-  #     list(user_auth = T)
+  #     list(user_auth = TRUE)
   #   })
   # }
   # 
