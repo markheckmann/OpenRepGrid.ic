@@ -515,7 +515,7 @@ server <- function(input, output, session)
       "sylvia.xlsx"
     },
     content = function(file) {
-      file_out <- system.file("extdata/sylvia.xlsx", package = "OpenRepGrid.ic")
+      file_out <- system.file("extdata", "sylvia.xlsx", package = "OpenRepGrid.ic")
       file.copy(from = file_out, to = file)
     },
     contentType = "application/vnd.ms-excel"

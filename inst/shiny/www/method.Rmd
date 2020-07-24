@@ -9,7 +9,7 @@ library(OpenRepGrid.ic)
 library(openxlsx)
 library(tidyverse)
 library(knitr)
-file <- system.file("extdata/richard.xlsx", package = "OpenRepGrid.ic")
+file <- system.file("extdata", "richard.xlsx", package = "OpenRepGrid.ic")
 x <- read.xlsx(file)
 l <- calculate_similarity(x, min_matches = 6)
 ```

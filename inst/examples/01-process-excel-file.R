@@ -15,7 +15,9 @@ l <- network_graph_images(x, min_clique_size = 3,
                           show_edges = TRUE, 
                           min_matches = 7)  # produce images
 file_tmp <- create_excel_output(file, l)         # create Excel file
-file.copy(file_tmp, file_out, overwrite = TRUE)  # copy Excel to working dir
+
+# copy Excel to working dir (commented out to avoid pollution during testing)
+#file.copy(file_tmp, file_out, overwrite = TRUE)  
 
 # calculation results used in network_graph_images
 # some of them are also contained in Excel file
