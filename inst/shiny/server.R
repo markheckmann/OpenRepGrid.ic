@@ -536,7 +536,7 @@ server <- function(input, output, session)
     feedbackWarning(
       text = "Low criterion for relatedness",
       inputId = "par_min_match",
-      condition = input$par_min_match <= criterion
+      show = input$par_min_match <= criterion
     )
   })
   
