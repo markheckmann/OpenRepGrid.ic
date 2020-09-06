@@ -7,6 +7,11 @@ output: html_document
 
 * table CSS issues (at least on shinyapps.io)
 
+## v0.3.1
+
+* fix bug and make compatible with upcoming `shinyjs` 2.0 release
+* text on landing page and REAMDE updated
+
 ## v0.3.0
 
 * all data files from publication added
