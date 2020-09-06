@@ -13,10 +13,10 @@ x <- read.xlsx(file)            # read grid
 tests <- check_excel_input(x)   # check if input format is correct
 l <- network_graph_images(x, min_clique_size = 3, 
                           show_edges = TRUE, 
-                          min_matches = 7)  # produce images
-file_tmp <- create_excel_output(file, l)         # create Excel file
+                          min_matches = 6)    # produce images
+file_tmp <- create_excel_output(file, l)      # create Excel file
 
-# copy Excel to working dir (commented out to avoid pollution during testing)
+# copy Excel to working dir (commented out to avoid file generation during testing)
 #file.copy(file_tmp, file_out, overwrite = TRUE)  
 
 # calculation results used in network_graph_images
