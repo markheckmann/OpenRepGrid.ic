@@ -259,33 +259,45 @@ body <- dashboardBody(
                    ),
                    box(width = NULL,
                      h2("Interpretive Clustering"),
-                     p("This software accompanies our paper on", 
-                       tags$a(href = "https://www.tandfonline.com/doi/full/10.1080/14780887.2020.1794088", target = "_blank", "Interpretive Clustering (Burr, King, & Heckmann 2020).")),
-                     p("We describe a variant of construct clustering for repertory grid data which capitalizes on a procedure from graph theory called", 
+                     p("This software implements the", 
+                       tags$a("Interpretive Clustering (IC)", href = "https://www.tandfonline.com/doi/full/10.1080/14780887.2020.1794088", target = "_blank"),
+                       "method described in",
+                       tags$a("Burr, King, and Heckmann (2020).", href = "https://www.tandfonline.com/doi/full/10.1080/14780887.2020.1794088", target = "_blank"),
+                     ),
+                     p("Interpretive Clustering is a variant of construct clustering for ", 
+                       tags$a("repertory grid", href = "https://en.wikipedia.org/wiki/Repertory_grid", target = "_blank"),
+                       "data.",
+                       "While derived from theoretical considerations based on",
+                       tags$a("Personal Construct Theory,", href = "https://en.wikipedia.org/wiki/Personal_construct_theory", target = "_blank"),
+                       "the procedure itself is mathematically equivalent to a problem from graph theory called", 
                        tags$a(href = "https://en.wikipedia.org/wiki/Clique_problem#Listing_all_maximal_cliques", "maximal clique enumeration."),
                        "Given a similarity measure, in our case the number of matching scores between two constructs, a network graph of relatedness between constructs is construed.",
                        "A clique is a group of constructs which are all mutually related, given some cut-off criterion for relatedness (e.g. ", HTML("&ge;"), "6 matching scores for a 7 element grid).",
                        "While an offline approach is also described to find the construct cliques, this software automates the procedure.",
-                       "On the left you see the resulting construct cliques for Sylvia's sample grid."),
-                     p("Under the bullet point", tags$em("Method"), "in the left sidebar you will find a step-by-step description of the manual process
-                       to generate the construct clusters. To upload and analyse a grid programatically, click on", 
-                       tags$em("Analysis"), "in the sidebar."),
-                     p("In case you have any questions, please",
-                       tags$a("email us.", href = paste0("mailto:heckmann.mark@gmail.com",
-                                                             "?subject=Question regarding OpenRepGrid.ic v", packageVersion("OpenRepGrid.ic"),
-                                                             "&body=Your question goes here."))
-                      )
+                       "On the left you see the resulting construct cliques for Sylvia's sample grid."
+                     ),
+                     p("Under the entry", tags$em("Method"), "in the left sidebar you will find a step-by-step description of the manual process
+                       to generate the construct clusters. To upload and analyse a grid programatically, click on the ", 
+                       tags$em("Analysis"), "entry in the sidebar."
+                     )
+                    ),
+                   box(width = NULL, 
+                       status = "danger",
+                       p("Please",
+                         tags$a("email us", 
+                                target="_blank", 
+                                href = paste0("mailto:heckmann.mark@gmail.com",
+                                              "?subject=Problem with OpenRepGrid.ic v", packageVersion("OpenRepGrid.ic"),
+                                              "&body=Please describe the problem you encounter in detail, preferably with some screenshots.", 
+                                                     "%0d%0aPlease also attach the data file you tried to process when the problem occurred. Data will be treated confidentially and deleted after fixing the problem.")
+                          ),
+                        "if you experience problems with the software."
+                       )
                     )
-                    # box(width = NULL,
-                    #     img(src = "sylvia_raw.png", align = "left", style = "width: 100%")
-                    # )
                 ), 
                 column(width = 6,
-                #   # box(width = NULL,
-                    # img(src = "sylvia_cliques_drawn.png", align = "left")#, style = "width: 80%")
                     img(src = "sylvia_cliques.png", align = "left")#, style = "width: 80%")
                )
-                #)
               )
             )
     ),
