@@ -137,8 +137,10 @@ calculate_similarity <- function(x, min_matches = 6) #, use_labels = FALSE)
 #' @param label_max_length Trim element label at max length characters.
 #' @param indicate_direction,colorize_direction Indicate direction of
 #'   relatedness by \code{+/-} sign and edge color respectively.
+#' @param clique_fill Fill color of polygon encircling clique constructs. 
+#'   Use \code{NA} for no filling.
 #' @param seed Seed number passed to \code{set.seed}. Will determine the 
-#'   orientiation of the graph.
+#'   orientation of the graph.
 #' @export
 #' 
 network_graph_images <- function(x, 
@@ -150,6 +152,7 @@ network_graph_images <- function(x,
                                  label_max_length = -1,
                                  indicate_direction = TRUE, 
                                  colorize_direction = TRUE,
+                                 clique_fill = "#0000000D",
                                  seed = 0) 
 {
   l <- calculate_similarity(x, min_matches = min_matches) #, use_labels = FALSE)
@@ -171,7 +174,8 @@ network_graph_images <- function(x,
   nms_keep <- clique_lists %>% unlist %>% unique
   MM2 <- MM[nms_keep, nms_keep]
   mark_border <- ifelse(n_clique == 0, NA, 1L:n_clique)
-  mark_col <- ifelse(n_clique == 0, NA, scales::alpha(1L:n_clique, .2))
+  #mark_col <- ifelse(n_clique == 0, NA, scales::alpha(1L:n_clique, .1)) # only one value excepted
+  mark_col <- clique_fill
   
   # colorize edges by direction
   edges <- ends(g, E(g))   # edge from to as rowwise matrix

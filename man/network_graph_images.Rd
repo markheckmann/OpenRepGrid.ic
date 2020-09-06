@@ -13,6 +13,7 @@ network_graph_images(
   label_max_length = -1,
   indicate_direction = TRUE,
   colorize_direction = TRUE,
+  clique_fill = "#0000000D",
   seed = 0
 )
 }
@@ -33,8 +34,11 @@ marked as related.}
 \item{indicate_direction, colorize_direction}{Indicate direction of
 relatedness by \code{+/-} sign and edge color respectively.}
 
+\item{clique_fill}{Fill color of polygon encircling clique constructs. 
+Use \code{NA} for no filling.}
+
 \item{seed}{Seed number passed to \code{set.seed}. Will determine the 
-orientiation of the graph.}
+orientation of the graph.}
 }
 \description{
 Detects maximal cliques and saves images of network graphs into tempfile.
