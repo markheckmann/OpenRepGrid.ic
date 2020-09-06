@@ -3,7 +3,7 @@
 #' \pkg{OpenRepGrid.ic} -  Interpretive Clustering for Repertory Grids
 #'  
 #' @description The \pkg{OpenRepGrid.ic} package implements \emph{Interpretive Clustering (IC)} 
-#' as introduced in Burr, King, and Heckmann (2020). The authors describe
+#' as outlined in \href{https://www.tandfonline.com/doi/full/10.1080/14780887.2020.1794088}{Burr, King, and Heckmann (2020)}. The authors describe
 #' a variant of construct clustering which uses a procedure from graph theory
 #' called \href{https://en.wikipedia.org/wiki/Clique_problem#Listing_all_maximal_cliques}{maximal cliques enumeration}.
 #' Given a similarity measure, in our case the number of matching scores between
