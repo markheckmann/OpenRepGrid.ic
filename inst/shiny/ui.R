@@ -223,6 +223,14 @@ body <- dashboardBody(
       color: #4c5254  !important;
     }
 
+
+  /*
+  .downloadBtn {
+    background: #00c851;
+    color: green;
+  }
+  */
+  
   ")),
   
   tabItems(
@@ -401,15 +409,19 @@ body <- dashboardBody(
                               #                        By default full labels are shown.",
                               #          awesomeCheckbox("par_abbr_labels", "Abbreviate construct labels", value = FALSE)
                               # ),
-                              introBox(data.step = 8, 
-                                       data.intro = "Process the grid data and generate an Excel file containing 
-                                                     the results for download.",
-                                  actionButton("btn_process", label = "Process data")
-                               ),
-                              introBox(data.step = 9, 
-                                       data.intro = "After the result file has been created, you can download it here.",
-                                disabled(
-                                 downloadButton(outputId = "btn_download_excel", style = "minimal", color = "primary", label = "Download results")
+                              div(style = "display:inline-block; float:left; margin-right: 10px",
+                                introBox(data.step = 8, 
+                                         data.intro = "Process the grid data and generate an Excel file containing 
+                                                       the results for download.",
+                                    actionButton("btn_process", label = "Process data")
+                                 )
+                              ),
+                              div(style="display:inline-block; float:left",
+                                introBox(data.step = 9, 
+                                         data.intro = "After the result file has been created, you can download it here.",
+                                  disabled(
+                                   downloadButton(outputId = "btn_download_excel", style = "minimal", class = "downloadBtn", label = "Download results")
+                                  )
                                 )
                               )
                           )
