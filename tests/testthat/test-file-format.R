@@ -1,8 +1,9 @@
 
-# sample grid should be read in correctly 
 
 library(tidyverse)
 library(openxlsx)
+
+# sample grid should be read in correctly 
 
 test_that("Sylvia's grid is read and processed correctly", {
   
