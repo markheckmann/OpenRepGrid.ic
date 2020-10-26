@@ -6,6 +6,11 @@ output: html_document
 ## TODO
 
 * table CSS issues (at least on shinyapps.io)
+* use more condensed monospace font for related poles to save space
+
+## v0.4.0
+
+* additional network images with bold related poles 
 
 ## v0.3.1
 
