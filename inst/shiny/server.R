@@ -13,20 +13,20 @@ library(shinydashboardPlus)
 library(shinycssloaders)
 # library(shinyauthr)
 
-# shared variables across users
-users = reactiveValues(count = 0)
-
-# dataframe that holds usernames, passwords and other user data
-user_base <- data.frame(
-  user = c("ic"),
-  password = c("ic"), 
-  permissions = c("standard"),
-  name = c("Admin"),
-  stringsAsFactors = FALSE,
-  row.names = NULL
-)
-
-SHOW_LOGIN <- FALSE #options()$ic.login   # set FALSE for dev puposes 
+# # shared variables across users
+# users = reactiveValues(count = 0)
+# 
+# # dataframe that holds usernames, passwords and other user data
+# user_base <- data.frame(
+#   user = c("ic"),
+#   password = c("ic"), 
+#   permissions = c("standard"),
+#   name = c("Admin"),
+#   stringsAsFactors = FALSE,
+#   row.names = NULL
+# )
+# 
+# SHOW_LOGIN <- FALSE #options()$ic.login   # set FALSE for dev puposes 
 
 headerCallback <- c(
   "function(thead, data, start, end, display){",
