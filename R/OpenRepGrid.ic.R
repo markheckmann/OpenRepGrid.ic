@@ -30,6 +30,7 @@
 #' @importFrom dplyr filter select group_by recode
 #' @rawNamespace import(igraph, except = compare)
 #' @rawNamespace import(graphics, except = box)
+#' @importFrom withr with_par
 #' @import
 #' utils
 #' grDevices

@@ -175,6 +175,8 @@ network_graph_images <- function(x,
                                  clique_fill = "#0000000D",
                                  seed = 0) 
 {
+  img_par <- list(oma = c(0,0,0,0), mar = c(0,0,0,0)) # par settings for images
+  
   l <- calculate_similarity(x, min_matches = min_matches) #, use_labels = FALSE)
   MM <- l$MM
   D <- l$D
@@ -208,8 +210,8 @@ network_graph_images <- function(x,
   if (colorize_direction)
     E(g)$color <- edge_colors
   
-  oldpar <- par(no.readonly = TRUE) 
-  on.exit(par(oldpar))   
+  # oldpar <- par(no.readonly = TRUE) 
+  # on.exit(par(oldpar))   
   
   
   ##__ all - abbreviated   ----------------------------------------------
@@ -219,28 +221,30 @@ network_graph_images <- function(x,
   vertex.label.cex <- 1
   
   img_all_constructs <- tempfile(fileext = ".png")
-  png(img_all_constructs, width = 20, height = 20, units = "cm", res = 300)
-  par(oma = c(0,0,0,0), mar = c(0,0,0,0))
-  set.seed(seed)
-  igraph::plot.igraph(g, 
-                      mark.groups = clique_lists, 
-                      mark.border = mark_border, 
-                      mark.col = mark_col, 
-                      mark.expand = 15, 
-                      edge.arrow.size = 0, 
-                      edge.lty = edge.lty, 
-                      edge.width = 1,
-                      edge.label = edge_labels,
-                      edge.label.color = edge_colors,
-                      vertex.size = vertex.size,
-                      vertex.size2 = vertex.size,
-                      vertex.label = vertex.labels,
-                      vertex.label.color = "black",
-                      vertex.label.cex = vertex.label.cex,
-                      vertex.label.family = "sans",
-                      vertex.color = grey(.9),
-                      vertex.frame.color = grey(.5))
-  dev.off()
+  with_par(img_par, {
+    png(img_all_constructs, width = 20, height = 20, units = "cm", res = 300)
+    #par(oma = c(0,0,0,0), mar = c(0,0,0,0))
+    set.seed(seed)
+    igraph::plot.igraph(g, 
+                        mark.groups = clique_lists, 
+                        mark.border = mark_border, 
+                        mark.col = mark_col, 
+                        mark.expand = 15, 
+                        edge.arrow.size = 0, 
+                        edge.lty = edge.lty, 
+                        edge.width = 1,
+                        edge.label = edge_labels,
+                        edge.label.color = edge_colors,
+                        vertex.size = vertex.size,
+                        vertex.size2 = vertex.size,
+                        vertex.label = vertex.labels,
+                        vertex.label.color = "black",
+                        vertex.label.cex = vertex.label.cex,
+                        vertex.label.family = "sans",
+                        vertex.color = grey(.9),
+                        vertex.frame.color = grey(.5))
+    dev.off()
+  })
   
   
   # __ all - full labels ----------------------------------------------
@@ -254,28 +258,30 @@ network_graph_images <- function(x,
   vertex.label.cex <- .6
   
   img_all_constructs_full_labels <- tempfile(fileext = ".png")
-  png(img_all_constructs_full_labels, width = 20, height = 20, units = "cm", res = 300)
-  par(oma = c(0,0,0,0), mar = c(0,0,0,0))
-  set.seed(seed)
-  igraph::plot.igraph(g, 
-                      mark.groups = clique_lists, 
-                      mark.border = mark_border, 
-                      mark.col = mark_col, 
-                      mark.expand = 15, 
-                      edge.arrow.size = 0, 
-                      edge.lty = edge.lty, 
-                      edge.width = 1,
-                      edge.label = edge_labels,
-                      edge.label.color = edge_colors,
-                      vertex.size = vertex.size,
-                      vertex.size2 = vertex.size,
-                      vertex.label = vertex.labels,
-                      vertex.label.color = "black",
-                      vertex.label.cex = vertex.label.cex,
-                      vertex.label.family = "sans",
-                      vertex.color = grey(.9),
-                      vertex.frame.color = grey(.5))
-  dev.off()
+  with_par(img_par, {
+    png(img_all_constructs_full_labels, width = 20, height = 20, units = "cm", res = 300)
+    # par(oma = c(0,0,0,0), mar = c(0,0,0,0))
+    set.seed(seed)
+    igraph::plot.igraph(g, 
+                        mark.groups = clique_lists, 
+                        mark.border = mark_border, 
+                        mark.col = mark_col, 
+                        mark.expand = 15, 
+                        edge.arrow.size = 0, 
+                        edge.lty = edge.lty, 
+                        edge.width = 1,
+                        edge.label = edge_labels,
+                        edge.label.color = edge_colors,
+                        vertex.size = vertex.size,
+                        vertex.size2 = vertex.size,
+                        vertex.label = vertex.labels,
+                        vertex.label.color = "black",
+                        vertex.label.cex = vertex.label.cex,
+                        vertex.label.family = "sans",
+                        vertex.color = grey(.9),
+                        vertex.frame.color = grey(.5))
+    dev.off()
+  })
   
   
   ##__ all - bold related poles  ----------------------------------------------
@@ -324,53 +330,57 @@ network_graph_images <- function(x,
     E(g)$color <- edge_colors
   
   img_all_constructs_bold_poles <- tempfile(fileext = ".png")
-  png(img_all_constructs_bold_poles, width = 20, height = 20, units = "cm", res = 300)
-  par(oma = c(0,0,0,0), mar = c(0,0,0,0))
+  
+  with_par(img_par, {
+    png(img_all_constructs_bold_poles, width = 20, height = 20, units = "cm", res = 300)
+  # par(oma = c(0,0,0,0), mar = c(0,0,0,0))
   # we need two superimposed plots here (hence 2 x seed) in order to achieve
   # a different font face for the poles
-  set.seed(seed)
-  igraph::plot.igraph(g,
-                      mark.groups = clique_lists,
-                      mark.border = mark_border,
-                      mark.col = mark_col,
-                      mark.expand = 15,
-                      edge.arrow.size = 0,
-                      edge.lty = edge.lty,
-                      edge.width = 1,
-                      edge.label = edge_labels,
-                      edge.label.color = edge_colors,
-                      vertex.size = vertex.size,
-                      vertex.size2 = vertex.size,
-                      vertex.label = vertex.labels1,
-                      vertex.label.color = "black",
-                      vertex.label.cex = vertex.label.cex,
-                      vertex.label.family = "mono", 
-                      vertex.label.font = vertex_font_pole_1,
-                      vertex.color = grey(.9),
-                      vertex.frame.color = grey(.5))
+    set.seed(seed)
+    igraph::plot.igraph(g,
+                        mark.groups = clique_lists,
+                        mark.border = mark_border,
+                        mark.col = mark_col,
+                        mark.expand = 15,
+                        edge.arrow.size = 0,
+                        edge.lty = edge.lty,
+                        edge.width = 1,
+                        edge.label = edge_labels,
+                        edge.label.color = edge_colors,
+                        vertex.size = vertex.size,
+                        vertex.size2 = vertex.size,
+                        vertex.label = vertex.labels1,
+                        vertex.label.color = "black",
+                        vertex.label.cex = vertex.label.cex,
+                        vertex.label.family = "mono", 
+                        vertex.label.font = vertex_font_pole_1,
+                        vertex.color = grey(.9),
+                        vertex.frame.color = grey(.5))
+  
+    set.seed(seed)
+    igraph::plot.igraph(g, add = TRUE,
+                        mark.groups = NULL,
+                        mark.border = NA,
+                        mark.col = NA,
+                        mark.expand = 15,
+                        edge.arrow.size = 0,
+                        edge.lty = edge.lty,
+                        edge.width = NA,
+                        edge.label = edge_labels,
+                        edge.label.color = edge_colors,
+                        vertex.size = vertex.size,
+                        vertex.label = vertex.labels2,
+                        vertex.size2 = vertex.size,
+                        vertex.label.color = "black",
+                        vertex.label.cex = vertex.label.cex,
+                        vertex.label.family = "mono",
+                        vertex.label.font = vertex_font_pole_2,
+                        vertex.color = "transparent",
+                        vertex.frame.color = grey(.5))
+    dev.off()
 
-  set.seed(seed)
-  igraph::plot.igraph(g, add = TRUE,
-                      mark.groups = NULL,
-                      mark.border = NA,
-                      mark.col = NA,
-                      mark.expand = 15,
-                      edge.arrow.size = 0,
-                      edge.lty = edge.lty,
-                      edge.width = NA,
-                      edge.label = edge_labels,
-                      edge.label.color = edge_colors,
-                      vertex.size = vertex.size,
-                      vertex.label = vertex.labels2,
-                      vertex.size2 = vertex.size,
-                      vertex.label.color = "black",
-                      vertex.label.cex = vertex.label.cex,
-                      vertex.label.family = "mono",
-                      vertex.label.font = vertex_font_pole_2,
-                      vertex.color = "transparent",
-                      vertex.frame.color = grey(.5))
-  dev.off()
-
+  })
+  
   
   ##__ cliques - abbreviated  ----------------------------------------------
   
@@ -398,33 +408,35 @@ network_graph_images <- function(x,
   vertex.label.cex <- 1
   
   img_cliques_only <- tempfile(fileext = ".png")
-  png(img_cliques_only, width = 20, height = 20, units = "cm", res = 300)
-  par(oma = c(0,0,0,0), mar = c(0,0,0,0))
-  set.seed(seed)
-  if (n_clique > 0) {
-    igraph::plot.igraph(g2, 
-                        mark.groups = clique_lists, 
-                        mark.border = mark_border, 
-                        mark.col = mark_col, 
-                        mark.expand = 15, 
-                        edge.arrow.size = 0, 
-                        edge.lty = edge.lty, 
-                        edge.width = 1,
-                        edge.label = edge_labels,
-                        edge.label.color = edge_colors,
-                        vertex.size = vertex.size,
-                        vertex.label = vertex.labels,
-                        vertex.size2 = vertex.size,
-                        vertex.label.color = "black",
-                        vertex.label.cex = vertex.label.cex,
-                        vertex.label.family = "sans",
-                        vertex.color = grey(.9),
-                        vertex.frame.color = grey(.5))
-  } else {
-    plot.new()
-    text(.5, .5, "No cliques detected", cex = 1.5, adj = c(.5, .5))
-  } 
-  dev.off()    
+  with_par(img_par, {
+    png(img_cliques_only, width = 20, height = 20, units = "cm", res = 300)
+   # par(oma = c(0,0,0,0), mar = c(0,0,0,0))
+    set.seed(seed)
+    if (n_clique > 0) {
+      igraph::plot.igraph(g2, 
+                          mark.groups = clique_lists, 
+                          mark.border = mark_border, 
+                          mark.col = mark_col, 
+                          mark.expand = 15, 
+                          edge.arrow.size = 0, 
+                          edge.lty = edge.lty, 
+                          edge.width = 1,
+                          edge.label = edge_labels,
+                          edge.label.color = edge_colors,
+                          vertex.size = vertex.size,
+                          vertex.label = vertex.labels,
+                          vertex.size2 = vertex.size,
+                          vertex.label.color = "black",
+                          vertex.label.cex = vertex.label.cex,
+                          vertex.label.family = "sans",
+                          vertex.color = grey(.9),
+                          vertex.frame.color = grey(.5))
+    } else {
+      plot.new()
+      text(.5, .5, "No cliques detected", cex = 1.5, adj = c(.5, .5))
+    } 
+    dev.off()    
+  })
   
   
   # __ cliques - full labels  ----------------------------------------------
@@ -440,33 +452,35 @@ network_graph_images <- function(x,
   vertex.label.cex <- .6
   
   img_cliques_only_full_labels <- tempfile(fileext = ".png")
-  png(img_cliques_only_full_labels, width = 20, height = 20, units = "cm", res = 300)
-  par(oma = c(0,0,0,0), mar = c(0,0,0,0))
-  set.seed(seed)
-  if (n_clique > 0) {
-    igraph::plot.igraph(g2, 
-                        mark.groups = clique_lists, 
-                        mark.border = mark_border, 
-                        mark.col = mark_col, 
-                        mark.expand = 15, 
-                        edge.arrow.size = 0, 
-                        edge.lty = edge.lty, 
-                        edge.width = 1,
-                        edge.label = edge_labels,
-                        edge.label.color = edge_colors,
-                        vertex.size = vertex.size,
-                        vertex.label = vertex.labels,
-                        vertex.size2 = vertex.size,
-                        vertex.label.color = "black",
-                        vertex.label.cex = vertex.label.cex,
-                        vertex.label.family = "sans",
-                        vertex.color = grey(.9),
-                        vertex.frame.color = grey(.5))
-  } else {
-    plot.new()
-    text(.5, .5, "No cliques detected", cex = 1.5, adj = c(.5, .5))
-  } 
-  dev.off()   
+  with_par(img_par, {
+    png(img_cliques_only_full_labels, width = 20, height = 20, units = "cm", res = 300)
+    #par(oma = c(0,0,0,0), mar = c(0,0,0,0))
+    set.seed(seed)
+    if (n_clique > 0) {
+      igraph::plot.igraph(g2, 
+                          mark.groups = clique_lists, 
+                          mark.border = mark_border, 
+                          mark.col = mark_col, 
+                          mark.expand = 15, 
+                          edge.arrow.size = 0, 
+                          edge.lty = edge.lty, 
+                          edge.width = 1,
+                          edge.label = edge_labels,
+                          edge.label.color = edge_colors,
+                          vertex.size = vertex.size,
+                          vertex.label = vertex.labels,
+                          vertex.size2 = vertex.size,
+                          vertex.label.color = "black",
+                          vertex.label.cex = vertex.label.cex,
+                          vertex.label.family = "sans",
+                          vertex.color = grey(.9),
+                          vertex.frame.color = grey(.5))
+    } else {
+      plot.new()
+      text(.5, .5, "No cliques detected", cex = 1.5, adj = c(.5, .5))
+    } 
+    dev.off()   
+  })
   
   
   ##__ cliques - bold related poles  ----------------------------------------------
@@ -518,57 +532,59 @@ network_graph_images <- function(x,
     E(g2)$color <- edge_colors
   
   img_cliques_only_bold_poles <- tempfile(fileext = ".png")
-  png(img_cliques_only_bold_poles, width = 20, height = 20, units = "cm", res = 300)
-  par(oma = c(0,0,0,0), mar = c(0,0,0,0))
-  # we need two superimposed plots here (hence 2 x seed) in order to achieve
-  # a different font face for the poles
-  set.seed(seed)
-  if (n_clique > 0) {
-    igraph::plot.igraph(g2,
-                        mark.groups = clique_lists,
-                        mark.border = mark_border,
-                        mark.col = mark_col,
-                        mark.expand = 15,
-                        edge.arrow.size = 0,
-                        edge.lty = edge.lty,
-                        edge.width = 1,
-                        edge.label = edge_labels,
-                        edge.label.color = edge_colors,
-                        vertex.size = vertex.size,
-                        vertex.size2 = vertex.size,
-                        vertex.label = vertex.labels1,
-                        vertex.label.color = "black",
-                        vertex.label.cex = vertex.label.cex,
-                        vertex.label.family = "mono", 
-                        vertex.label.font = vertex_font_pole_1,
-                        vertex.color = grey(.9),
-                        vertex.frame.color = grey(.5))
-    
+  with_par(img_par, {
+    png(img_cliques_only_bold_poles, width = 20, height = 20, units = "cm", res = 300)
+    #par(oma = c(0,0,0,0), mar = c(0,0,0,0))
+    # we need two superimposed plots here (hence 2 x seed) in order to achieve
+    # a different font face for the poles
     set.seed(seed)
-    igraph::plot.igraph(g2, add = TRUE,
-                        mark.groups = NULL,
-                        mark.border = NA,
-                        mark.col = NA,
-                        mark.expand = 15,
-                        edge.arrow.size = 0,
-                        edge.lty = edge.lty,
-                        edge.width = NA,
-                        edge.label = edge_labels,
-                        edge.label.color = edge_colors,
-                        vertex.size = vertex.size,
-                        vertex.label = vertex.labels2,
-                        vertex.size2 = vertex.size,
-                        vertex.label.color = "black",
-                        vertex.label.cex = vertex.label.cex,
-                        vertex.label.family = "mono",
-                        vertex.label.font = vertex_font_pole_2,
-                        vertex.color = "transparent",
-                        vertex.frame.color = grey(.5))
-  } else {
-    plot.new()
-    text(.5, .5, "No cliques detected", cex = 1.5, adj = c(.5, .5))
-  } 
-  dev.off()   
+    if (n_clique > 0) {
+      igraph::plot.igraph(g2,
+                          mark.groups = clique_lists,
+                          mark.border = mark_border,
+                          mark.col = mark_col,
+                          mark.expand = 15,
+                          edge.arrow.size = 0,
+                          edge.lty = edge.lty,
+                          edge.width = 1,
+                          edge.label = edge_labels,
+                          edge.label.color = edge_colors,
+                          vertex.size = vertex.size,
+                          vertex.size2 = vertex.size,
+                          vertex.label = vertex.labels1,
+                          vertex.label.color = "black",
+                          vertex.label.cex = vertex.label.cex,
+                          vertex.label.family = "mono", 
+                          vertex.label.font = vertex_font_pole_1,
+                          vertex.color = grey(.9),
+                          vertex.frame.color = grey(.5))
+      
+      set.seed(seed)
+      igraph::plot.igraph(g2, add = TRUE,
+                          mark.groups = NULL,
+                          mark.border = NA,
+                          mark.col = NA,
+                          mark.expand = 15,
+                          edge.arrow.size = 0,
+                          edge.lty = edge.lty,
+                          edge.width = NA,
+                          edge.label = edge_labels,
+                          edge.label.color = edge_colors,
+                          vertex.size = vertex.size,
+                          vertex.label = vertex.labels2,
+                          vertex.size2 = vertex.size,
+                          vertex.label.color = "black",
+                          vertex.label.cex = vertex.label.cex,
+                          vertex.label.family = "mono",
+                          vertex.label.font = vertex_font_pole_2,
+                          vertex.color = "transparent",
+                          vertex.frame.color = grey(.5))
+    } else {
+      plot.new()
+      text(.5, .5, "No cliques detected", cex = 1.5, adj = c(.5, .5))
+    } 
+    dev.off()   
+  })
   
   
   # return image paths and other info as list 
