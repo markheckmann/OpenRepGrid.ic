@@ -36,8 +36,6 @@ suppressWarnings({
 })
 
 
-
-
 sidebar_right = rightSidebar(
   background = "dark",
   rightSidebarTabContent(
@@ -70,34 +68,28 @@ sidebar_right = rightSidebar(
 #### _______________________####
 #### HEADER                 ####
 
+pkg_version <- paste0("OpenRepGrid.ic v", packageVersion("OpenRepGrid.ic"))
 
 header <- dashboardHeaderPlus(
-  dropdownMenuOutput("notification_menu"),
+  # dropdownMenuOutput("notification_menu"),
   title = tagList(
-    span(class = "logo-lg",  paste0("OpenRepGrid.ic v", packageVersion("OpenRepGrid.ic"))), 
+    span(class = "logo-lg", "OpenRepGrid.ic"), 
     span(class = "logo-sm", "")
   ),
   fixed = FALSE 
-  # enable_rightsidebar = TRUE
 )
 
 
 #### _______________________####
 #### SIDEBAR                ####
 
-menuSubItem(text, tabName = NULL, href = NULL, newtab = TRUE,
-            icon = shiny::icon("angle-double-right"), selected = NULL)
 
-sidebar <- dashboardSidebar(
-  
-  #hidden(
+sidebar <- dashboardSidebar(  
     sidebarMenu(id = "sidebar",
-        # menuItem("Login", tabName = "tab_login", icon = icon("login")),
         menuItem("Home", tabName = "tab_start", icon = icon("home")),
         menuItem("Method", tabName = "tab_method", icon = icon("info")),
         menuItem("Analysis", tabName = "tab_grid", icon = icon("th"))
     )
-  #)
 )
 
 
@@ -235,18 +227,6 @@ body <- dashboardBody(
   
   tabItems(
     
-    #### __ LOGIN  ####
-    
-    # tabItem(tabName = "tab_login",
-    #         shinyauthr::loginUI(id = "login", 
-    #                             title = "Please log in",
-    #                             login_title = "Login",
-    
-    #                             user_title = "User",
-    #                             pass_title = "Password",
-    #                             error_message = "Incorrect user or password!")
-    # ),
-    
     #### __ START  ####
     
     tabItem(tabName = "tab_start",
@@ -254,7 +234,9 @@ body <- dashboardBody(
               fluidRow(
                 column(width = 6, 
                    box(width = NULL, 
-                       tags$span(style = "color:grey; font-style: italic", "Please use a recent version of Chrome, Firefox or the Edge browser for optimal performance."),
+                       tags$span(style = "color:grey; font-style: italic", 
+                                 pkg_version, 
+                                 "- Please use a recent version of Chrome, Firefox or the Edge browser for optimal performance."),
                        status = "danger"
                    ),
                    box(width = NULL,
@@ -450,7 +432,6 @@ ui <- dashboardPagePlus(
   skin = "red",
   header = header,
   sidebar = sidebar,
-  # rightsidebar = sidebar_right,
   body = body
 )
 

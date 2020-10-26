@@ -55,67 +55,24 @@ headerCallback <- c(
 
 server <- function(input, output, session) 
 {
-  
   rv <- reactiveValues()
   rv$number_of_uploads <- 0  # used as trigger at new upload
 
   hide("down_btn")  
-  # hide("success_box")
-  # hide("grid_box")
-  
   
   #### .                       ####
   #### _______________________ ####
   #### LOGIN  ####
   
-  # keep track of number of users
-  onSessionStart = isolate({
-    users$count = users$count + 1
-  })
-  
-  onSessionEnded(function() {
-    isolate({
-      users$count = users$count - 1
-    })
-  })
-  
-  
-  # # call the logout module with reactive trigger to hide/show
-  # if (SHOW_LOGIN) {
-  #   logout_init <- callModule(shinyauthr::logout, id = "logout", 
-  #                             active = reactive(credentials()$user_auth))
-  #   
-  #   # call login module supplying data frame, user and password cols and reactive trigger
-  #   credentials <- callModule(shinyauthr::login, 
-  #                             id = "login", 
-  #                             data = user_base,
-  #                             user_col = user,
-  #                             pwd_col = password,
-  #                             log_out = reactive(logout_init()))    
-  # } else {
-  #   # suppress for dev purposes
-  #   credentials <- reactive({
-  #     list(user_auth = TRUE)
+  # # keep track of number of users
+  # onSessionStart = isolate({
+  #   users$count = users$count + 1
+  # })
+  # 
+  # onSessionEnded(function() {
+  #   isolate({
+  #     users$count = users$count - 1
   #   })
-  # }
-  # 
-  # 
-  # # on login / logout
-  # observe({
-  #   if (isTRUE(credentials()$user_auth)) {
-  #     # on Login
-  #     cat("\nUI update on login")
-  #     show(selector = ".sidebar-menu")
-  #     show("sidebarCollapsed")
-  #     hide(selector = '[data-value="tab_login"]')
-  #     removeClass(id = "logout-button", class = "shinyjs-hide")
-  #     updateTabItems(session, "sidebar", "tab_start")
-  #   } else {
-  #     # on Logout
-  #     cat("\nUI update on logout")
-  #     hide("sidebarCollapsed")
-  #     updateTabItems(session, "sidebar", "tab_login")
-  #   }
   # })
   
   
@@ -123,15 +80,15 @@ server <- function(input, output, session)
   #### _______________________ ####
   #### NOTIFICATIONS ####
 
-  # no users and logout button  
-  output$notification_menu <- renderMenu(
-  {
-    msg <- messageItem( from = "", 
-                        message = paste("Number of current users:", users$count),
-                        icon = icon("users"))
-    # logout <- tags$li(shinyauthr::logoutUI(id = "logout", label = "Logout"))
-    dropdownMenu(msg, icon = icon("users"), type = "messages", headerText = "")
-  })
+  # # no users and logout button  
+  # output$notification_menu <- renderMenu(
+  # {
+  #   msg <- messageItem( from = "", 
+  #                       message = paste("Number of current users:", users$count),
+  #                       icon = icon("users"))
+  #   # logout <- tags$li(shinyauthr::logoutUI(id = "logout", label = "Logout"))
+  #   dropdownMenu(msg, icon = icon("users"), type = "messages", headerText = "")
+  # })
   
   
   #### .                       ####
@@ -352,116 +309,7 @@ server <- function(input, output, session)
     }
   })
   
-    # output$dt_grid <- renderDataTable(
-  # {
-  #   #req(rv$data)
-  #   #req(input$excel_input)
-  #   
-  #   grid_font_size <- input$grid_font_size
-  #   grid_line_hight <- input$grid_line_height
-  #   hide_preferred <- input$grid_hide_col_preferred
-  #   min_matches <- input$par_min_match
-  #   min_clique_size <- input$par_min_clique_size
-  #   
-  #   green <- "#00CC00"
-  #   red <- "#BF0000"
-  #   neutral <- "#CCCCCC"
-  #   
-  #   # pass if NULL
-  #   x <- rv$data
-  #   if (is.null(x)) {
-  #     cat("\ndata is null")
-  #     return(dt_null())
-  #   }
-  #   
-  #   # sanity check
-  #   tests <- check_excel_input(x)
-  #   all_passed <- all(tests$passed)
-  #   
-  #   # failed test
-  #   if (!all_passed) {
-  #     cat("\nsome tests failed")
-  #     show("error_box")
-  #     hide("success_box")
-  #     hide("down_btn")
-  #     hide("settings_box_1")
-  #     hide("settings_box_2")
-  #     hide("tour_box")
-  #     show("excel_info_box")
-  #     # show("main_table")
-  #     failed <- 
-  #       tests %>% 
-  #       filter(!passed) %>% 
-  #       rename(Expecting = "assert", Result = "passed", Hint = "error")
-  #     dt <- DT::datatable(failed, rownames = FALSE,
-  #                   options = list(
-  #                     paging = FALSE,
-  #                     ordering = FALSE,
-  #                     dom = 't',
-  #                     columnDefs = list(
-  #                       list(className = 'dt-center', targets = 1),
-  #                       list(className = 'dt-left', targets = c(1,2))
-  #                     )
-  #                   )) %>%
-  #         formatStyle(c("Result"), valueColumns = "Result", color = "white",
-  #                     backgroundColor = styleEqual(c(TRUE, FALSE, NA), c(green, red, neutral))) 
-  #     return(dt)
-  #   } 
-  #     
-  #   # all test were passed
-  #   cat("\nall tests passed")
-  #   hide("error_box")
-  #   show("success_box")
-  #   show("down_btn")
-  #   show("settings_box_1")
-  #   show("settings_box_2")
-  #   show("tour_box")
-  #   hide("excel_info_box")
-  #   # hide("grid_box")
-  #   
-  #   nms <- names(x) %>% str_replace_all("\\.", " ")
-  #   
-  #   if (input$grid_rotate_elements) {
-  #     header_callback <- JS(headerCallback)
-  #   } else {
-  #     header_callback <- NULL
-  #   }
-  #   
-  #   i_preferred <- which(names(x) == "preferred")
-  #   i_left <- 1
-  #   i_right <- i_preferred - 1
-  #   i_ratings <- (i_left + 1):(i_right - 1)
-  # 
-  #   column_defs <- list(
-  #       list(className = 'dt-center', targets = i_ratings - 1),
-  #       list(className = 'dt-right', targets = 0)
-  #   )
-  #   if (hide_preferred) 
-  #     column_defs <- c(column_defs, list(list(visible = FALSE, targets = i_preferred - 1)))
-  #     
-  #   dt <- DT::datatable(x, rownames = FALSE, colnames = nms, 
-  #                 options = list(
-  #                   headerCallback = header_callback, #JS(headerCallback),
-  #                   paging = FALSE,
-  #                   ordering = FALSE,
-  #                   dom = 't',
-  #                   columnDefs = column_defs
-  #                 )
-  #     )  %>%
-  #     formatStyle(c("0"), valueColumns = "preferred",
-  #                 color = styleEqual(c(0, 1, NA), c(green, red, neutral))) %>%
-  #     formatStyle(c("1"), valueColumns = "preferred",
-  #                 color = styleEqual(c(1, 0, NA), c(green, red, neutral))) %>%
-  #     formatStyle(columns = colnames(.$x$data),
-  #                 fontSize = paste0(grid_font_size, "pt")) %>%
-  #     formatStyle(columns = colnames(.$x$data), target = 'row',
-  #                 lineHeight = paste0(grid_line_hight, "%"))    
-  #   
-  #   return(dt)
-  #     
-  # })
-  # 
-  
+
   #### .                       ####
   #### _______________________ ####
   #### DOWNLOAD  ####
