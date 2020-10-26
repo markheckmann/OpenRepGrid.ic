@@ -221,9 +221,9 @@ network_graph_images <- function(x,
   vertex.label.cex <- 1
   
   img_all_constructs <- tempfile(fileext = ".png")
+  png(img_all_constructs, width = 20, height = 20, units = "cm", res = 300)
+  #par(oma = c(0,0,0,0), mar = c(0,0,0,0))
   with_par(img_par, {
-    png(img_all_constructs, width = 20, height = 20, units = "cm", res = 300)
-    #par(oma = c(0,0,0,0), mar = c(0,0,0,0))
     set.seed(seed)
     igraph::plot.igraph(g, 
                         mark.groups = clique_lists, 
@@ -243,8 +243,9 @@ network_graph_images <- function(x,
                         vertex.label.family = "sans",
                         vertex.color = grey(.9),
                         vertex.frame.color = grey(.5))
-    dev.off()
   })
+  dev.off()
+
   
   
   # __ all - full labels ----------------------------------------------
@@ -258,9 +259,9 @@ network_graph_images <- function(x,
   vertex.label.cex <- .6
   
   img_all_constructs_full_labels <- tempfile(fileext = ".png")
+  png(img_all_constructs_full_labels, width = 20, height = 20, units = "cm", res = 300)
+  # par(oma = c(0,0,0,0), mar = c(0,0,0,0))
   with_par(img_par, {
-    png(img_all_constructs_full_labels, width = 20, height = 20, units = "cm", res = 300)
-    # par(oma = c(0,0,0,0), mar = c(0,0,0,0))
     set.seed(seed)
     igraph::plot.igraph(g, 
                         mark.groups = clique_lists, 
@@ -280,8 +281,9 @@ network_graph_images <- function(x,
                         vertex.label.family = "sans",
                         vertex.color = grey(.9),
                         vertex.frame.color = grey(.5))
-    dev.off()
+
   })
+  dev.off()
   
   
   ##__ all - bold related poles  ----------------------------------------------
@@ -330,12 +332,11 @@ network_graph_images <- function(x,
     E(g)$color <- edge_colors
   
   img_all_constructs_bold_poles <- tempfile(fileext = ".png")
-  
+  png(img_all_constructs_bold_poles, width = 20, height = 20, units = "cm", res = 300)
+# par(oma = c(0,0,0,0), mar = c(0,0,0,0))
+# we need two superimposed plots here (hence 2 x seed) in order to achieve
+# a different font face for the poles
   with_par(img_par, {
-    png(img_all_constructs_bold_poles, width = 20, height = 20, units = "cm", res = 300)
-  # par(oma = c(0,0,0,0), mar = c(0,0,0,0))
-  # we need two superimposed plots here (hence 2 x seed) in order to achieve
-  # a different font face for the poles
     set.seed(seed)
     igraph::plot.igraph(g,
                         mark.groups = clique_lists,
@@ -377,9 +378,9 @@ network_graph_images <- function(x,
                         vertex.label.font = vertex_font_pole_2,
                         vertex.color = "transparent",
                         vertex.frame.color = grey(.5))
-    dev.off()
-
+   
   })
+  dev.off()
   
   
   ##__ cliques - abbreviated  ----------------------------------------------
@@ -408,8 +409,8 @@ network_graph_images <- function(x,
   vertex.label.cex <- 1
   
   img_cliques_only <- tempfile(fileext = ".png")
+  png(img_cliques_only, width = 20, height = 20, units = "cm", res = 300)
   with_par(img_par, {
-    png(img_cliques_only, width = 20, height = 20, units = "cm", res = 300)
    # par(oma = c(0,0,0,0), mar = c(0,0,0,0))
     set.seed(seed)
     if (n_clique > 0) {
@@ -435,8 +436,9 @@ network_graph_images <- function(x,
       plot.new()
       text(.5, .5, "No cliques detected", cex = 1.5, adj = c(.5, .5))
     } 
-    dev.off()    
   })
+  dev.off()    
+  
   
   
   # __ cliques - full labels  ----------------------------------------------
@@ -452,9 +454,10 @@ network_graph_images <- function(x,
   vertex.label.cex <- .6
   
   img_cliques_only_full_labels <- tempfile(fileext = ".png")
+
+  png(img_cliques_only_full_labels, width = 20, height = 20, units = "cm", res = 300)
+  #par(oma = c(0,0,0,0), mar = c(0,0,0,0))
   with_par(img_par, {
-    png(img_cliques_only_full_labels, width = 20, height = 20, units = "cm", res = 300)
-    #par(oma = c(0,0,0,0), mar = c(0,0,0,0))
     set.seed(seed)
     if (n_clique > 0) {
       igraph::plot.igraph(g2, 
@@ -479,8 +482,8 @@ network_graph_images <- function(x,
       plot.new()
       text(.5, .5, "No cliques detected", cex = 1.5, adj = c(.5, .5))
     } 
-    dev.off()   
   })
+  dev.off()   
   
   
   ##__ cliques - bold related poles  ----------------------------------------------
