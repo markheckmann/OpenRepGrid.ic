@@ -7,6 +7,9 @@ output: html_document
 
 * table CSS issues (at least on shinyapps.io)
 * use more condensed monospace font for related poles to save space
+* an Rplots.pdf file is created when running the tests. Unknown reason. par() is not the culprit
+* last letter is missing in related poles plot
+* unclear if pole relations are correct
 
 ## v0.4.0
 
