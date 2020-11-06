@@ -14,6 +14,7 @@ check_excel_input <- function(x)
   i_right <- nc - 1
   i_ratings <- 2L:(nc - 2)
   
+
   # preferred --
   
   col_right <- utils::tail(nms, 1)
@@ -89,8 +90,21 @@ check_excel_input <- function(x)
   
   l <- list(c1, c2, c3, c4, c5, c6, c7) %>%
            lapply(as.data.frame)
-  do.call(rbind, l)
+  tests <- do.call(rbind, l)
   
+  # if some test cannot be properly executed and yields NA e.g. because of some data oddity, 
+  # we throw a general fallback error
+  use_fallback <- any(is.na(tests$passed))
+  if (use_fallback) {
+    fallback_error <- data.frame(
+      assert = "All grid format tests work.", 
+      passed = FALSE, 
+      error = "One or more Excel format tests could not be executed. The reason is unknown. Please double check the Excel grid format for correctness."
+    )  
+    return(fallback_error)
+  }
+  
+  tests
   #lapply(l, `class<-`, c("test", "list"))
 }
 
