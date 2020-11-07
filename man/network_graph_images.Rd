@@ -13,7 +13,10 @@ network_graph_images(
   label_max_length = -1,
   indicate_direction = TRUE,
   colorize_direction = TRUE,
-  clique_fill = "#0000000D",
+  colorize_cliques = TRUE,
+  alpha = 0.1,
+  border_default = "#987824",
+  fill_default = "#00000008",
   seed = 0
 )
 }
@@ -34,10 +37,15 @@ marked as related.}
 \item{indicate_direction, colorize_direction}{Indicate direction of
 relatedness by \code{+/-} sign and edge color respectively.}
 
-\item{clique_fill}{Fill color of polygon encircling clique constructs. 
-Use \code{NA} for no filling.}
+\item{colorize_cliques}{Draw cliques in different colors? (default \code{TRUE}).}
 
-\item{seed}{Seed number passed to \code{set.seed}. Will determine the 
+\item{alpha}{Alpha color value for cliques fillings (default \code{.1}).}
+
+\item{border_default, fill_default}{Default border and fill color of polygon
+encircling clique constructs. Used when \code{colorize_cliques} is \code{FALSE}. Use
+\code{NA} for no color.}
+
+\item{seed}{Seed number passed to \code{set.seed}. Will determine the
 orientation of the graph.}
 }
 \description{

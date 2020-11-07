@@ -143,6 +143,37 @@ replace_all <- function(x, first = TRUE)
 } 
 
 
+#' Generate colors for cliques
+#' 
+#' @param n Number of colors.
+#' @param name Name of RColorBrewer qualitative palette.
+#' @param aplha Alpha color value for fill colors. 
+#' @return A list with a vector of border and fill colors.
+#' @keywords internal
+#' @md
+clique_color_pals <- function(n, name = "Dark2", alpha = .1) 
+{
+  if (n == 0) {
+    l <- list(
+      border = NA,
+      fill = NA
+    )
+    return(l)
+  }
+    
+  pals <- RColorBrewer::brewer.pal.info
+  n_max <- pals[name, ]$maxcolors  # max umber of avaiabke colors in palette
+  cols <- RColorBrewer::brewer.pal(n_max, name)  # build palette
+  cols <- rep(cols, n %/% n_max + 1)  # repeat palette in case more colors needed than contained in palette
+  
+  border_colors <- cols[1L:n]
+  list(
+    border = border_colors,
+    fill = scales::alpha(border_colors, alpha = alpha)
+  )
+} 
+
+
 #' Build network graph plots
 #'
 #' Detects maximal cliques and saves images of network graphs into tempfile.
@@ -157,11 +188,15 @@ replace_all <- function(x, first = TRUE)
 #' @param label_max_length Trim element label at max length characters.
 #' @param indicate_direction,colorize_direction Indicate direction of
 #'   relatedness by \code{+/-} sign and edge color respectively.
-#' @param clique_fill Fill color of polygon encircling clique constructs. 
-#'   Use \code{NA} for no filling.
-#' @param seed Seed number passed to \code{set.seed}. Will determine the 
+#' @param colorize_cliques Draw cliques in different colors? (default `TRUE`).
+#' @param alpha Alpha color value for cliques fillings (default `.1`).
+#' @param border_default,fill_default Default border and fill color of polygon
+#'   encircling clique constructs. Used when `colorize_cliques` is `FALSE`. Use
+#'   \code{NA} for no color.
+#' @param seed Seed number passed to \code{set.seed}. Will determine the
 #'   orientation of the graph.
 #' @export
+#' @md
 #' 
 network_graph_images <- function(x, 
                                  min_clique_size = 3, 
@@ -172,7 +207,10 @@ network_graph_images <- function(x,
                                  label_max_length = -1,
                                  indicate_direction = TRUE, 
                                  colorize_direction = TRUE,
-                                 clique_fill = "#0000000D",
+                                 colorize_cliques = TRUE,
+                                 alpha = .1,
+                                 border_default = "#987824",
+                                 fill_default = "#00000008",
                                  seed = 0) 
 {
   img_par <- list(oma = c(0,0,0,0), mar = c(0,0,0,0)) # par settings for images
@@ -192,14 +230,22 @@ network_graph_images <- function(x,
     cnames[x]
   })
   
+  # clique colors
+  if (colorize_cliques) {
+    pals <- clique_color_pals(n_clique, "Dark2", alpha = alpha)
+    mark_border <- pals$border
+    mark_col <- pals$fill
+  } else {
+    mark_border <- border_default
+    mark_col <- fill_default
+  }
+  
   
   ## show all constructs
   
   nms_keep <- clique_lists %>% unlist %>% unique
   MM2 <- MM[nms_keep, nms_keep]
-  mark_border <- ifelse(n_clique == 0, NA, 1L:n_clique)
-  mark_col <- clique_fill
-  
+
   # colorize edges by direction
   edges <- ends(g, E(g))   # edge from to as rowwise matrix
   edge_directions <- D[edges] 
