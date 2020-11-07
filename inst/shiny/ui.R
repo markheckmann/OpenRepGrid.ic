@@ -397,12 +397,16 @@ body <- dashboardBody(
                               introBox(data.step = 6, 
                                        data.intro = "Set the minimal number of matches between two construct to consider them 'related'.
                                                      By default it is set to the number of elements minus one.",
-                                  numericInput("par_min_match", "Number of matches for relatedness", value = 6, 2, 20)
+                                  numericInput("par_min_match", "Number of matches for relatedness", value = 6, min = 2, max = 20)
                               ),
                               introBox(data.step = 7, 
                                        data.intro = "Set the minimal number of mutually related construct that form a 'clique'.
                                                      By default the value is set to three constructs.",
-                                       numericInput("par_min_clique_size", "Minimal cliques size", 3, 2, 10)
+                                       numericInput("par_min_clique_size", "Minimal cliques size", value = 3, min = 2, max = 10)
+                              ),
+                              introBox(data.step = 8, 
+                                       data.intro = "Check if you want to get a different color for each clique.",
+                                       awesomeCheckbox("par_colorize_cliques", "Different clique colors", value = TRUE)
                               ),
                               # introBox(data.step = 8, 
                               #          data.intro = "Whether to show full or abbreviated construct labels (C1, C2 etc.) in the output graphs.
@@ -410,14 +414,14 @@ body <- dashboardBody(
                               #          awesomeCheckbox("par_abbr_labels", "Abbreviate construct labels", value = FALSE)
                               # ),
                               div(style = "display:inline-block; float:left; margin-right: 10px",
-                                introBox(data.step = 8, 
+                                introBox(data.step = 9, 
                                          data.intro = "Process the grid data and generate an Excel file containing 
                                                        the results for download.",
                                     actionButton("btn_process", label = "Process data")
                                  )
                               ),
                               div(style="display:inline-block; float:left",
-                                introBox(data.step = 9, 
+                                introBox(data.step = 10, 
                                          data.intro = "After the result file has been created, you can download it here.",
                                   disabled(
                                    downloadButton(outputId = "btn_download_excel", style = "minimal", class = "downloadBtn", label = "Download results")
