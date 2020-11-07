@@ -327,7 +327,7 @@ body <- dashboardBody(
                         )
                       ),
                      
-                    #______ table  ----------------
+                    #______ table -----------------
                     #
                     # div(id = "grid_box",
                     introBox(data.step = 3, 
@@ -412,20 +412,20 @@ body <- dashboardBody(
                               ),
                               introBox(data.step = 8, 
                                        data.intro = "Check to draw lines between related constructs.",
-                                       awesomeCheckbox("par_show_edges", "Draw lines between related costructs", value = TRUE)
+                                       awesomeCheckbox("par_show_edges", "Lines between related constructs", value = TRUE)
                               ),
                               introBox(data.step = 9, 
                                        data.intro = "Check to indicate the direction of a construct relation (positive / negative) by a +/- sign.",
-                                       awesomeCheckbox("par_indicate_direction", "Indicate direction of relation by +/-", value = TRUE)
+                                       awesomeCheckbox("par_indicate_direction", "Indicate relation by +/-", value = TRUE)
                               ),
                               introBox(data.step = 10, 
                                        data.intro = "Check to colorize the direction of a construct relation (positive / negative) by red and green color.",
-                                       awesomeCheckbox("par_colorize_direction", "Indicate direction of relation by color", value = TRUE)
+                                       awesomeCheckbox("par_colorize_direction", "Indicate relation by color", value = TRUE)
                               ),
                               
                               introBox(data.step = 11, 
-                                       data.intro = "Check if you want to get a different color for each clique.",
-                                       awesomeCheckbox("par_colorize_cliques", "Use different clique colors", value = TRUE)
+                                       data.intro = "Check if you want to get a different color for each clique/cluster.",
+                                       awesomeCheckbox("par_colorize_cliques", "Colorize clusters", value = TRUE)
                               ),
                               # introBox(data.step = 8, 
                               #          data.intro = "Whether to show full or abbreviated construct labels (C1, C2 etc.) in the output graphs.
