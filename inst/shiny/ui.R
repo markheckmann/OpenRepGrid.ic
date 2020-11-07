@@ -326,6 +326,9 @@ body <- dashboardBody(
                          )
                         )
                       ),
+                     
+                    #______ table  ----------------
+                    #
                     # div(id = "grid_box",
                     introBox(data.step = 3, 
                              data.intro = "The table shows the grid data from the Excel file you uploaded.
@@ -376,6 +379,9 @@ body <- dashboardBody(
                        data.intro = "As you already know, you can upload an Excel file here. 
                                      You may also download a sample file and use it as a template."
                      ),
+                     
+                     #______ settings ----------------
+                     
                      hidden(div(id = "settings_box_1",
                         introBox(
                             box(width = NULL, status = "warning", title = "Grid settings", collapsible = TRUE, collapsed = TRUE, 
