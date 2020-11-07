@@ -324,10 +324,14 @@ server <- function(input, output, session)
 
     min_matches <- input$par_min_match
     min_clique_size <- input$par_min_clique_size
+    colorize_cliques <- input$par_colorize_cliques
     
     withProgress(message = 'Creating Excel file: ', value = 0, min = 0, max = 2,
     {
-      l <- network_graph_images(rv$data, min_clique_size = min_clique_size, min_matches = min_matches)
+      l <- network_graph_images(rv$data, 
+                                min_clique_size = min_clique_size, 
+                                min_matches = min_matches,
+                                colorize_cliques = colorize_cliques)
       incProgress(1, detail = "Process data")
       rv$excel_out_path <- create_excel_output(file, l) 
       incProgress(1, detail = "Finishing")
