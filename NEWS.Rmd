@@ -10,10 +10,12 @@ output: html_document
 * an Rplots.pdf file is created when running the tests. Unknown reason. par() is not the culprit
 * last letter is missing in related poles plot
 * unclear if pole relations are correct
-* option for connections between nodes and direction indicators
 
 ## v0.4.0
 
+* option for showing / hiding edges
+* option for showing construct relatedness by color
+* option for showing construct relatedness by +/- label
 * option to auto-color cliques in UI and `network_graph_images`
 * throw general Excel data format error when a test yields NA for unknown reasons
 * additional network images with bold related poles 

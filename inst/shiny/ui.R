@@ -405,8 +405,21 @@ body <- dashboardBody(
                                        numericInput("par_min_clique_size", "Minimal cliques size", value = 3, min = 2, max = 10)
                               ),
                               introBox(data.step = 8, 
+                                       data.intro = "Check to draw lines between related constructs.",
+                                       awesomeCheckbox("par_show_edges", "Draw lines between related costructs", value = TRUE)
+                              ),
+                              introBox(data.step = 9, 
+                                       data.intro = "Check to indicate the direction of a construct relation (positive / negative) by a +/- sign.",
+                                       awesomeCheckbox("par_indicate_direction", "Indicate direction of relation by +/-", value = TRUE)
+                              ),
+                              introBox(data.step = 10, 
+                                       data.intro = "Check to colorize the direction of a construct relation (positive / negative) by red and green color.",
+                                       awesomeCheckbox("par_colorize_direction", "Indicate direction of relation by color", value = TRUE)
+                              ),
+                              
+                              introBox(data.step = 11, 
                                        data.intro = "Check if you want to get a different color for each clique.",
-                                       awesomeCheckbox("par_colorize_cliques", "Different clique colors", value = TRUE)
+                                       awesomeCheckbox("par_colorize_cliques", "Use different clique colors", value = TRUE)
                               ),
                               # introBox(data.step = 8, 
                               #          data.intro = "Whether to show full or abbreviated construct labels (C1, C2 etc.) in the output graphs.
@@ -414,14 +427,14 @@ body <- dashboardBody(
                               #          awesomeCheckbox("par_abbr_labels", "Abbreviate construct labels", value = FALSE)
                               # ),
                               div(style = "display:inline-block; float:left; margin-right: 10px",
-                                introBox(data.step = 9, 
+                                introBox(data.step = 12, 
                                          data.intro = "Process the grid data and generate an Excel file containing 
                                                        the results for download.",
                                     actionButton("btn_process", label = "Process data")
                                  )
                               ),
                               div(style="display:inline-block; float:left",
-                                introBox(data.step = 10, 
+                                introBox(data.step = 13, 
                                          data.intro = "After the result file has been created, you can download it here.",
                                   disabled(
                                    downloadButton(outputId = "btn_download_excel", style = "minimal", class = "downloadBtn", label = "Download results")

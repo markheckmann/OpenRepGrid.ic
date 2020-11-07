@@ -11,7 +11,7 @@ network_graph_images(
   min_matches = 6,
   label_wrap_width = 15,
   label_max_length = -1,
-  indicate_direction = TRUE,
+  indicate_direction = show_edges,
   colorize_direction = TRUE,
   colorize_cliques = TRUE,
   alpha = 0.1,
@@ -35,7 +35,8 @@ marked as related.}
 \item{label_max_length}{Trim element label at max length characters.}
 
 \item{indicate_direction, colorize_direction}{Indicate direction of
-relatedness by \code{+/-} sign and edge color respectively.}
+relatedness by edge label \code{+/-} and edge color (red, green).
+Only applied if \code{show_edges = TRUE}.}
 
 \item{colorize_cliques}{Draw cliques in different colors? (default \code{TRUE}).}
 

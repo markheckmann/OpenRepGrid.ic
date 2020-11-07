@@ -187,7 +187,8 @@ clique_color_pals <- function(n, name = "Dark2", alpha = .1)
 #' @param label_wrap_width Width of wrapped element label text.
 #' @param label_max_length Trim element label at max length characters.
 #' @param indicate_direction,colorize_direction Indicate direction of
-#'   relatedness by \code{+/-} sign and edge color respectively.
+#'   relatedness by edge label \code{+/-} and edge color (red, green).
+#'   Only applied if `show_edges = TRUE`.
 #' @param colorize_cliques Draw cliques in different colors? (default `TRUE`).
 #' @param alpha Alpha color value for cliques fillings (default `.1`).
 #' @param border_default,fill_default Default border and fill color of polygon
@@ -205,7 +206,7 @@ network_graph_images <- function(x,
                                  # label_abbreviate = FALSE,
                                  label_wrap_width = 15, 
                                  label_max_length = -1,
-                                 indicate_direction = TRUE, 
+                                 indicate_direction = show_edges, 
                                  colorize_direction = TRUE,
                                  colorize_cliques = TRUE,
                                  alpha = .1,
@@ -248,13 +249,22 @@ network_graph_images <- function(x,
 
   # colorize edges by direction
   edges <- ends(g, E(g))   # edge from to as rowwise matrix
-  edge_directions <- D[edges] 
-  edge_colors <- recode(edge_directions, `1` = "darkgreen", `-1` = "red")
-  edge_labels <- NULL
-  if (indicate_direction)
-    edge_labels <- recode(edge_directions, `1` = "+", `-1` = "-")
-  if (colorize_direction)
-    E(g)$color <- edge_colors
+  edge_directions <- D[edges]
+  if (indicate_direction && show_edges) {
+    edge_labels <- recode(edge_directions, `1` = "+", `-1` = "–")
+  } else {
+    edge_labels <- NULL
+  }
+    
+  if (colorize_direction) {
+    edge_colors <- recode(edge_directions, `1` = "darkgreen", `-1` = "red", .default = "grey")
+    edge_label_colors <- edge_colors
+  } else {
+    edge_colors <- grey(.5)
+    edge_label_colors <- grey(.2)
+  }
+  E(g)$color <- edge_colors
+
   
   # oldpar <- par(no.readonly = TRUE) 
   # on.exit(par(oldpar))   
@@ -280,7 +290,8 @@ network_graph_images <- function(x,
                         edge.lty = edge.lty, 
                         edge.width = 1,
                         edge.label = edge_labels,
-                        edge.label.color = edge_colors,
+                        edge.label.color = edge_label_colors,
+                        edge.label.font = 2,
                         vertex.size = vertex.size,
                         vertex.size2 = vertex.size,
                         vertex.label = vertex.labels,
@@ -318,7 +329,8 @@ network_graph_images <- function(x,
                         edge.lty = edge.lty, 
                         edge.width = 1,
                         edge.label = edge_labels,
-                        edge.label.color = edge_colors,
+                        edge.label.color = edge_label_colors,
+                        edge.label.font = 2,
                         vertex.size = vertex.size,
                         vertex.size2 = vertex.size,
                         vertex.label = vertex.labels,
@@ -369,13 +381,21 @@ network_graph_images <- function(x,
 
   # colorize edges by direction
   edges <- ends(g, E(g))   # edge from to as rowwise matrix
-  edge_directions <- D[edges] 
-  edge_colors <- recode(edge_directions, `1` = "darkgreen", `-1` = "red")
-  edge_labels <- NULL
-  if (indicate_direction)
-    edge_labels <- recode(edge_directions, `1` = "+", `-1` = "-")
-  if (colorize_direction)
-    E(g)$color <- edge_colors
+  edge_directions <- D[edges]
+  if (indicate_direction && show_edges) {
+    edge_labels <- recode(edge_directions, `1` = "+", `-1` = "–")
+  } else {
+    edge_labels <- NULL
+  }
+  
+  if (colorize_direction) {
+    edge_colors <- recode(edge_directions, `1` = "darkgreen", `-1` = "red", .default = "grey")
+    edge_label_colors <- edge_colors
+  } else {
+    edge_colors <- grey(.5)
+    edge_label_colors <- grey(.2)
+  }
+  E(g)$color <- edge_colors
   
   img_all_constructs_bold_poles <- tempfile(fileext = ".png")
   png(img_all_constructs_bold_poles, width = 20, height = 20, units = "cm", res = 300)
@@ -393,7 +413,8 @@ network_graph_images <- function(x,
                         edge.lty = edge.lty,
                         edge.width = 1,
                         edge.label = edge_labels,
-                        edge.label.color = edge_colors,
+                        edge.label.color = edge_label_colors,
+                        edge.label.font = 2,
                         vertex.size = vertex.size,
                         vertex.size2 = vertex.size,
                         vertex.label = vertex.labels1,
@@ -414,7 +435,8 @@ network_graph_images <- function(x,
                         edge.lty = edge.lty,
                         edge.width = NA,
                         edge.label = edge_labels,
-                        edge.label.color = edge_colors,
+                        edge.label.color = edge_label_colors,
+                        edge.label.font = 2,
                         vertex.size = vertex.size,
                         vertex.label = vertex.labels2,
                         vertex.size2 = vertex.size,
@@ -435,13 +457,21 @@ network_graph_images <- function(x,
   
   # colorize edges by direction
   edges <- ends(g2, E(g2))   # edge from to as rowwise matrix
-  edge_directions <- D[edges] 
-  edge_colors <- recode(edge_directions, `1` = "darkgreen", `-1` = "red")
-  edge_labels <- NULL
-  if (indicate_direction)
-    edge_labels <- recode(edge_directions, `1` = "+", `-1` = "-")
-  if (colorize_direction)
-    E(g2)$color <- edge_colors
+  edge_directions <- D[edges]
+  if (indicate_direction && show_edges) {
+    edge_labels <- recode(edge_directions, `1` = "+", `-1` = "–")
+  } else {
+    edge_labels <- NULL
+  }
+  
+  if (colorize_direction) {
+    edge_colors <- recode(edge_directions, `1` = "darkgreen", `-1` = "red", .default = "grey")
+    edge_label_colors <- edge_colors
+  } else {
+    edge_colors <- grey(.5)
+    edge_label_colors <- grey(.2)
+  }
+  E(g2)$color <- edge_colors
   
   cns <- V(g2)$name
   vertex.labels <-
@@ -469,7 +499,8 @@ network_graph_images <- function(x,
                           edge.lty = edge.lty, 
                           edge.width = 1,
                           edge.label = edge_labels,
-                          edge.label.color = edge_colors,
+                          edge.label.color = edge_label_colors,
+                          edge.label.font = 2,
                           vertex.size = vertex.size,
                           vertex.label = vertex.labels,
                           vertex.size2 = vertex.size,
@@ -515,7 +546,8 @@ network_graph_images <- function(x,
                           edge.lty = edge.lty, 
                           edge.width = 1,
                           edge.label = edge_labels,
-                          edge.label.color = edge_colors,
+                          edge.label.color = edge_label_colors,
+                          edge.label.font = 2,
                           vertex.size = vertex.size,
                           vertex.label = vertex.labels,
                           vertex.size2 = vertex.size,
@@ -572,13 +604,21 @@ network_graph_images <- function(x,
   
   # colorize edges by direction
   edges <- ends(g2, E(g2))   # edge from to as rowwise matrix
-  edge_directions <- D[edges] 
-  edge_colors <- recode(edge_directions, `1` = "darkgreen", `-1` = "red")
-  edge_labels <- NULL
-  if (indicate_direction)
-    edge_labels <- recode(edge_directions, `1` = "+", `-1` = "-")
-  if (colorize_direction)
-    E(g2)$color <- edge_colors
+  edge_directions <- D[edges]
+  if (indicate_direction && show_edges) {
+    edge_labels <- recode(edge_directions, `1` = "+", `-1` = "–")
+  } else {
+    edge_labels <- NULL
+  }
+  
+  if (colorize_direction) {
+    edge_colors <- recode(edge_directions, `1` = "darkgreen", `-1` = "red", .default = "grey")
+    edge_label_colors <- edge_colors
+  } else {
+    edge_colors <- grey(.5)
+    edge_label_colors <- grey(.2)
+  }
+  E(g2)$color <- edge_colors
   
   img_cliques_only_bold_poles <- tempfile(fileext = ".png")
   with_par(img_par, {
@@ -597,7 +637,8 @@ network_graph_images <- function(x,
                           edge.lty = edge.lty,
                           edge.width = 1,
                           edge.label = edge_labels,
-                          edge.label.color = edge_colors,
+                          edge.label.color = edge_label_colors,
+                          edge.label.font = 2,
                           vertex.size = vertex.size,
                           vertex.size2 = vertex.size,
                           vertex.label = vertex.labels1,
@@ -618,7 +659,8 @@ network_graph_images <- function(x,
                           edge.lty = edge.lty,
                           edge.width = NA,
                           edge.label = edge_labels,
-                          edge.label.color = edge_colors,
+                          edge.label.color = edge_label_colors,
+                          edge.label.font = 2,
                           vertex.size = vertex.size,
                           vertex.label = vertex.labels2,
                           vertex.size2 = vertex.size,
@@ -649,5 +691,3 @@ network_graph_images <- function(x,
              min_matches = min_matches)
   append(l, l2)
 }
-
-
