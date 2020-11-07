@@ -10,6 +10,7 @@ output: html_document
 * an Rplots.pdf file is created when running the tests. Unknown reason. par() is not the culprit
 * last letter is missing in related poles plot
 * unclear if pole relations are correct
+* option for connections between nodes and direction indicators
 
 ## v0.4.0
 
