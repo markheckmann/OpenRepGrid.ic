@@ -265,11 +265,13 @@ server <- function(input, output, session)
     
     column_defs <- list(
       list(className = 'dt-center', targets = i_ratings - 1),
-      list(className = 'dt-right', targets = 0)
+      list(className = 'dt-right', targets = 0),
+      list(className = 'dt-left', targets = i_right - 1)
     )
-    if (hide_preferred) 
+    if (hide_preferred) {
       column_defs <- c(column_defs, list(list(visible = FALSE, targets = i_preferred - 1)))
-    
+    }
+      
     dt <- DT::datatable(x, rownames = FALSE, colnames = nms, 
                         options = list(
                           headerCallback = header_callback, #JS(headerCallback),
