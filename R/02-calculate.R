@@ -347,14 +347,14 @@ network_graph_images <- function(x,
   ##__ all - bold related poles  ----------------------------------------------
   
   label_wrap_width <- 14
-  cnames <- paste(l$pole_left, "@", l$pole_right)
+  cnames <- paste( str_trim(l$pole_left), "@", str_trim(l$pole_right) )
   names(cnames) <- names(l$constructs)
 
   cns <- V(g)$name
   ii_keep <- match(cns, names(cnames))
   vertex.labels <-
     cnames[cns] %>%
-    str_sub(start = 1, end = label_max_length - 1) %>%
+    str_sub(start = 1, end = label_max_length) %>%
     str_wrap(width = label_wrap_width)
   vertex.size <- 22
   vertex.label.cex <- .5
@@ -568,7 +568,7 @@ network_graph_images <- function(x,
   
   g2 <- igraph::graph_from_adjacency_matrix(MM2, diag = FALSE, mode  = "undirected")
   
-  cnames <- paste(l$pole_left, "@", l$pole_right)
+  cnames <- paste( str_trim(l$pole_left), "@", str_trim(l$pole_right) )
   names(cnames) <- names(l$constructs)
   
   # full labels
