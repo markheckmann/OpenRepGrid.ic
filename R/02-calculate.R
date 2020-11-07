@@ -174,6 +174,19 @@ clique_color_pals <- function(n, name = "Dark2", alpha = .1)
 } 
 
 
+#' Add a border around an image
+#' 
+#' Creates border if a color is supplied.
+#' @keywords internal
+#' 
+add_image_border <- function(color = NA) 
+{
+  if ( is.null(color) || is.na(color) )
+      return(NULL)
+  graphics::box(which = "outer", lty = "solid", col = color)
+}
+
+
 #' Build network graph plots
 #'
 #' Detects maximal cliques and saves images of network graphs into tempfile.
@@ -187,13 +200,15 @@ clique_color_pals <- function(n, name = "Dark2", alpha = .1)
 #' @param label_wrap_width Width of wrapped element label text.
 #' @param label_max_length Trim element label at max length characters.
 #' @param indicate_direction,colorize_direction Indicate direction of
-#'   relatedness by edge label \code{+/-} and edge color (red, green).
-#'   Only applied if `show_edges = TRUE`.
+#'   relatedness by edge label \code{+/-} and edge color (red, green). Only
+#'   applied if `show_edges = TRUE`.
 #' @param colorize_cliques Draw cliques in different colors? (default `TRUE`).
 #' @param alpha Alpha color value for cliques fillings (default `.1`).
 #' @param border_default,fill_default Default border and fill color of polygon
 #'   encircling clique constructs. Used when `colorize_cliques` is `FALSE`. Use
 #'   \code{NA} for no color.
+#' @param image_border_color Color of border around generated graph images. If
+#'   `NULL` or `NA` no border is drawn.
 #' @param seed Seed number passed to \code{set.seed}. Will determine the
 #'   orientation of the graph.
 #' @export
@@ -212,6 +227,7 @@ network_graph_images <- function(x,
                                  alpha = .1,
                                  border_default = "#987824",
                                  fill_default = "#00000008",
+                                 image_border_color = grey(.6),
                                  seed = 0) 
 {
   img_par <- list(oma = c(0,0,0,0), mar = c(0,0,0,0)) # par settings for images
@@ -301,6 +317,7 @@ network_graph_images <- function(x,
                         vertex.color = grey(.9),
                         vertex.frame.color = grey(.5))
   })
+  add_image_border(image_border_color)
   dev.off()
 
   
@@ -341,6 +358,7 @@ network_graph_images <- function(x,
                         vertex.frame.color = grey(.5))
 
   })
+  add_image_border(image_border_color)
   dev.off()
   
   
@@ -448,6 +466,7 @@ network_graph_images <- function(x,
                         vertex.frame.color = grey(.5))
    
   })
+  add_image_border(image_border_color)
   dev.off()
   
   
@@ -514,6 +533,7 @@ network_graph_images <- function(x,
       text(.5, .5, "No cliques detected", cex = 1.5, adj = c(.5, .5))
     } 
   })
+  add_image_border(image_border_color)
   dev.off()    
   
   
@@ -561,6 +581,7 @@ network_graph_images <- function(x,
       text(.5, .5, "No cliques detected", cex = 1.5, adj = c(.5, .5))
     } 
   })
+  add_image_border(image_border_color)
   dev.off()   
   
   
@@ -579,7 +600,7 @@ network_graph_images <- function(x,
     str_sub(start = 1, end = label_max_length) %>%
     str_wrap(width = label_wrap_width - 1)
   vertex.size = 30
-  vertex.label.cex <- .7
+  vertex.label.cex <- .5
   edge_labels <- NULL
   
   # find vertexes with negative relations only
@@ -674,6 +695,7 @@ network_graph_images <- function(x,
       plot.new()
       text(.5, .5, "No cliques detected", cex = 1.5, adj = c(.5, .5))
     } 
+    add_image_border(image_border_color)
     dev.off()   
   })
   

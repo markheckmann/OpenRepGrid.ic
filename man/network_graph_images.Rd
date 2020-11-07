@@ -17,6 +17,7 @@ network_graph_images(
   alpha = 0.1,
   border_default = "#987824",
   fill_default = "#00000008",
+  image_border_color = grey(0.6),
   seed = 0
 )
 }
@@ -35,8 +36,8 @@ marked as related.}
 \item{label_max_length}{Trim element label at max length characters.}
 
 \item{indicate_direction, colorize_direction}{Indicate direction of
-relatedness by edge label \code{+/-} and edge color (red, green).
-Only applied if \code{show_edges = TRUE}.}
+relatedness by edge label \code{+/-} and edge color (red, green). Only
+applied if \code{show_edges = TRUE}.}
 
 \item{colorize_cliques}{Draw cliques in different colors? (default \code{TRUE}).}
 
@@ -45,6 +46,9 @@ Only applied if \code{show_edges = TRUE}.}
 \item{border_default, fill_default}{Default border and fill color of polygon
 encircling clique constructs. Used when \code{colorize_cliques} is \code{FALSE}. Use
 \code{NA} for no color.}
+
+\item{image_border_color}{Color of border around generated graph images. If
+\code{NULL} or \code{NA} no border is drawn.}
 
 \item{seed}{Seed number passed to \code{set.seed}. Will determine the
 orientation of the graph.}
