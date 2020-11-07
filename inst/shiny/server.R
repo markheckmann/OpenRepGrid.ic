@@ -28,6 +28,7 @@ library(shinycssloaders)
 # 
 # SHOW_LOGIN <- FALSE #options()$ic.login   # set FALSE for dev puposes 
 
+# custom code to rotate element labels in DT
 headerCallback <- c(
   "function(thead, data, start, end, display){",
   "  var $ths = $(thead).find('th');",
