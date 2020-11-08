@@ -5,7 +5,7 @@
 #' @param x Data from Excel input file.
 #' @export
 #' 
-check_excel_input <- function(x) 
+check_excel_input_test <- function(x) 
 {
   nms <- names(x)
   nc <- ncol(x)
@@ -14,7 +14,7 @@ check_excel_input <- function(x)
   i_right <- nc - 1
   i_ratings <- 2L:(nc - 2)
   
-
+  
   # preferred --
   
   col_right <- utils::tail(nms, 1)
@@ -48,11 +48,11 @@ check_excel_input <- function(x)
   
   # constructs --
   
-  c_left <- stringr::str_trim(x[[i_left]])
-  c_right <- stringr::str_trim(x[[i_right]])
-  c4_res <- all(c_left != "") #&& all(c_right != "")
+  c_left <- stringr::str_trim(x[[i_left]]) %>% tail(-1)
+  c_right <- stringr::str_trim(x[[i_right]]) %>% tail(-1)
+  c4_res <- all(c_left != "") && !any(is.na(c_left))
   c4 <- list(
-    assert = "Left poles must be non-empty strings (right poles may contain empty strings, though this is not recommended)",
+    assert = "Left poles start in column 1, row 2 and must all be non-empty strings (right poles may contain empty strings, though this is not recommended)",
     passed = c4_res,
     error = ifelse(c4_res, "", "Some left poles contain empty strings")
   )
@@ -79,9 +79,10 @@ check_excel_input <- function(x)
   )
   
   # meta --
+
   rating_lowest <- names(x)[i_left] %>% as.numeric
   rating_highest <- names(x)[i_right] %>% as.numeric
-  c7_res <- (rating_lowest < rating_highest) || is.na(rating_lowest) || is.na(rating_highest)
+  c7_res <- !( (rating_lowest > rating_highest) || is.na(rating_lowest) || is.na(rating_highest) )
   c7 <- list(
     assert = "Meta data for highest and lowest rating values is given",
     passed = c7_res,
@@ -108,6 +109,27 @@ check_excel_input <- function(x)
   #lapply(l, `class<-`, c("test", "list"))
 }
 
+
+#' Check if Excel input file contains valid data
+#' 
+#' @param x Data from Excel input file.
+#' @export
+#' 
+check_excel_input <- function(x) 
+{
+  tests <- tryCatch(
+    check_excel_input_test(x), 
+    error = function(e) {
+      data.frame(
+        assert = "Excel file tests can be executed without error.", 
+        passed = FALSE, 
+        error = "When testing your Excel file format for correctness, the program crashed. The reason is unknown. Most likely, there is a problem in the Excel file you uploaded. Please check the Excel grid format for correctness."
+      )  
+    }
+  )
+  tests
+}
+  
 
 # print.test <- function(x)
 # {
