@@ -318,6 +318,20 @@ server <- function(input, output, session)
   #### DOWNLOAD  ####
   
   
+  # disable settings for direction of constructs relation
+  # if edges are not enabled
+  observeEvent(input$par_show_edges, 
+  {
+    if (input$par_show_edges) {
+      enable("par_indicate_direction")
+      enable("par_colorize_direction")
+    } else {
+      disable("par_indicate_direction")
+      disable("par_colorize_direction")
+    }
+  })
+  
+  
   observeEvent(input$btn_process, 
   {
     req(input$excel_input$datapath)

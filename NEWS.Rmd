@@ -9,6 +9,9 @@ output: html_document
 * use more condensed monospace font for related poles to save space
 * an Rplots.pdf file is created when running the tests. Unknown reason. par() is not the culprit
 * unclear if pole relations are correct
+* mute check boxes for direction indications
+* add tooltips?
+
 
 ## v0.4.0
 
