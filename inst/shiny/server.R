@@ -174,8 +174,7 @@ server <- function(input, output, session)
                             list(className = 'dt-left', targets = c(1,2))
                           )
                         )) %>%
-      formatStyle(c("Result"), valueColumns = "Result", color = "white",
-                  backgroundColor = styleEqual(c(TRUE, FALSE, NA), c(green, red, neutral))) 
+      formatStyle(c("Result"), valueColumns = "Result", color = "red") 
     return(dt)
   })
   
