@@ -11,22 +11,7 @@ library(shinyWidgets)
 library(shinydashboard)
 library(shinydashboardPlus)
 library(shinycssloaders)
-# library(shinyauthr)
 
-# # shared variables across users
-# users = reactiveValues(count = 0)
-# 
-# # dataframe that holds usernames, passwords and other user data
-# user_base <- data.frame(
-#   user = c("ic"),
-#   password = c("ic"), 
-#   permissions = c("standard"),
-#   name = c("Admin"),
-#   stringsAsFactors = FALSE,
-#   row.names = NULL
-# )
-# 
-# SHOW_LOGIN <- FALSE #options()$ic.login   # set FALSE for dev puposes 
 
 # custom code to rotate element labels in DT
 headerCallback <- c(
@@ -61,37 +46,8 @@ server <- function(input, output, session)
 
   hide("down_btn")  
   
-  #### .                       ####
-  #### _______________________ ####
-  #### LOGIN  ####
-  
-  # # keep track of number of users
-  # onSessionStart = isolate({
-  #   users$count = users$count + 1
-  # })
-  # 
-  # onSessionEnded(function() {
-  #   isolate({
-  #     users$count = users$count - 1
-  #   })
-  # })
-  
-  
-  #### .                       ####
-  #### _______________________ ####
-  #### NOTIFICATIONS ####
 
-  # # no users and logout button  
-  # output$notification_menu <- renderMenu(
-  # {
-  #   msg <- messageItem( from = "", 
-  #                       message = paste("Number of current users:", users$count),
-  #                       icon = icon("users"))
-  #   # logout <- tags$li(shinyauthr::logoutUI(id = "logout", label = "Logout"))
-  #   dropdownMenu(msg, icon = icon("users"), type = "messages", headerText = "")
-  # })
-  
-  
+
   #### .                       ####
   #### _______________________ ####
   #### UPLOAD ####
@@ -111,6 +67,7 @@ server <- function(input, output, session)
      rv$number_of_uploads <- rv$number_of_uploads + 1
    })
 
+  
   #### .                       ####
   #### _______________________ ####
   #### TABLES ####

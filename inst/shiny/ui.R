@@ -357,7 +357,6 @@ body <- dashboardBody(
                           "You can download a valid sample Excel file in the right hand panel and use it as a template."),
                         br(),
                         HTML('<center><img src="excel_grid_format.png" width="85%"></center>')
-                        # img(src = "excel_grid_format.png", align = "center", style = "width: 90%")
                     ))
                     
               ),
