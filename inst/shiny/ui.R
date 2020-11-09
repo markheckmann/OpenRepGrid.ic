@@ -264,7 +264,7 @@ body <- dashboardBody(
                        "Given a similarity measure, in our case the number of matching scores between two constructs, a network graph of relatedness between constructs is construed.",
                        "A clique is a group of constructs which are all mutually related, given some cut-off criterion for relatedness (e.g. ", HTML("&ge;"), "6 matching scores for a 7 element grid).",
                        "While an offline approach is also described to find the construct cliques, this software automates the procedure.",
-                       "On the left you see the resulting construct cliques for Sylvia's sample grid."
+                       "In the image you can see the resulting construct cliques for Sylvia's sample grid."
                      ),
                      p("Under the entry", tags$em("Method"), "in the left sidebar you will find a step-by-step description of the manual process
                        to generate the construct clusters. To upload and analyse a grid programatically, click on the ", 
