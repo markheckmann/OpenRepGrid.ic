@@ -30,7 +30,6 @@ suppressWarnings({
     library(glue)
     library(splines)
     library(igraph)
-    # library(visNetwork)
     library(OpenRepGrid.ic)
   })
 })
@@ -253,6 +252,7 @@ body <- dashboardBody(
                        tags$a("Interpretive Clustering (IC)", href = "https://doi.org/10.1080/14780887.2020.1794088", target = "_blank"),
                        "method described in",
                        tags$a("Burr, King, and Heckmann (2020).", href = "https://doi.org/10.1080/14780887.2020.1794088", target = "_blank"),
+                       "An introduction to the software is available on", tags$a("YouTube.", href = "https://youtu.be/f9oINYA22Rc", target = "_blank")
                      ),
                      p("Interpretive Clustering is a variant of construct clustering for ", 
                        tags$a("repertory grid", href = "https://en.wikipedia.org/wiki/Repertory_grid", target = "_blank"),
