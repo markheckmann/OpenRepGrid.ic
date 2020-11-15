@@ -27,10 +27,11 @@
 #' @name OpenRepGrid.ic
 #' @docType package
 #' @importFrom magrittr "%>%"
-#' @importFrom dplyr filter select group_by recode
+#' @importFrom dplyr filter select group_by case_when recode
 #' @rawNamespace import(igraph, except = compare)
 #' @rawNamespace import(graphics, except = box)
 #' @importFrom withr with_par
+#' @importFrom stats na.omit
 #' @import
 #' utils
 #' grDevices

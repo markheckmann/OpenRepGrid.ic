@@ -267,7 +267,7 @@ network_graph_images <- function(x,
   edges <- ends(g, E(g))   # edge from to as rowwise matrix
   edge_directions <- D[edges]
   if (indicate_direction && show_edges) {
-    edge_labels <- recode(edge_directions, `1` = "+", `-1` = "–")
+    edge_labels <- recode(edge_directions, `1` = "+", `-1` = "\u2013")
   } else {
     edge_labels <- NULL
   }
@@ -401,7 +401,7 @@ network_graph_images <- function(x,
   edges <- ends(g, E(g))   # edge from to as rowwise matrix
   edge_directions <- D[edges]
   if (indicate_direction && show_edges) {
-    edge_labels <- recode(edge_directions, `1` = "+", `-1` = "–")
+    edge_labels <- recode(edge_directions, `1` = "+", `-1` = "\u2013")
   } else {
     edge_labels <- NULL
   }
@@ -478,7 +478,7 @@ network_graph_images <- function(x,
   edges <- ends(g2, E(g2))   # edge from to as rowwise matrix
   edge_directions <- D[edges]
   if (indicate_direction && show_edges) {
-    edge_labels <- recode(edge_directions, `1` = "+", `-1` = "–")
+    edge_labels <- recode(edge_directions, `1` = "+", `-1` = "\u2013")
   } else {
     edge_labels <- NULL
   }
@@ -627,7 +627,7 @@ network_graph_images <- function(x,
   edges <- ends(g2, E(g2))   # edge from to as rowwise matrix
   edge_directions <- D[edges]
   if (indicate_direction && show_edges) {
-    edge_labels <- recode(edge_directions, `1` = "+", `-1` = "–")
+    edge_labels <- recode(edge_directions, `1` = "+", `-1` = "\u2013")
   } else {
     edge_labels <- NULL
   }
