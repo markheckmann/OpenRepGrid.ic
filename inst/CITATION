@@ -9,7 +9,7 @@ citEntry(entry = "Manual",
     person("Nigel", "King", role = "aut")
   ),
 	year = "2020",
-	note = "R package version 0.3.0",
+	note = "R package version 0.4.0",
 	url = "https://github.com/markheckmann/OpenRepGrid.ic",
-  textVersion = "Heckmann, Burr, & King (2020). OpenRepGrid.ic: A Software for Interpretive Clustering. R package version 0.3.0"
+  textVersion = "Heckmann, Burr, & King (2020). OpenRepGrid.ic: A Software for Interpretive Clustering. R package version 0.4.0"
 )
