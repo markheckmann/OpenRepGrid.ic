@@ -8,14 +8,13 @@ output: html_document
 * table CSS issues (at least on shinyapps.io)
 * use more condensed monospace font for related poles to save space
 * an Rplots.pdf file is created when running the tests. Unknown reason. par() is not the culprit
-* unclear if pole relations are correct
 * add tooltips?
-* poles colored by valence
-* reorder grid by valence
-* option to trim long pole labels
+* add logevent?
 
-## v0.4.1
 
+## v0.4.2
+
+* option to set maximal construct label length
 * pole alignment option in calculation and graph functions 
 * removed bold font indications
 

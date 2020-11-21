@@ -205,6 +205,12 @@ add_image_border <- function(color = NA)
 }
 
 
+prep_label <- function(x, label_max_length = -1) 
+{
+  str_trim(x) %>% str_sub(start = 1, end = label_max_length)
+}
+
+
 #' Build network graph plots
 #'
 #' Detects maximal cliques and saves images of network graphs into tempfile.
@@ -259,8 +265,6 @@ network_graph_images <- function(x,
   cnames <- l$constructs
   valence_left <- l$valence_left
   valence_right <- l$valence_right
-  
-  
   
   g <- igraph::graph_from_adjacency_matrix(MM, diag = FALSE, mode  = "undirected")
   mc <- igraph::max_cliques(g, min = min_clique_size)
@@ -348,10 +352,14 @@ network_graph_images <- function(x,
   
   # __ all - full labels ----------------------------------------------
   
+  cnames <- paste( prep_label(l$pole_left, label_max_length = label_max_length), "-", 
+                   prep_label(l$pole_right, label_max_length = label_max_length))
+  names(cnames) <- names(l$constructs)
+  
   cns <- V(g)$name
   vertex.labels <-
     cnames[cns] %>%
-    str_sub(start = 1, end = label_max_length) %>%
+    # str_sub(start = 1, end = label_max_length) %>%
     str_wrap(width = label_wrap_width)
   vertex.size <- 22
   vertex.label.cex <- .6
@@ -385,18 +393,20 @@ network_graph_images <- function(x,
   add_image_border(image_border_color)
   dev.off()
   
+
   
   ##__ all - separate poles  ----------------------------------------------
   
   label_wrap_width <- 14
-  cnames <- paste( str_trim(l$pole_left), "@", str_trim(l$pole_right) )
+  cnames <- paste( prep_label(l$pole_left, label_max_length = label_max_length), "@", 
+                   prep_label(l$pole_right, label_max_length = label_max_length))
   names(cnames) <- names(l$constructs)
 
   cns <- V(g)$name
   ii_keep <- match(cns, names(cnames))
   vertex.labels <-
     cnames[cns] %>%
-    str_sub(start = 1, end = label_max_length) %>%
+    # str_sub(start = 1, end = label_max_length) %>%
     str_wrap(width = label_wrap_width)
   vertex.size <- 22
   vertex.label.cex <- .5
@@ -572,12 +582,13 @@ network_graph_images <- function(x,
   
   # __ cliques - full labels  ----------------------------------------------
   
-  cnames <- l$constructs
+  cnames <- paste( prep_label(l$pole_left, label_max_length = label_max_length), "-", 
+                   prep_label(l$pole_right, label_max_length = label_max_length))
   names(cnames) <- names(l$constructs)
+  
   cns <- V(g2)$name
   vertex.labels <-
     cnames[cns] %>%
-    str_sub(start = 1, end = label_max_length) %>%
     str_wrap(width = label_wrap_width)
   vertex.size <- 30
   vertex.label.cex <- .6
@@ -621,7 +632,9 @@ network_graph_images <- function(x,
   
   g2 <- igraph::graph_from_adjacency_matrix(MM2, diag = FALSE, mode  = "undirected")
   
-  cnames <- paste( str_trim(l$pole_left), "@", str_trim(l$pole_right) )
+  label_wrap_width <- 14
+  cnames <- paste( prep_label(l$pole_left, label_max_length = label_max_length), "@", 
+                   prep_label(l$pole_right, label_max_length = label_max_length))
   names(cnames) <- names(l$constructs)
   
   # full labels
@@ -629,7 +642,6 @@ network_graph_images <- function(x,
   ii_keep <- match(cns, names(cnames))
   vertex.labels <-
     cnames[cns] %>%
-    str_sub(start = 1, end = label_max_length) %>%
     str_wrap(width = label_wrap_width - 1)
   vertex.size = 30
   vertex.label.cex <- .5

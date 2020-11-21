@@ -301,6 +301,7 @@ server <- function(input, output, session)
     indicate_direction <- input$par_indicate_direction
     colorize_direction <- input$par_colorize_direction
     colorize_cliques <- input$par_colorize_cliques
+    label_max_length <- input$par_label_max_length
     
     withProgress(message = 'Creating Excel file: ', value = 0, min = 0, max = 2,
     {
@@ -309,6 +310,7 @@ server <- function(input, output, session)
                                 min_matches = min_matches,
                                 show_edges = show_edges, 
                                 align_poles = align_poles,
+                                label_max_length = label_max_length,
                                 indicate_direction = indicate_direction,
                                 colorize_direction = colorize_direction,
                                 colorize_cliques = colorize_cliques)

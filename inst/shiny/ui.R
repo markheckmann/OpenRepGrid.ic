@@ -427,8 +427,12 @@ body <- dashboardBody(
                               ),
                               
                               introBox(data.step = 12, 
-                                       data.intro = "Check if you want to get a different color for each clique/cluster.",
+                                       data.intro = "Check to get a different color for each clique/cluster.",
                                        awesomeCheckbox("par_colorize_cliques", "Colorize clusters", value = TRUE)
+                              ),
+                              introBox(data.step = 13, 
+                                       data.intro = "Set maximal no of characters of construct labels to avoid cluttering the plot.",
+                                       numericInput("par_label_max_length", "Max. length of construct labels", value = 100, min = -1, max = 100)
                               ),
                               # introBox(data.step = 8, 
                               #          data.intro = "Whether to show full or abbreviated construct labels (C1, C2 etc.) in the output graphs.
