@@ -14,6 +14,8 @@ network_graph_images(
   indicate_direction = show_edges,
   colorize_direction = TRUE,
   colorize_cliques = TRUE,
+  colorize_poles = TRUE,
+  align_poles = TRUE,
   alpha = 0.1,
   border_default = "#987824",
   fill_default = "#00000008",

@@ -22,11 +22,11 @@ file_tmp <- create_excel_output(file, l)      # create Excel file
 # open images saved as temp files (as shown in output Excel file)
 file.show(l$img_all_constructs)
 file.show(l$img_all_constructs_full_labels)
-file.show(l$img_all_constructs_bold_poles)
+file.show(l$img_all_constructs_seperate_poles)
 
 file.show(l$img_cliques_only)
 file.show(l$img_cliques_only_full_labels)
-file.show(l$img_cliques_only_bold_poles)
+file.show(l$img_cliques_only_separate_poles)
 
 # calculation results used in network_graph_images
 # some of them are also contained in Excel file

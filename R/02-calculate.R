@@ -15,20 +15,16 @@ count_matches <- function(ci, cj, inverse = FALSE)
 }
 
 
-#' Calculate similarity matrix
+#' Align all preferred poles on right side
+#' @keywords internal
 #' 
-#' @param x Grid data.
-#' @param min_matches Minimal number of matches to considers constructs as related.
-#' @export
-#' 
-calculate_similarity <- function(x, min_matches = 6) #, use_labels = FALSE)
+align_positive_poles <- function(x) 
 {
   i_preferred <- which(names(x) == "preferred")
   i_left <- 1
   i_right <- i_preferred - 1
   i_ratings <- (i_left + 1):(i_right - 1)
   
-  # align constructs so all preferred poles are on right side
   # hence high matches represent positive relatedness
   for (i in seq_along(x$preferred)) {
     p <- x$preferred[i]
@@ -40,7 +36,29 @@ calculate_similarity <- function(x, min_matches = 6) #, use_labels = FALSE)
       x$preferred[i] <- 1
     }
   }
+  x
+}
+
+#' Calculate similarity matrix
+#' 
+#' @param x Grid data.
+#' @param min_matches Minimal number of matches to considers constructs as related.
+#' @param align_poles Align positive poles on the right and negative poles on the left.
+#' @export
+#' 
+calculate_similarity <- function(x, min_matches = 6, align_poles = TRUE) #, use_labels = FALSE)
+{
+  i_preferred <- which(names(x) == "preferred")
+  i_left <- 1
+  i_right <- i_preferred - 1
+  i_ratings <- (i_left + 1):(i_right - 1)
   
+  # align constructs so all preferred poles are on right side
+  # hence high matches represent positive relatedness
+  if (align_poles) {
+    x <- align_positive_poles(x)
+  }
+    
   s <- x[, i_ratings]   # remove construct poles
   S <- as.matrix(s)
   pole_left <- x[, i_left]
@@ -224,6 +242,8 @@ network_graph_images <- function(x,
                                  indicate_direction = show_edges, 
                                  colorize_direction = TRUE,
                                  colorize_cliques = TRUE,
+                                 colorize_poles = TRUE,
+                                 align_poles = TRUE,
                                  alpha = .1,
                                  border_default = "#987824",
                                  fill_default = "#00000008",
@@ -232,11 +252,15 @@ network_graph_images <- function(x,
 {
   img_par <- list(oma = c(0,0,0,0), mar = c(0,0,0,0)) # par settings for images
   
-  l <- calculate_similarity(x, min_matches = min_matches) #, use_labels = FALSE)
+  l <- calculate_similarity(x, min_matches = min_matches, align_poles = align_poles) #, use_labels = FALSE)
   MM <- l$MM
   D <- l$D
   edge.lty <- ifelse(show_edges, 2, 0)
   cnames <- l$constructs
+  valence_left <- l$valence_left
+  valence_right <- l$valence_right
+  
+  
   
   g <- igraph::graph_from_adjacency_matrix(MM, diag = FALSE, mode  = "undirected")
   mc <- igraph::max_cliques(g, min = min_clique_size)
@@ -362,7 +386,7 @@ network_graph_images <- function(x,
   dev.off()
   
   
-  ##__ all - bold related poles  ----------------------------------------------
+  ##__ all - separate poles  ----------------------------------------------
   
   label_wrap_width <- 14
   cnames <- paste( str_trim(l$pole_left), "@", str_trim(l$pole_right) )
@@ -378,7 +402,7 @@ network_graph_images <- function(x,
   vertex.label.cex <- .5
   edge_labels <- NULL
 
-  # find vertexes with negative relations only => we need to separete by direction
+  # find vertexes with negative relations only => we need to separate by direction
   D2 <- D[ii_keep, ii_keep]
   vertex_relations <- apply(D2, 2, function(x) {
     v <- x %>% na.omit %>% unique
@@ -391,8 +415,8 @@ network_graph_images <- function(x,
     )
   })
   names(vertex_relations) <- cns
-  vertex_font_pole_1 <- recode(vertex_relations, "neg"= 2, .default = 1)
-  vertex_font_pole_2 <- recode(vertex_relations, "neg"= 1, .default = 2)
+  vertex_font_pole_1 <- 1 # recode(vertex_relations, "neg" = 2, .default = 1)
+  vertex_font_pole_2 <- 1 # recode(vertex_relations, "neg" = 1, .default = 2)
 
   vertex.labels1 <- replace_all(vertex.labels, first = TRUE)
   vertex.labels2 <- replace_all(vertex.labels, first = FALSE)
@@ -415,8 +439,16 @@ network_graph_images <- function(x,
   }
   E(g)$color <- edge_colors
   
-  img_all_constructs_bold_poles <- tempfile(fileext = ".png")
-  png(img_all_constructs_bold_poles, width = 20, height = 20, units = "cm", res = 300)
+  if (colorize_poles) {
+    colors_poles_left <- recode(valence_left, `1` = "darkgreen", `-1` = "red", .default = grey(.2))
+    colors_poles_right <- recode(valence_right, `1` = "darkgreen", `-1` = "red", .default = grey(.2))
+  } else {
+    colors_poles_left <- grey(.2)
+    colors_poles_right <- grey(.2)
+  }
+  
+  img_all_constructs_separate_poles <- tempfile(fileext = ".png")
+  png(img_all_constructs_separate_poles, width = 20, height = 20, units = "cm", res = 300)
 # par(oma = c(0,0,0,0), mar = c(0,0,0,0))
 # we need two superimposed plots here (hence 2 x seed) in order to achieve
 # a different font face for the poles
@@ -436,7 +468,7 @@ network_graph_images <- function(x,
                         vertex.size = vertex.size,
                         vertex.size2 = vertex.size,
                         vertex.label = vertex.labels1,
-                        vertex.label.color = "black",
+                        vertex.label.color = colors_poles_left, #"black",
                         vertex.label.cex = vertex.label.cex,
                         vertex.label.family = "mono", 
                         vertex.label.font = vertex_font_pole_1,
@@ -458,7 +490,7 @@ network_graph_images <- function(x,
                         vertex.size = vertex.size,
                         vertex.label = vertex.labels2,
                         vertex.size2 = vertex.size,
-                        vertex.label.color = "black",
+                        vertex.label.color = colors_poles_right, #"black",
                         vertex.label.cex = vertex.label.cex,
                         vertex.label.family = "mono",
                         vertex.label.font = vertex_font_pole_2,
@@ -585,7 +617,7 @@ network_graph_images <- function(x,
   dev.off()   
   
   
-  ##__ cliques - bold related poles  ----------------------------------------------
+  ##__ cliques - separate poles  ----------------------------------------------
   
   g2 <- igraph::graph_from_adjacency_matrix(MM2, diag = FALSE, mode  = "undirected")
   
@@ -617,8 +649,8 @@ network_graph_images <- function(x,
   })
   
   names(vertex_relations) <- cns
-  vertex_font_pole_1 <- recode(vertex_relations, "neg"= 2, .default = 1)
-  vertex_font_pole_2 <- recode(vertex_relations, "neg"= 1, .default = 2)
+  vertex_font_pole_1 <- 1 #recode(vertex_relations, "neg"= 2, .default = 1)
+  vertex_font_pole_2 <- 2 # recode(vertex_relations, "neg"= 1, .default = 2)
   
   vertex.labels1 <- replace_all(vertex.labels, first = TRUE)
   vertex.labels2 <- replace_all(vertex.labels, first = FALSE)
@@ -641,9 +673,17 @@ network_graph_images <- function(x,
   }
   E(g2)$color <- edge_colors
   
-  img_cliques_only_bold_poles <- tempfile(fileext = ".png")
+  if (colorize_poles) {
+    colors_poles_left <- recode(valence_left[ii_keep], `1` = "darkgreen", `-1` = "red", .default = grey(.2))
+    colors_poles_right <- recode(valence_right[ii_keep], `1` = "darkgreen", `-1` = "red", .default = grey(.2))
+  } else {
+    colors_poles_left <- grey(.2)
+    colors_poles_right <- grey(.2)
+  }
+  
+  img_cliques_only_separate_poles <- tempfile(fileext = ".png")
   with_par(img_par, {
-    png(img_cliques_only_bold_poles, width = 20, height = 20, units = "cm", res = 300)
+    png(img_cliques_only_separate_poles, width = 20, height = 20, units = "cm", res = 300)
     #par(oma = c(0,0,0,0), mar = c(0,0,0,0))
     # we need two superimposed plots here (hence 2 x seed) in order to achieve
     # a different font face for the poles
@@ -663,7 +703,7 @@ network_graph_images <- function(x,
                           vertex.size = vertex.size,
                           vertex.size2 = vertex.size,
                           vertex.label = vertex.labels1,
-                          vertex.label.color = "black",
+                          vertex.label.color = colors_poles_left,
                           vertex.label.cex = vertex.label.cex,
                           vertex.label.family = "mono", 
                           vertex.label.font = vertex_font_pole_1,
@@ -685,7 +725,7 @@ network_graph_images <- function(x,
                           vertex.size = vertex.size,
                           vertex.label = vertex.labels2,
                           vertex.size2 = vertex.size,
-                          vertex.label.color = "black",
+                          vertex.label.color = colors_poles_right,
                           vertex.label.cex = vertex.label.cex,
                           vertex.label.family = "mono",
                           vertex.label.font = vertex_font_pole_2,
@@ -703,10 +743,10 @@ network_graph_images <- function(x,
   # return image paths and other info as list 
   l2 <- list(img_all_constructs = img_all_constructs, 
              img_all_constructs_full_labels = img_all_constructs_full_labels,
-             img_all_constructs_bold_poles = img_all_constructs_bold_poles,
+             img_all_constructs_separate_poles = img_all_constructs_separate_poles,
              img_cliques_only = img_cliques_only,
              img_cliques_only_full_labels = img_cliques_only_full_labels,
-             img_cliques_only_bold_poles = img_cliques_only_bold_poles,
+             img_cliques_only_separate_poles = img_cliques_only_separate_poles,
              min_clique_size = min_clique_size,
              cliques_list = clique_lists,
              clique_lists_full_names = clique_lists_full_names,

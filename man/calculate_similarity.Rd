@@ -4,12 +4,14 @@
 \alias{calculate_similarity}
 \title{Calculate similarity matrix}
 \usage{
-calculate_similarity(x, min_matches = 6)
+calculate_similarity(x, min_matches = 6, align_poles = TRUE)
 }
 \arguments{
 \item{x}{Grid data.}
 
 \item{min_matches}{Minimal number of matches to considers constructs as related.}
+
+\item{align_poles}{Align positive poles on the right and negative poles on the left.}
 }
 \description{
 Calculate similarity matrix

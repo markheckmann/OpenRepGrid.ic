@@ -158,10 +158,10 @@ create_excel_output <- function(file, data = list())
   
   img_all_constructs <- data$img_all_constructs
   img_all_constructs_full_labels <- data$img_all_constructs_full_labels
-  img_all_constructs_bold_poles <- data$img_all_constructs_bold_poles
+  img_all_constructs_separate_poles <- data$img_all_constructs_separate_poles
   img_cliques_only <- data$img_cliques_only
   img_cliques_only_full_labels <- data$img_cliques_only_full_labels
-  img_cliques_only_bold_poles <- data$img_cliques_only_bold_poles
+  img_cliques_only_separate_poles <- data$img_cliques_only_separate_poles
   
   min_clique_size <- data$min_clique_size
   min_matches <- data$min_matches
@@ -349,7 +349,7 @@ create_excel_output <- function(file, data = list())
   writeData(wb, sheet, "Lines represent relatedness of constructs - Bold poles are related", startRow = i2 + 1, startCol = start_col)
   writeData(wb, sheet, "Colored hull indicates a clique", startRow = i2 + 2, startCol = start_col)
   addStyle(wb, sheet, style = style_italic, gridExpand = TRUE, rows = i2 + 1:2, cols = start_col)
-  insertImage(wb, sheet, img_all_constructs_bold_poles, width = 20, height = 20, units = "cm", startRow = i2 + 4, startCol = start_col)
+  insertImage(wb, sheet, img_all_constructs_separate_poles, width = 20, height = 20, units = "cm", startRow = i2 + 4, startCol = start_col)
   
   start_col <- 13
   writeData(wb, sheet, "Figure 3b: Network diagram for constructs inside cliques only (full labels + related poles in bold)", startRow = i2, startCol = start_col)
@@ -357,7 +357,7 @@ create_excel_output <- function(file, data = list())
   writeData(wb, sheet, "Lines represent relatedness of constructs - Bold poles are related", startRow = i2 + 1, startCol = start_col)
   writeData(wb, sheet, "Colored hull indicates a clique", startRow = i2 + 2, startCol = start_col)
   addStyle(wb, sheet, style = style_italic, gridExpand = TRUE, rows = i2 + 1:2, cols = start_col) 
-  insertImage(wb, sheet, img_cliques_only_bold_poles, width = 20, height = 20, units = "cm", startRow = i2 + 4, startCol = start_col)
+  insertImage(wb, sheet, img_cliques_only_separate_poles, width = 20, height = 20, units = "cm", startRow = i2 + 4, startCol = start_col)
   
   
   tmp_file <- tempfile(fileext = ".xlsx")

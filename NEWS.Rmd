@@ -12,10 +12,12 @@ output: html_document
 * add tooltips?
 * poles colored by valence
 * reorder grid by valence
-
+* option to trim long pole labels
 
 ## v0.4.1
 
+* pole alignment option in calculation and graph functions 
+* removed bold font indications
 
 ## v0.4.0
 
