@@ -227,6 +227,9 @@ prep_label <- function(x, label_max_length = -1)
 #'   relatedness by edge label \code{+/-} and edge color (red, green). Only
 #'   applied if `show_edges = TRUE`.
 #' @param colorize_cliques Draw cliques in different colors? (default `TRUE`).
+#' @param colorize_poles Colorize positive/negative/neutral poles as red, green,
+#'   and gray respectively (default `TRUE`).
+#' @param align_poles Align preferred poles on the same side.
 #' @param alpha Alpha color value for cliques fillings (default `.1`).
 #' @param border_default,fill_default Default border and fill color of polygon
 #'   encircling clique constructs. Used when `colorize_cliques` is `FALSE`. Use
