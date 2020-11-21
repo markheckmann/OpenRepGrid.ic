@@ -296,6 +296,7 @@ server <- function(input, output, session)
 
     min_matches <- input$par_min_match
     min_clique_size <- input$par_min_clique_size
+    align_poles <- input$par_align_poles
     show_edges <- input$par_show_edges
     indicate_direction <- input$par_indicate_direction
     colorize_direction <- input$par_colorize_direction
@@ -307,6 +308,7 @@ server <- function(input, output, session)
                                 min_clique_size = min_clique_size, 
                                 min_matches = min_matches,
                                 show_edges = show_edges, 
+                                align_poles = align_poles,
                                 indicate_direction = indicate_direction,
                                 colorize_direction = colorize_direction,
                                 colorize_cliques = colorize_cliques)
