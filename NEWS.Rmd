@@ -13,6 +13,10 @@ output: html_document
 * poles colored by valence
 * reorder grid by valence
 
+
+## v0.4.1
+
+
 ## v0.4.0
 
 * program does not crash when Excel format is incorrect
