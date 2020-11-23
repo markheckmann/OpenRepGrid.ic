@@ -297,6 +297,7 @@ server <- function(input, output, session)
     min_matches <- input$par_min_match
     min_clique_size <- input$par_min_clique_size
     align_poles <- input$par_align_poles
+    valence_prefix <- input$par_valence_prefix
     show_edges <- input$par_show_edges
     indicate_direction <- input$par_indicate_direction
     colorize_direction <- input$par_colorize_direction
@@ -310,6 +311,7 @@ server <- function(input, output, session)
                                 min_matches = min_matches,
                                 show_edges = show_edges, 
                                 align_poles = align_poles,
+                                valence_prefix = valence_prefix,
                                 label_max_length = label_max_length,
                                 indicate_direction = indicate_direction,
                                 colorize_direction = colorize_direction,

@@ -11,9 +11,9 @@ output: html_document
 * add tooltips?
 * add logevent?
 
-
 ## v0.4.2
 
+* option to prefix with pole valence (+/-)
 * option to set maximal construct label length
 * pole alignment option in calculation and graph functions 
 * removed bold font indications

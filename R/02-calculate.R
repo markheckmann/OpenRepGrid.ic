@@ -211,6 +211,17 @@ prep_label <- function(x, label_max_length = -1)
 }
 
 
+#' Prefix the pole label with +/- for indicate pole valence
+#' @keywords internal
+#' 
+valence_pole_prefix <- function(x, valence, prefix = "(", postfix = ")\u00A0") 
+{
+  valence_string <- recode(valence, `1` = "+", `-1` = "-", .default = "")
+  # valence_string <- recode(valence, `1` = "\u2295", `-1` = "\u2296", .default = "")
+  paste0(prefix, valence_string, postfix, x)
+}
+
+
 #' Build network graph plots
 #'
 #' Detects maximal cliques and saves images of network graphs into tempfile.
@@ -230,6 +241,8 @@ prep_label <- function(x, label_max_length = -1)
 #' @param colorize_poles Colorize positive/negative/neutral poles as red, green,
 #'   and gray respectively (default `TRUE`).
 #' @param align_poles Align preferred poles on the same side.
+#' @param valence_prefix Add (+/-) pole prefix to indicate preference. Empty
+#'   means no preference.
 #' @param alpha Alpha color value for cliques fillings (default `.1`).
 #' @param border_default,fill_default Default border and fill color of polygon
 #'   encircling clique constructs. Used when `colorize_cliques` is `FALSE`. Use
@@ -254,6 +267,7 @@ network_graph_images <- function(x,
                                  colorize_poles = TRUE,
                                  align_poles = TRUE,
                                  alpha = .1,
+                                 valence_prefix = FALSE,
                                  border_default = "#987824",
                                  fill_default = "#00000008",
                                  image_border_color = grey(.6),
@@ -268,6 +282,11 @@ network_graph_images <- function(x,
   cnames <- l$constructs
   valence_left <- l$valence_left
   valence_right <- l$valence_right
+  
+  if (valence_prefix) {
+    l$pole_left <- valence_pole_prefix(l$pole_left, l$valence_left)
+    l$pole_right <- valence_pole_prefix(l$pole_right, l$valence_right)
+  }
   
   g <- igraph::graph_from_adjacency_matrix(MM, diag = FALSE, mode  = "undirected")
   mc <- igraph::max_cliques(g, min = min_clique_size)
@@ -352,6 +371,7 @@ network_graph_images <- function(x,
   dev.off()
 
   
+  l$pole_left
   
   # __ all - full labels ----------------------------------------------
   
