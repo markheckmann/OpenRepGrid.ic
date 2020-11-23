@@ -9,7 +9,7 @@ output: html_document
 * use more condensed monospace font for related poles to save space
 * an Rplots.pdf file is created when running the tests. Unknown reason. par() is not the culprit
 * add tooltips?
-* add logevent?
+* Add legend for interpretation in Excel 
 
 ## v0.4.2
 
