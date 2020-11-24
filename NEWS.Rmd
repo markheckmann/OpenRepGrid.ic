@@ -9,10 +9,10 @@ output: html_document
 * use more condensed monospace font for related poles to save space
 * an Rplots.pdf file is created when running the tests. Unknown reason. par() is not the culprit
 * add tooltips?
-* Add legend for interpretation in Excel 
 
-## v0.4.2
+## v0.4.3
 
+* network image interpretation help inside Excel
 * option to prefix with pole valence (+/-)
 * option to set maximal construct label length
 * pole alignment option in calculation and graph functions 

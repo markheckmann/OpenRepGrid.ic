@@ -297,9 +297,20 @@ create_excel_output <- function(file, data = list())
   
   # Network graphs -------------------------------------
   
+  # image interpretation help
+  
   row <- row + 2
-
+  i2 <- row
+  writeData(wb, sheet, "Interpretation help for network graphs", startRow = i2, startCol = 1)
+  addStyle(wb, sheet, style = style_bold, gridExpand = TRUE, rows = i2, cols = 1) 
+  row <- row + 2
+  writeData(wb, sheet, "The following image explains all graphical features which may appear in the network images below.", startRow = i2 + 2, startCol = 1)
+  file <- system.file("extdata", "legend_images.png", package = "OpenRepGrid.ic")
+  insertImage(wb, sheet, file, width = 817 * 2, height = 752 * 2, units = "px", startRow = i2 + 4, startCol = 1)
+  
   # row 1: full labels
+  
+  row <- row + 29
   
   i2 <- row
   start_col <- 1
@@ -338,7 +349,7 @@ create_excel_output <- function(file, data = list())
   addStyle(wb, sheet, style = style_italic, gridExpand = TRUE, rows = i2 + 1:2, cols = start_col) 
   insertImage(wb, sheet, img_cliques_only, width = 20, height = 20, units = "cm", startRow = i2 + 4, startCol = start_col)
   
-  # row 3: related poles in bold
+  # row 3: separate poles
   
   row <- row + 45
   i2 <- row
