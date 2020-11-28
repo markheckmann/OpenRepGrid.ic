@@ -14,6 +14,7 @@ x <- read.xlsx(file)
 l <- calculate_similarity(x, min_matches = 6)
 ```
 
+
 # Interpretive clustering
 
 *Please see our <a href="https://www.tandfonline.com/doi/full/10.1080/14780887.2020.1794088" target="_blank">publication</a> for additional details*
@@ -52,11 +53,12 @@ In our research, we used ticks and crosses as the scoring system. ‘Matches’ 
 
 **Fig. 2 Relationships between two constructs for Pamela and Richard.**
 
+
 *Comparing two of Pamela’s constructs*
 
 ```{r}
-V <- "\u2714"
-X <- "\u2718"
+V <- "&#x2714;"
+X <- "&#x2718;"
 O <- "o"
 df <- data.frame(
            c(1, 12),
@@ -69,10 +71,10 @@ df <- data.frame(
            c(O, O),
            c(X, X),
            c("uniformity, sterile", "man-made, manipulated")
-) 
-names(df) <- c("Construct no.", "Preferred pole \u2714", 
+)
+names(df) <- c("Construct no.", "Preferred pole &#x2714;", 
                "C4", "C6", "A4", "A1", "B1", "A6", "C5", 
-               "Non-preferred pole \u2718")
+               "Non-preferred pole &#x2718;")
 nr <- ncol(df)
 align <- rep("c", nr)
 align[1:2] <- "r"
@@ -98,7 +100,7 @@ df <- data.frame(
 ) 
 names(df) <- c("Construct no.", "Preferred pole \u2714", 
                "C4", "C6", "B2", "B1", "C1", "C5", "C3", 
-               "Non-preferred pole \u2718")
+               "Non-preferred pole &#x2718;")
 nr <- ncol(df)
 align <- rep("c", nr)
 align[1:2] <- "r"
