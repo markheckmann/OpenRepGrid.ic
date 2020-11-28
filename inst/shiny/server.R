@@ -47,7 +47,6 @@ server <- function(input, output, session)
   hide("down_btn")  
   
 
-
   #### .                       ####
   #### _______________________ ####
   #### UPLOAD ####
@@ -227,14 +226,18 @@ server <- function(input, output, session)
     if (hide_preferred) {
       column_defs <- c(column_defs, list(list(visible = FALSE, targets = i_preferred - 1)))
     }
-      
+    
     dt <- DT::datatable(x, rownames = FALSE, colnames = nms, 
                         options = list(
                           headerCallback = header_callback, #JS(headerCallback),
                           paging = FALSE,
                           ordering = FALSE,
                           dom = 't',
-                          columnDefs = column_defs
+                          columnDefs = column_defs,
+                          initComplete = DT::JS(             # change column header size along with cells
+                            paste0("function(settings, json) {",
+                            "$(this.api().table().header()).css({'font-size': '", grid_font_size, "pt'});",
+                            "}"))
                         )
     )  %>%
       formatStyle(c("0"), valueColumns = "preferred",
