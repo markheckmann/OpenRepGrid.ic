@@ -9,9 +9,11 @@ output: html_document
 * use more condensed monospace font for related poles to save space
 * an Rplots.pdf file is created when running the tests. Unknown reason. par() is not the culprit
 * add tooltips?
+* clean up old and unnevessary files 
 
 ## v0.4.3
 
+* Sylvia sample grid with full element labels
 * network image interpretation help inside Excel
 * option to prefix with pole valence (+/-)
 * option to set maximal construct label length
