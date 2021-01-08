@@ -4,7 +4,7 @@
 \alias{valence_pole_prefix}
 \title{Prefix the pole label with +/- for indicate pole valence}
 \usage{
-valence_pole_prefix(x, valence, prefix = "(", postfix = ") ")
+valence_pole_prefix(x, valence, prefix = "(", postfix = ")")
 }
 \description{
 Prefix the pole label with +/- for indicate pole valence

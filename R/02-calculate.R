@@ -214,8 +214,9 @@ prep_label <- function(x, label_max_length = -1)
 #' Prefix the pole label with +/- for indicate pole valence
 #' @keywords internal
 #' 
-valence_pole_prefix <- function(x, valence, prefix = "(", postfix = ")\u00A0") 
+valence_pole_prefix <- function(x, valence, prefix = "(", postfix = ")") 
 {
+  postfix <- paste0(postfix, "\u00A0") # add blank at end of postfix
   valence_string <- recode(valence, `1` = "+", `-1` = "-", .default = "")
   # valence_string <- recode(valence, `1` = "\u2295", `-1` = "\u2296", .default = "")
   paste0(prefix, valence_string, postfix, x)
