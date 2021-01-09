@@ -1,6 +1,6 @@
 ## Submission info
 
-Several feature updates.
+Several feature updates + fixed doi link in Rd files 
 
 ## Test environments
 
