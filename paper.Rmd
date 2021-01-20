@@ -52,7 +52,7 @@ The [repertory grid technique](https://en.wikipedia.org/wiki/Repertory_grid) (of
 
 # Statement of need 
 
-Currently, the IC method is not implemented in any other existing repertory grid software. While IC can also be conducted by hand, this is very time consuming, error-prone and only feasible for small-sized grids. Hence, a software solution to support the IC procedure is needed. Without proper software support which facilitates the process, the IC method is likely to remain a purely methodological contribution which will rarely be used in research due to above mentioned reasons.
+Currently, the IC method is not implemented in any other existing repertory grid software. While IC can also be conducted by hand, this is very time consuming, error-prone and only feasible for small-sized grids. Hence, a software solution to support the IC procedure is needed. Without proper software support which facilitates the process, the IC method is likely to become a methodological contribution which will rarely be used in research due to above mentioned reasons.
 
 
 # Repertory Grid Technique 
