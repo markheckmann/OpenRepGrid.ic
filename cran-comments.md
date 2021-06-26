@@ -1,12 +1,12 @@
 ## Submission info
 
-Several feature updates + fixed doi link in Rd files 
+Integrate breaking changes in shinyDashBoardPlus (2.0.0) which caused errors 
 
 ## Test environments
 
-* Windows 10 (local desktop), R 4.0.3
-* Ubuntu 16.04.6 LTS (travis-ci), R 4.0.3
-* Windows Server x64 (appveyor.com) R 4.0.3
+* Windows 10 (local desktop), R 4.1.0
+* Ubuntu 16.04.6 LTS (travis-ci), R 4.1.0
+* Windows Server x64 (appveyor.com) R 4.1.0
 * win-builder (devel and release)
 * R-hub builder
 

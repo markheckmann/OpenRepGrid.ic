@@ -21,8 +21,8 @@ Authors@R: c(person(
 Description: Shiny UI to identify cliques of related constructs in repertory grid data. 
     See Burr, King, & Heckmann (2020) <doi:10.1080/14780887.2020.1794088> for a description 
     of the interpretive clustering (IC) method.
-Version: 0.5.0
-Date: 2021-01-08
+Version: 0.5.1
+Date: 2021-06-25
 Imports:
     graphics,
     grDevices,
@@ -33,7 +33,7 @@ Imports:
     shinythemes,
     shinyWidgets,
     shinydashboard,
-    shinydashboardPlus,
+    shinydashboardPlus (>= 2.0.0),
     shinycssloaders,
     shinyFeedback,
     rintrojs,
