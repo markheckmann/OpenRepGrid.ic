@@ -35,33 +35,6 @@ suppressWarnings({
 })
 
 
-sidebar_right = rightSidebar(
-  background = "dark",
-  rightSidebarTabContent(
-    id = 1,
-    icon = "desktop",
-    title = "Tab 1",
-    active = TRUE,
-    sliderInput(
-      "obs", 
-      "Number of observations:",
-      min = 0, max = 1000, value = 500
-    )
-  ),
-  rightSidebarTabContent(
-    id = 2,
-    title = "Tab 2",
-    textInput("caption", "Caption", "Data Summary")
-  ),
-  rightSidebarTabContent(
-    id = 3,
-    title = "Tab 3",
-    icon = "paint-brush",
-    numericInput("obs", "Observations:", 10, min = 1, max = 100)
-  ),
-  title = "Right Sidebar"
-  
-)
 
 
 #### _______________________####
@@ -69,13 +42,13 @@ sidebar_right = rightSidebar(
 
 pkg_version <- paste0("OpenRepGrid.ic v", packageVersion("OpenRepGrid.ic"))
 
-header <- dashboardHeaderPlus(
+header <- dashboardHeader(
   # dropdownMenuOutput("notification_menu"),
   title = tagList(
     span(class = "logo-lg", "OpenRepGrid.ic"), 
     span(class = "logo-sm", "")
-  ),
-  fixed = FALSE 
+  )
+  # fixed = FALSE 
 )
 
 
@@ -473,7 +446,7 @@ body <- dashboardBody(
 #### _______________________####
 #### DASHBOARD ####
 
-ui <- dashboardPagePlus(
+ui <- shinydashboardPlus::dashboardPage(
   title = "OpenRepGrid.ic",
   skin = "red",
   header = header,

@@ -3,6 +3,12 @@ title: "NEWS"
 output: html_document
 ---
 
+
+## v0.5.1
+
+* breaking changes in shinyDashboardPlus 2.0.0 integrated
+
+
 ## v0.5.0
 
 * clean up old and unnecessary files 
