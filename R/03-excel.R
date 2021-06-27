@@ -1,3 +1,8 @@
+#////////////////////////////////////////////////////////////
+#
+#                       Excel output
+#
+#////////////////////////////////////////////////////////////
 
 
 #' Check if Excel input file contains valid data
@@ -13,7 +18,6 @@ check_excel_input_test <- function(x)
   i_preferred <- nc - 0
   i_right <- nc - 1
   i_ratings <- 2L:(nc - 2)
-  
   
   # preferred --
   
@@ -93,7 +97,7 @@ check_excel_input_test <- function(x)
            lapply(as.data.frame)
   tests <- do.call(rbind, l)
   
-  # if some test cannot be properly executed and yields NA e.g. because of some data oddity, 
+  # if some test cannot be properly executed and yield NA e.g. because of some data oddity, 
   # we throw a general fallback error
   use_fallback <- any(is.na(tests$passed))
   if (use_fallback) {
@@ -104,9 +108,8 @@ check_excel_input_test <- function(x)
     )  
     return(fallback_error)
   }
-  
+
   tests
-  #lapply(l, `class<-`, c("test", "list"))
 }
 
 
@@ -130,12 +133,6 @@ check_excel_input <- function(x)
   tests
 }
   
-
-# print.test <- function(x)
-# {
-#   str(x)  
-# }
-
 
 #' Create output Excel file
 #' 
@@ -182,7 +179,6 @@ create_excel_output <- function(file, data = list())
   
   # add method explanation found on https://hhs.hud.ac.uk/InterpretiveClustering/
   # to have all in one place
-  
   sheet <- "method"
   if (isTRUE(sheet %in% nms))
     removeWorksheet(wb, sheet)
@@ -231,9 +227,6 @@ create_excel_output <- function(file, data = list())
   setColWidths(wb, sheet, cols = 2L:(ncol(R) + 2), widths = "auto")
   conditionalFormatting(wb, sheet, cols = 1L:nrow(R) + 2, rows = 1L:nrow(R) + i + 2, rule = "<0", style = neg_style)
   conditionalFormatting(wb, sheet, cols = 1L:nrow(R) + 2, rows = 1L:nrow(R) + i + 2, rule = ">0", style = pos_style)
-  
-  
-  # setColWidths(wb, sheet, cols = 1, widths = 30)
   
   # Clique enumeration ----------------------------------
   
@@ -375,7 +368,4 @@ create_excel_output <- function(file, data = list())
   saveWorkbook(wb, tmp_file, overwrite = TRUE)
   tmp_file
 }
-
-
-
 

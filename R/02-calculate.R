@@ -1,10 +1,16 @@
-# make calculations
-
-
-
-# number of matches / non-matches for two constructs 
-# missing values lead to neither a match nor non-match
+#////////////////////////////////////////////////////////////
 #
+#                       IC Calculations
+#
+#////////////////////////////////////////////////////////////
+
+#' Count number of matches / non-matches for two constructs 
+#' 
+#' Missing values lead to neither a match nor non-match
+#' @param ci,cj Two ratings scores to be compared.
+#' @param inverse Whether to count matches (`FALSE`) or inverse matches (`TRUE`).
+#' @keywords internal
+#' 
 count_matches <- function(ci, cj, inverse = FALSE) 
 {
   if (inverse)
@@ -38,6 +44,7 @@ align_positive_poles <- function(x)
   }
   x
 }
+
 
 #' Calculate similarity matrix
 #' 
@@ -138,21 +145,30 @@ calculate_similarity <- function(x, min_matches = 6, align_poles = TRUE) #, use_
 }
 
 
-
-# https://stackoverflow.com/questions/55910373/generating-distinct-groups-of-nodes-in-a-network
-
-
+#' Replace left or right pole of constructs with blanks
+#' 
+#' To display the two poles of the constructs as vertex labels with different 
+#' colors, the poles have to be printed twice. The helper function replaces all letters
+#' from one of the poles with blanks. 
+#' @param x Character vector of constructs with `@` sign used to separate construct poles.
+#' @param first Replace first pole (`TRUE`) or second pole (`FALSE`)
+#' @rdname replace-poles
+#' @keywords internal
 replace_one <- function(x, first = TRUE)
 {
   o <- str_split(x, "@")[[1]]
-  r <- str_replace_all(o, ".", " ")
+  r <- str_replace_all(o, ".", " ")  # constructs poles are expected to be separated by @-sign
   if (first)
     w = paste0(o[1], "-", r[2])
   else
     w = paste0(r[1], " ", o[2])
   w
 }
+
 replace_all_ <- Vectorize(replace_one, USE.NAMES = FALSE)
+
+#' @rdname replace-poles
+#' @examples OpenRepGrid.ic:::replace_all("left pole @ right pole", first = TRUE)
 replace_all <- function(x, first = TRUE) 
 {
   if (length(x) == 0)  # catch length 0 error
@@ -332,11 +348,7 @@ network_graph_images <- function(x,
   }
   E(g)$color <- edge_colors
 
-  
-  # oldpar <- par(no.readonly = TRUE) 
-  # on.exit(par(oldpar))   
-  
-  
+
   ##__ all - abbreviated   ----------------------------------------------
   
   vertex.labels <- NULL
@@ -371,8 +383,6 @@ network_graph_images <- function(x,
   add_image_border(image_border_color)
   dev.off()
 
-  
-  l$pole_left
   
   # __ all - full labels ----------------------------------------------
   
@@ -418,7 +428,6 @@ network_graph_images <- function(x,
   dev.off()
   
 
-  
   ##__ all - separate poles  ----------------------------------------------
   
   label_wrap_width <- 14
@@ -483,9 +492,9 @@ network_graph_images <- function(x,
   
   img_all_constructs_separate_poles <- tempfile(fileext = ".png")
   png(img_all_constructs_separate_poles, width = 20, height = 20, units = "cm", res = 300)
-# par(oma = c(0,0,0,0), mar = c(0,0,0,0))
-# we need two superimposed plots here (hence 2 x seed) in order to achieve
-# a different font face for the poles
+  
+  # we need two superimposed plots here (hence 2 x same seed) in order to achieve
+  # a different font face for each of the pole
   with_par(img_par, {
     set.seed(seed)
     igraph::plot.igraph(g,
@@ -530,7 +539,6 @@ network_graph_images <- function(x,
                         vertex.label.font = vertex_font_pole_2,
                         vertex.color = "transparent",
                         vertex.frame.color = grey(.5))
-   
   })
   add_image_border(image_border_color)
   dev.off()
@@ -572,7 +580,7 @@ network_graph_images <- function(x,
   img_cliques_only <- tempfile(fileext = ".png")
   png(img_cliques_only, width = 20, height = 20, units = "cm", res = 300)
   with_par(img_par, {
-   # par(oma = c(0,0,0,0), mar = c(0,0,0,0))
+    # par(oma = c(0,0,0,0), mar = c(0,0,0,0))  # can be left out for now but kept as a reminder comment for an alternative approach
     set.seed(seed)
     if (n_clique > 0) {
       igraph::plot.igraph(g2, 
@@ -603,7 +611,6 @@ network_graph_images <- function(x,
   dev.off()    
   
   
-  
   # __ cliques - full labels  ----------------------------------------------
   
   cnames <- paste( prep_label(l$pole_left, label_max_length = label_max_length), "-", 
@@ -620,7 +627,6 @@ network_graph_images <- function(x,
   img_cliques_only_full_labels <- tempfile(fileext = ".png")
 
   png(img_cliques_only_full_labels, width = 20, height = 20, units = "cm", res = 300)
-  #par(oma = c(0,0,0,0), mar = c(0,0,0,0))
   with_par(img_par, {
     set.seed(seed)
     if (n_clique > 0) {
@@ -720,7 +726,6 @@ network_graph_images <- function(x,
   img_cliques_only_separate_poles <- tempfile(fileext = ".png")
   with_par(img_par, {
     png(img_cliques_only_separate_poles, width = 20, height = 20, units = "cm", res = 300)
-    #par(oma = c(0,0,0,0), mar = c(0,0,0,0))
     # we need two superimposed plots here (hence 2 x seed) in order to achieve
     # a different font face for the poles
     set.seed(seed)
@@ -774,7 +779,6 @@ network_graph_images <- function(x,
     add_image_border(image_border_color)
     dev.off()   
   })
-  
   
   # return image paths and other info as list 
   l2 <- list(img_all_constructs = img_all_constructs, 
