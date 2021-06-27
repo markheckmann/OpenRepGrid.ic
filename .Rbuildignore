@@ -11,3 +11,5 @@ dev$
 ^codecov\.yml$
 ^CRAN-RELEASE$
 ^cran-comments\.md$
+^Dockerfile$
+^\.dockerignore$
