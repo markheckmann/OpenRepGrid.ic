@@ -23,19 +23,24 @@ You can install the latest official release version from CRAN
 install.packages("OpenRepGrid.ic")
 ```
 
-or the development version from GitHub
+or the development version from GitHub.
 
 ``` r
 # install.packages("devtools")
 devtools::install_github("markheckmann/OpenRepGrid.ic")
 ```
 
-Then type `ic()` to start the shiny app.
+Then type the following to start the shiny app.
+
+```r
+library(OpenRepGrid.ic)
+ic()
+``` 
 
 
 ## Datasets
 
-You can find the datasets used in our publication on Zenodo
+You can find the datasets used in our publication on Zenodo.
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3629868.svg)](https://doi.org/10.5281/zenodo.3629868)
 
