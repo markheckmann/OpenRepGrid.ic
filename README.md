@@ -1,4 +1,4 @@
-## Interpretive Clustering
+# Interpretive Clustering
 
 [![](https://www.r-pkg.org/badges/version/OpenRepGrid.ic?color=success)](https://cran.r-project.org/package=OpenRepGrid.ic)
 [![Build Status](https://travis-ci.org/markheckmann/OpenRepGrid.ic.svg?branch=master)](https://travis-ci.org/markheckmann/OpenRepGrid.ic)
@@ -23,7 +23,7 @@ discovered cliques is discussed in detail.
 ![example](inst/shiny/www/sylvia_cliques.png "Construct cliques for Sylvias's grid")
 
 
-# Statement of need 
+## Statement of need 
 
 Currently, the IC method is not implemented in any other existing repertory grid
 software. While IC can also be conducted by hand, this is very time consuming,
@@ -65,7 +65,7 @@ You can find the datasets used in our publication on Zenodo.
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3629868.svg)](https://doi.org/10.5281/zenodo.3629868)
 
 
-# Contributing
+## Contributing
 
 In order to maximize the package's usefulness for the research community, we
 welcome participation in the package's development. Experienced R programmers
