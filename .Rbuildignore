@@ -14,3 +14,4 @@ dev$
 ^Dockerfile$
 ^\.dockerignore$
 ^LICENSE\.md$
+^\.github$

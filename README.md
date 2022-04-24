@@ -1,9 +1,12 @@
 # Interpretive Clustering
 
+<!-- badges: start -->
 [![](https://www.r-pkg.org/badges/version/OpenRepGrid.ic?color=success)](https://cran.r-project.org/package=OpenRepGrid.ic)
 [![Build Status](https://travis-ci.org/markheckmann/OpenRepGrid.ic.svg?branch=master)](https://travis-ci.org/markheckmann/OpenRepGrid.ic)
 [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/markheckmann/OpenRepGrid.ic?branch=master&svg=true)](https://ci.appveyor.com/project/markheckmann/OpenRepGrid.ic)
 [![Codecov test coverage](https://codecov.io/gh/markheckmann/OpenRepGrid.ic/branch/master/graph/badge.svg)](https://codecov.io/gh/markheckmann/OpenRepGrid.ic?branch=master)
+[![R-CMD-check](https://github.com/markheckmann/OpenRepGrid.ic/workflows/R-CMD-check/badge.svg)](https://github.com/markheckmann/OpenRepGrid.ic/actions)
+<!-- badges: end -->
 
 
 This package implements the [Interpretive Clustering (IC)](https://doi.org/10.1080/14780887.2020.1794088) 
