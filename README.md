@@ -23,7 +23,7 @@ discovered cliques is discussed in detail.
 ![example](inst/shiny/www/sylvia_cliques.png "Construct cliques for Sylvias's grid")
 
 
-# Statement of need 
+## Statement of need 
 
 Currently, the IC method is not implemented in any other existing repertory grid
 software. While IC can also be conducted by hand, this is very time consuming,
