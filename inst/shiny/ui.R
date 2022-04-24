@@ -1,13 +1,12 @@
-#////////////////////////////////////////////////////
+#////////////////////////////////////////////////////////////////////////////////////////////
 #
-#                       UI
+#                                     UI
 #
-#////////////////////////////////////////////////////
+#///////////////////////////////////////////////////////////////////////////////////////////
 
 
 suppressWarnings({
   suppressMessages({
-    
     library(shiny)
     library(shinyjs)
     library(shinythemes)
@@ -15,6 +14,7 @@ suppressWarnings({
     library(shinydashboard)
     library(shinydashboardPlus)
     library(shinycssloaders)
+    library(shinyBS)
     library(rintrojs)
     library(shinyFeedback)
     library(data.table)
@@ -35,6 +35,28 @@ suppressWarnings({
 })
 
 
+
+
+# Texts used in interactive tour and mouse-overs
+infos <- list(
+  settings_box_1 = "Settings to adjust the way the grid on the left is displayed. You can change the font size or line height and rotate the header if the element labels are very long.",
+  excel_input = "You can upload an Excel file here. You may also download a sample file and use it as a template.",
+  box_no_elements = "Number of elements in the grid",
+  box_no_constructs = "Number of constructs in the grid",
+  box_no_missing = "Number of ratings with no values in the grid",
+  start_tour = "Start an interactive tour through the software.",
+  par_min_match = "Set the minimal number of matches between two construct to consider them 'related'.By default it is set to the number of elements minus one.",
+  par_min_clique_size = "Set the minimal number of mutually related construct that form a 'clique'. By default the value is set to three constructs.",
+  par_align_poles = "Check to align positive / negative poles before building the graphs. This usually impoved readability of the graph.",
+  par_valence_prefix = "Check to prefix poles with (+) / (-) to indicate pole preference.",
+  par_show_edges = "Check to draw lines between related constructs.",
+  par_indicate_direction = "Check to indicate the direction of a construct relation (positive / negative) by a +/- sign.",
+  par_colorize_cliques = "Check to get a different color for each clique/cluster.",
+  par_colorize_direction = "Check to colorize the direction of a construct relation (positive / negative) by red and green color.",
+  par_label_max_length = "Set maximal no of characters of construct labels to avoid cluttering the plot.",
+  btn_process = "Process the grid data and generate an Excel file containing the results for download.",
+  btn_download_excel = "After the result file has been created, you can download it here."
+)
 
 
 #### _______________________####
@@ -239,11 +261,12 @@ body <- dashboardBody(
                        "While an offline approach is also described to find the construct cliques, this software automates the procedure.",
                        "In the image you can see the resulting construct cliques for Sylvia's sample grid."
                      ),
-                     p("Under the entry", tags$em("Method"), "in the left sidebar you will find a step-by-step description of the manual process
-                       to generate the construct clusters. To upload and analyse a grid programatically, click on the ", 
-                       tags$em("Analysis"), "entry in the sidebar."
+                     h4("Getting started"),
+                     tags$ul(
+                      tags$li("Under the entry", tags$em("Method"), "in the left sidebar you will find a step-by-step description of the manual process to generate the construct clusters."),
+                      tags$li("To upload and analyse a grid programatically, click on the", tags$em("Analysis"), "entry in the sidebar and follow the instructions.")
                      )
-                    ),
+                   ),
                    box(width = NULL, 
                        status = "danger",
                        p("Please",
@@ -280,36 +303,43 @@ body <- dashboardBody(
     tabItem(tabName = "tab_grid",
         fluidRow(
               column(width = 9,
+                     fluidRow(
+                       infoBox("", value = "The software does not produce any interactive output. 
+                               All IC results are contained in a downloadable Excel file. After 
+                               uploading the input grid data you may adjust the analysis settings.
+                               When done, press the 'Process data' button to generate the Excel.",
+                               icon = shiny::icon("info"), color = "red", width = 12)
+                     ),
                       hidden(div(id = "error_box",
-                          box(width = NULL, status = "danger", solidHeader = TRUE, #background = "red",
+                          box(width = NULL, status = "danger", solidHeader = TRUE, 
                               title = "Uuups. Something went wrong", 
                               p("I could not read your Excel file. Please see the comments below.",
                                 "Make sure your Excel file has the required format.")                          )
                       )),
                       hidden(
                           div(id = "success_box",
-                              introBox(data.step = 2, 
-                                       data.intro = "The boxes contain basic information about the grid you uploaded.",
-                              # box(width = NULL,
-                              fluidRow(
-                                infoBoxOutput("box_no_elements"),
-                                infoBoxOutput("box_no_constructs"),
-                                infoBoxOutput("box_no_missing")
-                            )
-                         )
+
+                              introBox(data.step = 2, data.intro = "The boxes contain basic information about the grid you uploaded.",
+                                fluidRow(
+                                  div(id = "grid_kpi_boxes",
+                                    tipify( infoBoxOutput("box_no_elements"), infos[["box_no_elements"]] ),
+                                    tipify( infoBoxOutput("box_no_constructs"), infos[["box_no_constructs"]] ),
+                                    tipify( infoBoxOutput("box_no_missing"), infos[["box_no_missing"]] )
+                                  )
+                                )
+                              )
                         )
                       ),
                      
                     #______ table -----------------
-                    #
-                    # div(id = "grid_box",
+                    
                     introBox(data.step = 3, 
                              data.intro = "The table shows the grid data from the Excel file you uploaded.
                                           Always double check that the data is correct before proceeding.",
                        box(width = NULL, 
-                           div(#style = "font-size:120%", 
-                               id = "main_table",
-                               DT::dataTableOutput("dt_grid") %>% withSpinner(color = "#D33724") 
+                           div(
+                             id = "main_table",
+                             DT::dataTableOutput("dt_grid") %>% withSpinner(color = "#D33724") 
                            )
                        )
                     ),
@@ -336,104 +366,118 @@ body <- dashboardBody(
               column(width = 3,
                      hidden(div(id = "tour_box",
                         box(width = NULL, status = "warning", title = "Software Tour", collapsible = TRUE,
-                          actionBttn("start_tour", "Start tour", icon = icon("info"), color = "warning")
+                          tipify(
+                            actionBttn("start_tour", "Start tour", icon = icon("info"), color = "warning"),
+                            infos[["start_tour"]], placement = "left"
+                          )
                         )
                      )),
-                     introBox(
+                     introBox( data.step = 1, data.intro = infos[["excel_input"]],
                        box(width = NULL, status = "warning", title = "Upload",
                            p("Please upload an Excel file containing a grid.",
                              "To get started, you can download a sample file", downloadLink(outputId = "download_sample_excel", label = "here."),
                               "More datasets can be found", 
                               tags$a(href = "https://doi.org/10.5281/zenodo.3629868", target = "_blank", "here.")),
-                           fileInput("excel_input", "Choose Excel File (.xlsx)", accept = ".xlsx")                     
-                       ),
-                       data.step = 1, 
-                       data.intro = "As you already know, you can upload an Excel file here. 
-                                     You may also download a sample file and use it as a template."
+                           tipify(
+                             fileInput("excel_input", "Choose Excel File (.xlsx)", accept = ".xlsx"),
+                             infos[["excel_input"]], placement = "left"
+                          )
+                       )
                      ),
                      
                      #______ settings ----------------
                      
                      hidden(div(id = "settings_box_1",
-                        introBox(
+                        introBox(data.step = 4, data.intro = infos[["settings_box_1"]],
                             box(width = NULL, status = "warning", title = "Grid settings", collapsible = TRUE, collapsed = TRUE, 
                               numericInput("grid_font_size", "Font size", 12, 6, 30, step = 1),
                               numericInput("grid_line_height", "Line height", value = 100, 50, 200, step = 10),
                               awesomeCheckbox("grid_rotate_elements", "Rotate header", value = FALSE),
                               awesomeCheckbox("grid_hide_col_preferred", "Hide preferred column", value = TRUE)
-                            ),
-                            data.step = 4, 
-                            data.intro = "Settings to adjust the way the grid on the left is displayed. 
-                                          You can change the font size or line height and rotate the header 
-                                          if the element labels are very long."
+                            )
                         )
                      )),
                      hidden(div(id = "settings_box_2",
                       introBox(data.step = 5, 
                                data.intro = "Specify the settings for the clique detection and start the calculation here.",
                           box(width = NULL, status = "warning", title = "Output settings", collapsible = TRUE,
-                              introBox(data.step = 6, 
-                                       data.intro = "Set the minimal number of matches between two construct to consider them 'related'.
-                                                     By default it is set to the number of elements minus one.",
-                                  numericInput("par_min_match", "Number of matches for relatedness", value = 6, min = 2, max = 20)
+                              introBox(data.step = 6, data.intro = infos[["par_min_match"]],
+                                  tipify(
+                                      numericInput("par_min_match", "Number of matches for relatedness", value = 6, min = 2, max = 20),
+                                      infos[["par_min_match"]], placement = "left"
+                                  )
                               ),
-                              introBox(data.step = 7, 
-                                       data.intro = "Set the minimal number of mutually related construct that form a 'clique'.
-                                                     By default the value is set to three constructs.",
-                                       numericInput("par_min_clique_size", "Minimal cliques size", value = 3, min = 2, max = 10)
+                              introBox(data.step = 7, data.intro = infos[["par_min_clique_size"]],
+                                   tipify(
+                                     numericInput("par_min_clique_size", "Minimal cliques size", value = 3, min = 2, max = 10),
+                                     infos[["par_min_clique_size"]], placement = "left"
+                                   )
                               ),
-                              introBox(data.step = 8, 
-                                       data.intro = "Check to align positive / negative poles before building the graphs. Generally, this you be done.",
-                                       awesomeCheckbox("par_align_poles", "Align pos./neg. poles", value = TRUE)
+                              introBox(data.step = 8, data.intro = infos[["par_align_poles"]],
+                                   tipify(
+                                      awesomeCheckbox("par_align_poles", "Align pos./neg. poles", value = TRUE),
+                                      infos[["par_align_poles"]], placement = "left"
+                                   )
                               ),
-                              introBox(data.step = 9, 
-                                       data.intro = "Check to prefix poles with (+) / (-) to indicate pole preference.",
-                                       awesomeCheckbox("par_valence_prefix", "(+/-) pole preference prefix", value = TRUE)
+                              introBox(data.step = 9, data.intro = infos[["par_valence_prefix"]],
+                                  tipify(
+                                      awesomeCheckbox("par_valence_prefix", "(+/-) pole preference prefix", value = TRUE),
+                                      infos[["par_valence_prefix"]], placement = "left"
+                                  )
                               ),
-                              introBox(data.step = 10, 
-                                       data.intro = "Check to draw lines between related constructs.",
-                                       awesomeCheckbox("par_show_edges", "Lines between related constructs", value = TRUE)
+                              introBox(data.step = 10, data.intro = infos[["par_show_edges"]],
+                                  tipify(
+                                      awesomeCheckbox("par_show_edges", "Lines between related constructs", value = TRUE),
+                                      infos[["par_show_edges"]], placement = "left"
+                                  )
                               ),
-                              introBox(data.step = 11, 
-                                       data.intro = "Check to indicate the direction of a construct relation (positive / negative) by a +/- sign.",
-                                       awesomeCheckbox("par_indicate_direction", "Indicate relation by +/-", value = TRUE)
+                              introBox(data.step = 11, data.intro = infos[["par_indicate_direction"]],
+                                   tipify(
+                                     awesomeCheckbox("par_indicate_direction", "Indicate relation by +/-", value = TRUE),
+                                     infos[["par_indicate_direction"]], placement = "left"
+                                   )
                               ),
-                              introBox(data.step = 12, 
-                                       data.intro = "Check to colorize the direction of a construct relation (positive / negative) by red and green color.",
-                                       awesomeCheckbox("par_colorize_direction", "Indicate relation by color", value = TRUE)
+                              introBox(data.step = 12, data.intro = infos[["par_colorize_direction"]],
+                                   tipify(
+                                     awesomeCheckbox("par_colorize_direction", "Indicate relation by color", value = TRUE),
+                                     infos[["par_colorize_direction"]], placement = "left"
+                                   )
                               ),
-                              
-                              introBox(data.step = 13, 
-                                       data.intro = "Check to get a different color for each clique/cluster.",
-                                       awesomeCheckbox("par_colorize_cliques", "Colorize clusters", value = TRUE)
+                              introBox(data.step = 13, data.intro = infos[["par_colorize_cliques"]],
+                                   tipify(
+                                     awesomeCheckbox("par_colorize_cliques", "Colorize clusters", value = TRUE),
+                                     infos[["par_colorize_cliques"]], placement = "left"
+                                   )
                               ),
-                              introBox(data.step = 14, 
-                                       data.intro = "Set maximal no of characters of construct labels to avoid cluttering the plot.",
-                                       numericInput("par_label_max_length", "Max. length of construct labels", value = 100, min = -1, max = 100)
+                              introBox(data.step = 14, data.intro = infos[["par_label_max_length"]],
+                                   tipify(
+                                     numericInput("par_label_max_length", "Max. length of construct labels", value = 100, min = -1, max = 100),
+                                     infos[["par_label_max_length"]], placement = "left"
+                                   )
                               ),
-                              # introBox(data.step = 8, 
-                              #          data.intro = "Whether to show full or abbreviated construct labels (C1, C2 etc.) in the output graphs.
-                              #                        By default full labels are shown.",
-                              #          awesomeCheckbox("par_abbr_labels", "Abbreviate construct labels", value = FALSE)
-                              # ),
                               div(style = "display:inline-block; float:left; margin-right: 10px",
-                                introBox(data.step = 15, 
-                                         data.intro = "Process the grid data and generate an Excel file containing 
-                                                       the results for download.",
-                                    actionButton("btn_process", label = "Process data")
+                                introBox(data.step = 15, data.intro = infos[["btn_process"]],
+                                    tipify(
+                                      actionButton("btn_process", label = "Process data"),
+                                      infos[["btn_process"]]
+                                    )
                                  )
                               ),
                               div(style="display:inline-block; float:left",
-                                introBox(data.step = 16, 
-                                         data.intro = "After the result file has been created, you can download it here.",
+                                introBox(data.step = 16, data.intro = infos[["btn_download_excel"]],
                                   disabled(
-                                   downloadButton(outputId = "btn_download_excel", style = "minimal", class = "downloadBtn", label = "Download results")
+                                    tipify(
+                                      downloadButton(outputId = "btn_download_excel", style = "minimal", class = "downloadBtn", label = "Download results"),
+                                      infos[["btn_download_excel"]]
+                                    )
                                   )
                                 )
                               )
+ 
+                              )
                           )
                       )
-                    ))
+                  )
               )
          )
     )

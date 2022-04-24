@@ -4,8 +4,13 @@ output: html_document
 ---
 
 
-## v0.5.2
+## v0.6.0
 
+* Excel output: added table with raw matching score, i.e. without constructs reversal, to better 
+  resemble step 3 from method description
+* Update README with parts from the JOSS paper as suggested by reviewers
+* UI Tweaks to improve usability: info box informs that the output is an Excel file, 
+  mouser-over for most analysis settings
 * Added MIT License
 
 ## v0.5.1

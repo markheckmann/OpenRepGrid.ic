@@ -1,8 +1,9 @@
-#////////////////////////////////////////////////////////////
+#//////////////////////////////////////////////////////////////////////////////////////
 #
-#                       IC Calculations
+#                                IC Calculations
 #
-#////////////////////////////////////////////////////////////
+#//////////////////////////////////////////////////////////////////////////////////////
+
 
 #' Count number of matches / non-matches for two constructs 
 #' 
@@ -92,10 +93,6 @@ calculate_similarity <- function(x, min_matches = 6, align_poles = TRUE) #, use_
     }
   }
   
-  # # for each construct geerate list of constructs constructs with >= 6 matches
-  # mm <- apply(ii, 1, which)   # like in Table 4a 
-  # # mx <- sapply(mm, length) %>% max
-  
   # keep bigger relatedness score
   M_vec <- as.vector(M)
   Mi_vec <- as.vector(Mi)
@@ -108,7 +105,7 @@ calculate_similarity <- function(x, min_matches = 6, align_poles = TRUE) #, use_
   # mark positive and negative relatedness
   ii_m <- M >= criterion_ 
   ii_mi <- Mi >= criterion_
-  ii <- ii_m | ii_mi   # min of 6 identical responses (match or mismatch)
+  ii <- ii_m | ii_mi   # min of n identical responses (match or mismatch)?
   D[ii_m] <- 1
   D[ii_mi] <- -1
   
@@ -134,7 +131,8 @@ calculate_similarity <- function(x, min_matches = 6, align_poles = TRUE) #, use_
   names(valence_left) <- labels
   names(valence_right) <- labels
 
-  list(R = R,    # no of matches 
+  list(R = R,    # no of matches (indlucing optional construct reversal, i.e. only high no. of matches relevant
+       M = M,    # matrix of matches without optional construct reversal, as described in paper, i.e. a very low and very high number of matches relevant
        MM = MM,  # relatedness 0/1
        D = D,    # direction of relation -1/1
        constructs = constructs,
@@ -357,7 +355,7 @@ network_graph_images <- function(x,
   
   img_all_constructs <- tempfile(fileext = ".png")
   png(img_all_constructs, width = 20, height = 20, units = "cm", res = 300)
-  #par(oma = c(0,0,0,0), mar = c(0,0,0,0))
+  #par(oma = c(0,0,0,0), mar = c(0,0,0,0))   # can be left out for now but kept as a reminder comment for an alternative approach
   with_par(img_par, {
     set.seed(seed)
     igraph::plot.igraph(g, 
@@ -400,7 +398,7 @@ network_graph_images <- function(x,
   
   img_all_constructs_full_labels <- tempfile(fileext = ".png")
   png(img_all_constructs_full_labels, width = 20, height = 20, units = "cm", res = 300)
-  # par(oma = c(0,0,0,0), mar = c(0,0,0,0))
+  # par(oma = c(0,0,0,0), mar = c(0,0,0,0))   # can be left out for now but kept as a reminder comment for an alternative approach
   with_par(img_par, {
     set.seed(seed)
     igraph::plot.igraph(g, 
@@ -439,7 +437,6 @@ network_graph_images <- function(x,
   ii_keep <- match(cns, names(cnames))
   vertex.labels <-
     cnames[cns] %>%
-    # str_sub(start = 1, end = label_max_length) %>%
     str_wrap(width = label_wrap_width)
   vertex.size <- 22
   vertex.label.cex <- .5
@@ -533,7 +530,7 @@ network_graph_images <- function(x,
                         vertex.size = vertex.size,
                         vertex.label = vertex.labels2,
                         vertex.size2 = vertex.size,
-                        vertex.label.color = colors_poles_right, #"black",
+                        vertex.label.color = colors_poles_right, 
                         vertex.label.cex = vertex.label.cex,
                         vertex.label.family = "mono",
                         vertex.label.font = vertex_font_pole_2,
@@ -691,8 +688,8 @@ network_graph_images <- function(x,
   })
   
   names(vertex_relations) <- cns
-  vertex_font_pole_1 <- 1 #recode(vertex_relations, "neg"= 2, .default = 1)
-  vertex_font_pole_2 <- 2 # recode(vertex_relations, "neg"= 1, .default = 2)
+  vertex_font_pole_1 <- 1 # recode(vertex_relations, "neg"= 2, .default = 1)  # can be left out for now but kept as a reminder comment for an alternative approach
+  vertex_font_pole_2 <- 2 # recode(vertex_relations, "neg"= 1, .default = 2)  # can be left out for now but kept as a reminder comment for an alternative approach
   
   vertex.labels1 <- replace_all(vertex.labels, first = TRUE)
   vertex.labels2 <- replace_all(vertex.labels, first = FALSE)

@@ -1,8 +1,8 @@
-#////////////////////////////////////////////////////
+#///////////////////////////////////////////////////////////////////////////////////////////
 #
-#                     server
+#                                   server
 #
-#////////////////////////////////////////////////////
+#//////////////////////////////////////////////////////////////////////////////////////////
 
 library(shiny)
 library(shinyjs)
@@ -100,7 +100,6 @@ server <- function(input, output, session)
   # the flag 'data_status' is needed so other processes can use the info
   observeEvent(rv$data, {
     x <- rv$data
-    cat("\ncheck data")
     if (is.null(x)) {
       rv$data_status <- "empty"
     } else {
@@ -196,7 +195,6 @@ server <- function(input, output, session)
     # all test were passed
     cat("\nall tests passed")
     hide("error_box")
-    show("success_box")
     show("down_btn")
     show("settings_box_1")
     show("settings_box_2")

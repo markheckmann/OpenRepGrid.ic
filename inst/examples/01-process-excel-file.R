@@ -15,9 +15,7 @@ l <- network_graph_images(x, min_clique_size = 3,
                           show_edges = TRUE, 
                           min_matches = 6)    # produce images
 file_tmp <- create_excel_output(file, l)      # create Excel file
-
-# copy Excel to working dir (commented out to avoid file generation during testing)
-#file.copy(file_tmp, file_out, overwrite = TRUE)  
+# file.show(file_tmp)  # not run during tests
 
 # open images saved as temp files (as shown in output Excel file)
 file.show(l$img_all_constructs)

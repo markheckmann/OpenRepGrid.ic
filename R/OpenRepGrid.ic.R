@@ -33,6 +33,7 @@
 #' @rawNamespace import(graphics, except = box)
 #' @importFrom withr with_par
 #' @importFrom stats na.omit
+#' @importFrom shinyBS tipify
 #' @import
 #' utils
 #' grDevices

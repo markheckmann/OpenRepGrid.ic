@@ -1,8 +1,8 @@
-#////////////////////////////////////////////////////////////
+#/////////////////////////////////////////////////////////////////////////////////////
 #
-#                       Excel output
+#                                 Excel output
 #
-#////////////////////////////////////////////////////////////
+#/////////////////////////////////////////////////////////////////////////////////////
 
 
 #' Check if Excel input file contains valid data
@@ -149,7 +149,8 @@ create_excel_output <- function(file, data = list())
   nms <- names(wb)
   constructs_df <- data.frame("constructs" = data$constructs, stringsAsFactors = FALSE)
   R <- data$R
-  D <- data$D
+  D <- data$D  # matrix with matches (with optional construct reversal)
+  M <- data$M  # matrix with matches (no construct reversal)
   cliques_list <- data$cliques_list
   clique_lists_full_names <- data$clique_lists_full_names
   
@@ -202,10 +203,20 @@ create_excel_output <- function(file, data = list())
     c("* Positive construct poles (as indicated by column 'preferred') are aligned on the right",
     "** 1 = positive relatedness, -1 = negative relatedness"), stringsAsFactors = FALSE)
   writeData(wb, sheet, lgnd, startRow = row + 2, startCol = 1, colNames = FALSE, rowNames = FALSE)
-  
-  # matches
+
+  # matches (no construct reversal)
   row <- 6
-  writeData(wb, sheet, "Number of matches between constructs*", startRow = row, startCol = 1)
+  writeData(wb, sheet, "Number of matches between constructs (no construct reversal)*", startRow = row, startCol = 1)
+  addStyle(wb, sheet, style = style_bold, gridExpand = TRUE, rows = row, cols = 1) 
+  writeData(wb, sheet, constructs_df, startRow = row + 2, startCol = 1, colNames = TRUE, rowNames = FALSE)
+  addStyle(wb, sheet, style = style_right, rows = row + 2, cols = 1) 
+  addStyle(wb, sheet, style = style_italic, rows = row + 2, cols = 1, stack = TRUE) 
+  addStyle(wb, sheet, style = style_right, gridExpand = TRUE, rows = 1L:nrow(R) + row + 2, cols = 1) 
+  writeData(wb, sheet, M, startRow = row + 2, startCol = 2, colNames = TRUE, rowNames = TRUE)
+  
+  # matches (with optional construct reversal)
+  row <- row + nrow(M) + 4
+  writeData(wb, sheet, "Number of matches between constructs (after optional construct reversal)*", startRow = row, startCol = 1)
   addStyle(wb, sheet, style = style_bold, gridExpand = TRUE, rows = row, cols = 1) 
   writeData(wb, sheet, constructs_df, startRow = row + 2, startCol = 1, colNames = TRUE, rowNames = FALSE)
   addStyle(wb, sheet, style = style_right, rows = row + 2, cols = 1) 
@@ -215,7 +226,7 @@ create_excel_output <- function(file, data = list())
   
   # direction
   i <- row + nrow(R) + 4
-  txt <- paste0("Relatedness by criterion (matches >= ", min_matches, ")**")
+  txt <- paste0("Relatedness by criterion (matches >= ", min_matches, " after optional construct reversal)**")
   writeData(wb, sheet, txt, startRow = i, startCol = 1)
   addStyle(wb, sheet, style = style_bold, gridExpand = TRUE, rows = i, cols = 1) 
   writeData(wb, sheet, constructs_df, startRow = i + 2, startCol = 1, colNames = TRUE, rowNames = FALSE)
@@ -227,6 +238,7 @@ create_excel_output <- function(file, data = list())
   setColWidths(wb, sheet, cols = 2L:(ncol(R) + 2), widths = "auto")
   conditionalFormatting(wb, sheet, cols = 1L:nrow(R) + 2, rows = 1L:nrow(R) + i + 2, rule = "<0", style = neg_style)
   conditionalFormatting(wb, sheet, cols = 1L:nrow(R) + 2, rows = 1L:nrow(R) + i + 2, rule = ">0", style = pos_style)
+  
   
   # Clique enumeration ----------------------------------
   
