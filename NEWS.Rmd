@@ -4,6 +4,10 @@ output: html_document
 ---
 
 
+## v0.5.2
+
+* Added MIT License
+
 ## v0.5.1
 
 * breaking changes in shinyDashboardPlus 2.0.0 integrated

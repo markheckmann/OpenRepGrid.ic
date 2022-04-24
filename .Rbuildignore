@@ -13,3 +13,4 @@ dev$
 ^cran-comments\.md$
 ^Dockerfile$
 ^\.dockerignore$
+^LICENSE\.md$
