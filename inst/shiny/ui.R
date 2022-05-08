@@ -318,7 +318,6 @@ body <- dashboardBody(
                       )),
                       hidden(
                           div(id = "success_box",
-
                               introBox(data.step = 2, data.intro = "The boxes contain basic information about the grid you uploaded.",
                                 fluidRow(
                                   div(id = "grid_kpi_boxes",
@@ -328,7 +327,7 @@ body <- dashboardBody(
                                   )
                                 )
                               )
-                        )
+                          )
                       ),
                      
                     #______ table -----------------

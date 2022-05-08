@@ -199,8 +199,8 @@ server <- function(input, output, session)
     show("settings_box_1")
     show("settings_box_2")
     show("tour_box")
+    show("success_box")
     hide("excel_info_box")
-    # hide("grid_box")
     
     nms <- names(x) %>% str_replace_all("\\.", " ")
     
