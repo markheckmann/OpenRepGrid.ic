@@ -22,7 +22,7 @@ Description: Shiny UI to identify cliques of related constructs in repertory gri
     See Burr, King, & Heckmann (2020) <doi:10.1080/14780887.2020.1794088> for a description 
     of the interpretive clustering (IC) method.
 Version: 0.6.0
-Date: 2022-04-24
+Date: 2022-05-08
 Imports:
     graphics,
     grDevices,
