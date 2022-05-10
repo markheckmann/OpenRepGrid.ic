@@ -76,7 +76,7 @@ library(OpenRepGrid.ic)
 ic()
 ```
 
-Alternatively, there is a web version available under http://ic.openprepgrid.org. Also, a docker image is provided under https://hub.docker.com/repository/docker/markheckmann/openrepgrid.ic with a short instruction how to run it locally. A screenshot of the user interface is displayed in Figure 2. The image shows a grid dataset from an interview with *Sylvia* which is also contained in the package.
+Also, a docker image is provided under https://hub.docker.com/repository/docker/markheckmann/openrepgrid.ic with a short instruction how to run the app locally. A screenshot of the user interface is displayed in Figure 2. The image shows a grid dataset from an interview with *Sylvia* which is also contained in the package.
 
 ![Screenshot of the software.](img/02-screenshot.png)
 
