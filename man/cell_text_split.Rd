@@ -15,7 +15,7 @@ String splitter for comma separated values in Excel cell
 \examples{
 
 cell_text_split("10, 20,30" )
-cell_text_split("; ,  10  ,,,  20;30,," ) # sehr robust
+cell_text_split("; ,  10  ,,,  20;30,," ) # very robust
 
 }
 \keyword{internal}

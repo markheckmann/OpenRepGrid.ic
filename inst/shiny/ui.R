@@ -37,10 +37,12 @@ suppressWarnings({
 
 
 
-# Texts used in interactive tour and mouse-overs
+# Texts used in interactive tour and mouse-overs and/or tipify call-outs
 infos <- list(
   settings_box_1 = "Settings to adjust the way the grid on the left is displayed. You can change the font size or line height and rotate the header if the element labels are very long.",
-  excel_input = "You can upload an Excel file here. You may also download a sample file and use it as a template.",
+  excel_input = "You can upload an Excel file here. You may also download a sample grid file and use it as a template or click the button to directly load a sample grid.",
+  excel_input_btn_upload = "You can upload an Excel file here. You may also download a sample grid file below and use it as a template for your own grid.",
+  excel_input_btn_sample = "Click to directly load a sample grid and get started right away.",
   box_no_elements = "Number of elements in the grid",
   box_no_constructs = "Number of constructs in the grid",
   box_no_missing = "Number of ratings with no values in the grid",
@@ -65,12 +67,10 @@ infos <- list(
 pkg_version <- paste0("OpenRepGrid.ic v", packageVersion("OpenRepGrid.ic"))
 
 header <- dashboardHeader(
-  # dropdownMenuOutput("notification_menu"),
   title = tagList(
     span(class = "logo-lg", "OpenRepGrid.ic"), 
     span(class = "logo-sm", "")
   )
-  # fixed = FALSE 
 )
 
 
@@ -80,9 +80,9 @@ header <- dashboardHeader(
 
 sidebar <- dashboardSidebar(  
     sidebarMenu(id = "sidebar",
-        menuItem("Home", tabName = "tab_start", icon = icon("home")),
+        menuItem("Home", tabName = "tab_start", icon = icon("house")),
         menuItem("Method", tabName = "tab_method", icon = icon("info")),
-        menuItem("Analysis", tabName = "tab_grid", icon = icon("th"))
+        menuItem("Analysis", tabName = "tab_grid", icon = icon("table-cells"))
     )
 )
 
@@ -334,7 +334,7 @@ body <- dashboardBody(
                     
                     introBox(data.step = 3, 
                              data.intro = "The table shows the grid data from the Excel file you uploaded.
-                                          Always double check that the data is correct before proceeding.",
+                                           Always double check that the data is correct before proceeding.",
                        box(width = NULL, 
                            div(
                              id = "main_table",
@@ -372,15 +372,23 @@ body <- dashboardBody(
                         )
                      )),
                      introBox( data.step = 1, data.intro = infos[["excel_input"]],
-                       box(width = NULL, status = "warning", title = "Upload",
-                           p("Please upload an Excel file containing a grid.",
-                             "To get started, you can download a sample file", downloadLink(outputId = "download_sample_excel", label = "here."),
+                       box(width = NULL, status = "warning", title = "Load data", 
+                           collapsible = TRUE, collapsed = FALSE,
+                            p("Please upload an Excel file containing a grid."),
+                            tipify(
+                              fileInput("excel_input", "Choose Excel File (.xlsx)", accept = ".xlsx"),
+                              infos[["excel_input_btn_upload"]], placement = "left"
+                            ),
+                            hr(),
+                            p("You can download a sample file", downloadLink(outputId = "download_sample_excel", label = "here."),
                               "More datasets can be found", 
                               tags$a(href = "https://doi.org/10.5281/zenodo.3629868", target = "_blank", "here.")),
+                            hr(),
+                            p("To get started right away without any download, load the sample grid by pressing the button below."),
                            tipify(
-                             fileInput("excel_input", "Choose Excel File (.xlsx)", accept = ".xlsx"),
-                             infos[["excel_input"]], placement = "left"
-                          )
+                             actionButton("load_sample_data", "Load sample grid"),
+                             infos[["excel_input_btn_sample"]], placement = "left"
+                           )
                        )
                      ),
                      

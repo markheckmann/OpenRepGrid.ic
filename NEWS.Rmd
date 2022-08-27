@@ -19,6 +19,8 @@ output: html_document
 
 ## v0.6.1
 
+-   Button to load sample data and get started right away without uploading any data
+-   Update icon names using Font Awesome 6
 -   All code comments are in English now
 
 ## v0.6.0
