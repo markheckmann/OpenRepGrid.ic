@@ -3,82 +3,96 @@ title: "NEWS"
 output: html_document
 ---
 
+## TODOs
+
+-   Because this is a shiny app, I think it would be nice to have a gif in the package README file
+    showing how to use the app instead of just a screenshot of the interface, or at least a few more
+    screenshots indicating the steps to run the analysis
+
+-   Also on the exemplification, it woul be nice to have an 'example analysis' in the shiny app (as
+    another tab), because currently, we can only see any results if we input our own data, which
+    might be a bit confusing for someone who is exploring the app and maybe doesn't have their own
+    data yet
+
+-   The tests seemed a bit incomplete to me, it doesn't look like all functions are being tested,
+    just the app function and the file format. Is this enough to test the whole code?
+
+## v0.6.1
+
+-   All code comments are in English now
 
 ## v0.6.0
 
-* Excel output: added table with raw matching score, i.e. without constructs reversal, to better 
-  resemble step 3 from method description
-* Update README with parts from the JOSS paper as suggested by reviewers
-* UI Tweaks to improve usability: info box informs that the output is an Excel file, 
-  mouser-over for most analysis settings
-* Added MIT License
+-   Excel output: added table with raw matching score, i.e. without constructs reversal, to better
+    resemble step 3 from method description
+-   Update README with parts from the JOSS paper as suggested by reviewers
+-   UI Tweaks to improve usability: info box informs that the output is an Excel file, mouser-over
+    for most analysis settings
+-   Added MIT License
 
 ## v0.5.1
 
-* breaking changes in shinyDashboardPlus 2.0.0 integrated
-
+-   breaking changes in shinyDashboardPlus 2.0.0 integrated
 
 ## v0.5.0
 
-* clean up old and unnecessary files 
-* Sylvia's sample grid with full element labels
-* network image interpretation help inside Excel
-* option to prefix with pole valence (+/-)
-* option to set maximal construct label length
-* pole alignment option in calculation and graph functions 
-* removed bold font indications
+-   clean up old and unnecessary files
+-   Sylvia's sample grid with full element labels
+-   network image interpretation help inside Excel
+-   option to prefix with pole valence (+/-)
+-   option to set maximal construct label length
+-   pole alignment option in calculation and graph functions
+-   removed bold font indications
 
 ## v0.4.0
 
-* program does not crash when Excel format is incorrect
-* more Excel format tests and 
-* image borders parameter in `network_graph_images`
-* fix left alignment of right pole in grid table
-* option for showing / hiding edges
-* option for showing construct relatedness by color
-* option for showing construct relatedness by +/- label
-* option to auto-color cliques in UI and `network_graph_images`
-* throw general Excel data format error when a test yields NA for unknown reasons
-* additional network images with bold related poles 
+-   program does not crash when Excel format is incorrect
+-   more Excel format tests and
+-   image borders parameter in `network_graph_images`
+-   fix left alignment of right pole in grid table
+-   option for showing / hiding edges
+-   option for showing construct relatedness by color
+-   option for showing construct relatedness by +/- label
+-   option to auto-color cliques in UI and `network_graph_images`
+-   throw general Excel data format error when a test yields NA for unknown reasons
+-   additional network images with bold related poles
 
 ## v0.3.1
 
-* fix bug and make compatible with upcoming `shinyjs` 2.0 release
-* text on landing page and REAMDE updated
+-   fix bug and make compatible with upcoming `shinyjs` 2.0 release
+-   text on landing page and REAMDE updated
 
 ## v0.3.0
 
-* all data files from publication added
-* link to all datasets used in publication
-* travis CI added
-* added Richard's grid
-* password protection removed
-* method description added directly to app
-* method description sheet added to Excel output
-* direction in matrix colorized
-* legend added to sheet calculations  
-* construct labels left of relatedness matrix
-* colored edges to indicate direction of construct relatedness
-* abbreviated and full construct labels in network output images
+-   all data files from publication added
+-   link to all datasets used in publication
+-   travis CI added
+-   added Richard's grid
+-   password protection removed
+-   method description added directly to app
+-   method description sheet added to Excel output
+-   direction in matrix colorized
+-   legend added to sheet calculations\
+-   construct labels left of relatedness matrix
+-   colored edges to indicate direction of construct relatedness
+-   abbreviated and full construct labels in network output images
 
 ## v0.2.0
 
-* package help and examples for workhorse functions added
-* no detected cliques will no longer cause an error
-* warn for low number of matches for relatedness
-* image and description of file format
-* software introduction tour
-* auto adjusting cut-off values for relatedness according to grid size
+-   package help and examples for workhorse functions added
+-   no detected cliques will no longer cause an error
+-   warn for low number of matches for relatedness
+-   image and description of file format
+-   software introduction tour
+-   auto adjusting cut-off values for relatedness according to grid size
 
 ## v0.1.0
 
-* First working version with all necessary features
+-   First working version with all necessary features
 
 ## backlog (optional)
 
-* table CSS issues (at least on shinyapps.io)
-* use more condensed monospace font for related poles to save space
-* an Rplots.pdf file is created when running the tests. Unknown reason. par() is not the culprit
-* add tooltips
-
-
+-   table CSS issues (at least on shinyapps.io)
+-   use more condensed monospace font for related poles to save space
+-   an Rplots.pdf file is created when running the tests. Unknown reason. par() is not the culprit
+-   add tooltips
