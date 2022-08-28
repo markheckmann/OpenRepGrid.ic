@@ -127,7 +127,7 @@ Psychologically relevant information can be obtained from the interpretation of 
 What follows is a shortened example. More comprehensive examples are outlined in our publication.
 
 In the resulting diagram for Sylvia's grid in Figure 3, a construct is indicated by a circle, with
-(-) denoting the preferred and (-) the non-preferred pole. The diagram shows three clusters (also
+(+) denoting the preferred and (-) the non-preferred pole. The diagram shows three clusters (also
 called cliques), indicated by the colored hulls around several constructs. In Sylvia's case, the
 three clusters are highly overlapping. Two of these are of particular interest, sharing a 'core' of
 three constructs -- '(+) Wild, free *vs* (-) controlled, contained', '(+) Massive sense of space,

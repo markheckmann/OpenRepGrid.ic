@@ -82,7 +82,8 @@ sidebar <- dashboardSidebar(
     sidebarMenu(id = "sidebar",
         menuItem("Home", tabName = "tab_start", icon = icon("house")),
         menuItem("Method", tabName = "tab_method", icon = icon("info")),
-        menuItem("Analysis", tabName = "tab_grid", icon = icon("table-cells"))
+        menuItem("Analysis", tabName = "tab_grid", icon = icon("table-cells")),
+        menuItem("Sample Output", tabName = "tab_sample", icon = icon("chart-simple"))
     )
 )
 
@@ -264,7 +265,8 @@ body <- dashboardBody(
                      h4("Getting started"),
                      tags$ul(
                       tags$li("Under the entry", tags$em("Method"), "in the left sidebar you will find a step-by-step description of the manual process to generate the construct clusters."),
-                      tags$li("To upload and analyse a grid programatically, click on the", tags$em("Analysis"), "entry in the sidebar and follow the instructions.")
+                      tags$li("To upload and analyse a grid programatically, click on the", tags$em("Analysis"), "entry in the sidebar and follow the instructions."),
+                      tags$li("To see an extract of the generated output for Sylivia's grid, click on the", tags$em("Sample Output"), "tab in the sidebar.")
                      )
                    ),
                    box(width = NULL, 
@@ -380,13 +382,13 @@ body <- dashboardBody(
                               infos[["excel_input_btn_upload"]], placement = "left"
                             ),
                             hr(),
-                            p("You can download a sample file", downloadLink(outputId = "download_sample_excel", label = "here."),
+                            p("You can download a sample file (Sylvias's grid)", downloadLink(outputId = "download_sample_excel", label = "here."),
                               "More datasets can be found", 
                               tags$a(href = "https://doi.org/10.5281/zenodo.3629868", target = "_blank", "here.")),
                             hr(),
-                            p("To get started right away without any download, load the sample grid by pressing the button below."),
+                            p("To get started right away without any download, load Sylvia's sample grid by pressing the button below."),
                            tipify(
-                             actionButton("load_sample_data", "Load sample grid"),
+                             actionButton("load_sample_data", "Load Sylvia's sample grid"),
                              infos[["excel_input_btn_sample"]], placement = "left"
                            )
                        )
@@ -487,6 +489,15 @@ body <- dashboardBody(
                   )
               )
          )
+    ),
+    
+    #### __ SAMPLE  ####
+    
+    tabItem(tabName = "tab_sample",
+            div( id = "tab_sample_output",
+                 # includeMarkdown("www/method.md")
+                 includeHTML("www/example.html")
+            )
     )
     
   ) # end tabitems
