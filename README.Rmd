@@ -13,11 +13,13 @@ knitr::opts_chunk$set(echo = TRUE)
 # render("README.Rmd", md_document(standalone = TRUE))
 ```
 
+
 [![](https://www.r-pkg.org/badges/version/OpenRepGrid.ic?color=success)](https://cran.r-project.org/package=OpenRepGrid.ic)
 [![Codecov test
 coverage](https://codecov.io/gh/markheckmann/OpenRepGrid.ic/branch/master/graph/badge.svg)](https://codecov.io/gh/markheckmann/OpenRepGrid.ic?branch=master)
 [![R-CMD-check](https://github.com/markheckmann/OpenRepGrid.ic/workflows/R-CMD-check/badge.svg)](https://github.com/markheckmann/OpenRepGrid.ic/actions)
 
+# Interpretive Clustering
 
 ## Introduction
 
