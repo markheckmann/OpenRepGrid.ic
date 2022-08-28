@@ -14,11 +14,9 @@ output: html_document
     might be a bit confusing for someone who is exploring the app and maybe doesn't have their own
     data yet
 
--   The tests seemed a bit incomplete to me, it doesn't look like all functions are being tested,
-    just the app function and the file format. Is this enough to test the whole code?
-
 ## v0.6.1
 
+-   Additional test raising test coverage to over 90%
 -   Button to load sample data and get started right away without uploading any data
 -   Update icon names using Font Awesome 6
 -   All code comments are in English now

@@ -45,8 +45,19 @@ test_that("input file format is checked correctly", {
   tests <- check_excel_input(x)  
   expect_false(all(tests$passed)) 
   
-  x <- read.xlsx(file, sheet = "format-empty")
+  suppressWarnings({  # suppress read.xlsx empty sheet warning
+    x <- read.xlsx(file, sheet = "format-empty")  
+  })
   tests <- check_excel_input(x)  
   expect_false(all(tests$passed)) 
   
+})
+
+
+test_that("Excel output file gets created", {
+  file <- system.file("extdata", "sylvia.xlsx", package = "OpenRepGrid.ic")
+  x <- openxlsx::read.xlsx(file)
+  l <- network_graph_images(x, min_clique_size = 3, show_edges = TRUE, min_matches = 6) 
+  file_tmp <- create_excel_output(file, l)
+  expect_true(file.exists(file_tmp))
 })

@@ -66,7 +66,7 @@ calculate_similarity <- function(x, min_matches = 6, align_poles = TRUE) #, use_
   if (align_poles) {
     x <- align_positive_poles(x)
   }
-    
+  
   s <- x[, i_ratings]   # remove construct poles
   S <- as.matrix(s)
   pole_left <- x[, i_left]
@@ -98,7 +98,7 @@ calculate_similarity <- function(x, min_matches = 6, align_poles = TRUE) #, use_
   Mi_vec <- as.vector(Mi)
   R[, ] <- ifelse(M_vec > Mi_vec, M_vec, Mi_vec)
   diag(R) <- NA
-
+  
   diag(M) <- NA   # exlude match to self
   diag(Mi) <- NA  # exlude match to self
   
@@ -130,8 +130,8 @@ calculate_similarity <- function(x, min_matches = 6, align_poles = TRUE) #, use_
   names(pole_right) <- labels
   names(valence_left) <- labels
   names(valence_right) <- labels
-
-  list(R = R,    # no of matches (indlucing optional construct reversal, i.e. only high no. of matches relevant
+  
+  list(R = R,    # no of matches (inclucing optional construct reversal, i.e. only high no. of matches relevant
        M = M,    # matrix of matches without optional construct reversal, as described in paper, i.e. a very low and very high number of matches relevant
        MM = MM,  # relatedness 0/1
        D = D,    # direction of relation -1/1
@@ -192,7 +192,7 @@ clique_color_pals <- function(n, name = "Dark2", alpha = .1)
     )
     return(l)
   }
-    
+  
   pals <- RColorBrewer::brewer.pal.info
   n_max <- pals[name, ]$maxcolors  # max umber of avaiabke colors in palette
   cols <- RColorBrewer::brewer.pal(n_max, name)  # build palette
@@ -214,7 +214,7 @@ clique_color_pals <- function(n, name = "Dark2", alpha = .1)
 add_image_border <- function(color = NA) 
 {
   if ( is.null(color) || is.na(color) )
-      return(NULL)
+    return(NULL)
   graphics::box(which = "outer", lty = "solid", col = color)
 }
 
@@ -327,7 +327,7 @@ network_graph_images <- function(x,
   
   nms_keep <- clique_lists %>% unlist %>% unique
   MM2 <- MM[nms_keep, nms_keep]
-
+  
   # colorize edges by direction
   edges <- ends(g, E(g))   # edge from to as rowwise matrix
   edge_directions <- D[edges]
@@ -336,7 +336,7 @@ network_graph_images <- function(x,
   } else {
     edge_labels <- NULL
   }
-    
+  
   if (colorize_direction) {
     edge_colors <- recode(edge_directions, `1` = "darkgreen", `-1` = "red", .default = "grey")
     edge_label_colors <- edge_colors
@@ -345,8 +345,8 @@ network_graph_images <- function(x,
     edge_label_colors <- grey(.2)
   }
   E(g)$color <- edge_colors
-
-
+  
+  
   ##__ all - abbreviated   ----------------------------------------------
   
   vertex.labels <- NULL
@@ -380,7 +380,7 @@ network_graph_images <- function(x,
   })
   add_image_border(image_border_color)
   dev.off()
-
+  
   
   # __ all - full labels ----------------------------------------------
   
@@ -420,19 +420,19 @@ network_graph_images <- function(x,
                         vertex.label.family = "sans",
                         vertex.color = grey(.9),
                         vertex.frame.color = grey(.5))
-
+    
   })
   add_image_border(image_border_color)
   dev.off()
   
-
+  
   ##__ all - separate poles  ----------------------------------------------
   
   label_wrap_width <- 14
   cnames <- paste( prep_label(l$pole_left, label_max_length = label_max_length), "@", 
                    prep_label(l$pole_right, label_max_length = label_max_length))
   names(cnames) <- names(l$constructs)
-
+  
   cns <- V(g)$name
   ii_keep <- match(cns, names(cnames))
   vertex.labels <-
@@ -441,7 +441,7 @@ network_graph_images <- function(x,
   vertex.size <- 22
   vertex.label.cex <- .5
   edge_labels <- NULL
-
+  
   # find vertexes with negative relations only => we need to separate by direction
   D2 <- D[ii_keep, ii_keep]
   vertex_relations <- apply(D2, 2, function(x) {
@@ -457,10 +457,10 @@ network_graph_images <- function(x,
   names(vertex_relations) <- cns
   vertex_font_pole_1 <- 1 # recode(vertex_relations, "neg" = 2, .default = 1)
   vertex_font_pole_2 <- 1 # recode(vertex_relations, "neg" = 1, .default = 2)
-
+  
   vertex.labels1 <- replace_all(vertex.labels, first = TRUE)
   vertex.labels2 <- replace_all(vertex.labels, first = FALSE)
-
+  
   # colorize edges by direction
   edges <- ends(g, E(g))   # edge from to as rowwise matrix
   edge_directions <- D[edges]
@@ -514,7 +514,7 @@ network_graph_images <- function(x,
                         vertex.label.font = vertex_font_pole_1,
                         vertex.color = grey(.9),
                         vertex.frame.color = grey(.5))
-  
+    
     set.seed(seed)
     igraph::plot.igraph(g, add = TRUE,
                         mark.groups = NULL,
@@ -568,7 +568,7 @@ network_graph_images <- function(x,
     cnames[cns] %>%
     str_sub(start = 1, end = label_max_length) %>%
     str_wrap(width = label_wrap_width)
-
+  
   # abbreviated construct labels
   vertex.labels <- NULL
   vertex.size = 30
@@ -622,7 +622,7 @@ network_graph_images <- function(x,
   vertex.label.cex <- .6
   
   img_cliques_only_full_labels <- tempfile(fileext = ".png")
-
+  
   png(img_cliques_only_full_labels, width = 20, height = 20, units = "cm", res = 300)
   with_par(img_par, {
     set.seed(seed)

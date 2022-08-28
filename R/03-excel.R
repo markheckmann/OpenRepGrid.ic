@@ -120,16 +120,18 @@ check_excel_input_test <- function(x)
 #' 
 check_excel_input <- function(x) 
 {
-  tests <- tryCatch(
-    check_excel_input_test(x), 
-    error = function(e) {
-      data.frame(
-        assert = "Excel file tests can be executed without error.", 
-        passed = FALSE, 
-        error = "When testing your Excel file format for correctness, the program crashed. The reason is unknown. Most likely, there is a problem in the Excel file you uploaded. Please check the Excel grid format for correctness."
-      )  
-    }
-  )
+  suppressWarnings({  # so that NA coercions do not raise unwanted warnings
+    tests <- tryCatch(
+      check_excel_input_test(x), 
+      error = function(e) {
+        data.frame(
+          assert = "Excel file tests can be executed without error.", 
+          passed = FALSE, 
+          error = "When testing your Excel file format for correctness, the program crashed. The reason is unknown. Most likely, there is a problem in the Excel file you uploaded. Please check the Excel grid format for correctness."
+        )  
+      }
+    )
+  })
   tests
 }
   
