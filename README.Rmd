@@ -8,16 +8,16 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+# generate markdown for uoload to github using:
+# library(rmarkdown)
+# render("README.Rmd", md_document(standalone = TRUE))
 ```
-
-<!-- badges: start -->
 
 [![](https://www.r-pkg.org/badges/version/OpenRepGrid.ic?color=success)](https://cran.r-project.org/package=OpenRepGrid.ic)
 [![Codecov test
 coverage](https://codecov.io/gh/markheckmann/OpenRepGrid.ic/branch/master/graph/badge.svg)](https://codecov.io/gh/markheckmann/OpenRepGrid.ic?branch=master)
 [![R-CMD-check](https://github.com/markheckmann/OpenRepGrid.ic/workflows/R-CMD-check/badge.svg)](https://github.com/markheckmann/OpenRepGrid.ic/actions)
 
-<!-- badges: end -->
 
 ## Introduction
 
@@ -28,7 +28,7 @@ is a browser-based software to perform *Interpretive Clustering* (IC) for repert
 and generates a mix of qualitative and quantitative data. IC is a method for clustering the
 attributes (so called constructs) resulting from a repertory grid interview by finding relational
 patterns between them. The IC method is described in more detail in our publication
-[[\@burr_qualitative_2020](https://doi.org/10.1080/14780887.2020.1794088)]. An introduction to the
+[@burr_qualitative_2020](https://doi.org/10.1080/14780887.2020.1794088). An introduction to the
 software is also available on [YouTube](https://youtu.be/f9oINYA22Rc). The package is part of the
 [OpenRepgrid project](http://openrepgrid.org/), which contains several software packages for the
 analysis of repertory grid data. In the following, we will briefly explain, why the software was
@@ -91,7 +91,7 @@ cliques) of constructs form the basis for a subsequent qualitative interpretatio
 brief interpretation example below. The example builds on the analysis results the software
 generates as shown next. However, for a more thorough introduction to the IC method and
 comprehensive illustrations of interpretations, the reader is referred to our publication
-[[\@burr_qualitative_2020](https://doi.org/10.1080/14780887.2020.1794088)]. Please note that the IC
+[@burr_qualitative_2020](https://doi.org/10.1080/14780887.2020.1794088). Please note that the IC
 method only allows for binary grid ratings.
 
 ## Installing and running the software
@@ -108,8 +108,6 @@ Also, we provide a docker image under
 <https://hub.docker.com/repository/docker/markheckmann/openrepgrid.ic> with a short instruction on
 how to run it locally. A video of the software is displayed in Figure 2. It shows the various tabs
 and processes a grid dataset from an interview with *Sylvia* which is also contained in the package.
-
-<!-- ![*Figure 2*: Screenshot of the software.](inst/extdata/02-screenshot.png) -->
 
 ![*Figure 2*: Software overview.](inst/extdata/software-animation.gif)
 
