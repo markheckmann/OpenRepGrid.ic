@@ -87,7 +87,7 @@ make_names_vec <- function(x)
   nms <- stringr::str_replace_all(nms, "\\.|-|/|\\(|\\)|&|\\?", "_")  # replace . - \ ? to _ (underscore)
   nms <- stringr::str_replace_all(nms, "[_]+", "_")               # replace multiple underscores by one
   nms <- stringr::str_replace_all(nms, "[_]+$", "")               # remove trailing underscores
-  nms <- stringr::str_replace_all(nms, "ß", "ss")               
+  nms <- stringr::str_replace_all(nms, "\u00DF", "ss")               
   nms <- stringr::str_replace_all(nms, "\u00E4", "ae")            # replace German umlauts by their two letter ASCII version
   nms <- stringr::str_replace_all(nms, "\u00FC", "ue") 
   nms <- stringr::str_replace_all(nms, "\u00F6", "oe") 
