@@ -137,7 +137,7 @@ server <- function(input, output, session)
     # rv$data_status
     rv$number_of_uploads # trigger when data is changed
     
-    # initialize settings after grid has been succesfully read in
+    # initialize settings after grid has been successfully read in
     if (rv$data_status == "passed") {
       n_elements <- rv$no_of_elements
       updateNumericInput(session, "par_min_match", value = n_elements - 1, min = 2, max = n_elements)
@@ -338,10 +338,10 @@ server <- function(input, output, session)
       Sys.sleep(.2)
      })
 
-    # allow download if excel has been created and saved succesfully
+    # allow download if excel has been created and saved successfully
     if (file.exists(rv$excel_out_path)) {
       enable("btn_download_excel")
-      sendSweetAlert(session, title = "Calculation succesful", 
+      sendSweetAlert(session, title = "Calculation successful", 
                      text = "You can now download the Excel file containing the results by clicking on the 'Download results' button", 
                      type = "success",
                      btn_labels = "Ok", btn_colors = "#3085d6")
