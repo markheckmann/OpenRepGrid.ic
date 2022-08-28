@@ -8,9 +8,10 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-# generate markdown for uoload to github using:
-# library(rmarkdown)
-# render("README.Rmd", md_document(standalone = TRUE))
+
+# NOTE: generate markdown for upload to github using:
+#  library(rmarkdown)
+#  render("README.Rmd", md_document(standalone = TRUE))
 ```
 
 

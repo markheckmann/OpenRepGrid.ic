@@ -89,19 +89,19 @@ server <- function(input, output, session)
   
 
   output$box_no_elements <- renderInfoBox({
-    req(input$excel_input)
+    req(rv$data)
     infoBox("Elements", ncol(rv$data) - 3, icon = icon("gem"), width = 3)
   })
   
   
   output$box_no_constructs <- renderInfoBox({
-    req(input$excel_input)
+    req(rv$data)  
     infoBox("Constructs", nrow(rv$data), icon = icon("comment"), width = 3)
   })
   
   
   output$box_no_missing <- renderInfoBox({
-    req(input$excel_input)
+    req(rv$data)
     x <- rv$data
     nc <- ncol(x)
     i_ratings <- 2L:(nc - 2)
@@ -271,8 +271,6 @@ server <- function(input, output, session)
   
   output$dt_grid <- renderDataTable(
   {
-    #req(rv$data)
-    #req(input$excel_input)
     data_status <- rv$data_status
     
     if (is.null(data_status) || isTRUE(data_status == "empty")) {
