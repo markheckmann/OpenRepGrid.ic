@@ -106,10 +106,12 @@ ic()
 
 Also, we provide a docker image under
 <https://hub.docker.com/repository/docker/markheckmann/openrepgrid.ic> with a short instruction on
-how to run it locally. A screenshot of the user interface is displayed in Figure 2. The image shows
-a grid dataset from an interview with *Sylvia* which is also contained in the package.
+how to run it locally. A video of the software is displayed in Figure 2. It shows the various tabs
+and processes a grid dataset from an interview with *Sylvia* which is also contained in the package.
 
-![*Figure 2*: Screenshot of the software.](inst/extdata//02-screenshot.png)
+<!-- ![*Figure 2*: Screenshot of the software.](inst/extdata/02-screenshot.png) -->
+
+![*Figure 2*: Software overview.](inst/extdata/software-animation.gif)
 
 The results of the IC analysis are not displayed interactively but are included in an MS Excel file
 that can be generated and downloaded. Also the results of the intermediate IC steps as described in

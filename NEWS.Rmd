@@ -3,14 +3,9 @@ title: "NEWS"
 output: html_document
 ---
 
-## TODOs
-
--   Because this is a shiny app, I think it would be nice to have a gif in the package README file
-    showing how to use the app instead of just a screenshot of the interface, or at least a few more
-    screenshots indicating the steps to run the analysis
-
 ## v0.6.1
 
+-   Add animated gif image with short software overview to README
 -   New `Sample output`tab added with extracts from the output for Sylvia's grid
 -   Additional test raising test coverage to over 90%
 -   Button to load sample data and get started right away without uploading any data
