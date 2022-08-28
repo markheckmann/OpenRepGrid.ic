@@ -61,7 +61,6 @@ The repertory grid technique (RGT) is a method which originated from *Personal C
 
 ![Example of a binary repertory grid dataset. The data is a binarized version of a grid from @boker_reconstruction_1996](img/01-bertin-binary.png){ width=90% }
 
-
 # Interpretive Clustering
 
 IC is an idiographic method of interpretation which makes use of both, the qualitative and the quantitative grid data. In contrast to thematic analysis or content analysis, which could be used to identify themes in person's elicited constructs [see @braun_using_2006], IC identifies the relation between the constructs via quantitative assessment. By assessing the quantitative construct relations, implications which constructs hold for each other are identified. IC essentially identifies clusters of constructs which hold implications for each other. These clusters (or cliques) of constructs form the basis for a subsequent qualitative interpretation. We will provide a brief interpretation example below. The example builds on the analysis results the software generates as shown next. However, for a more thorough introduction to the IC method and comprehensive illustrations of interpretations, the reader is referred to our publication [[@burr_qualitative_2020]](https://doi.org/10.1080/14780887.2020.1794088). Please note that the IC method only allows for binary grid ratings.
