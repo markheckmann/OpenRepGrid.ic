@@ -16,3 +16,4 @@ dev$
 ^LICENSE\.md$
 ^\.github$
 ^inst/extdata/software-animation\.gif$
+^CRAN-SUBMISSION$
