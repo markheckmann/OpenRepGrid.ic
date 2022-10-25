@@ -1,14 +1,13 @@
 ## Submission info
 
-Implement changes suggested by JOSS <https://joss.theoj.org/> reviewers in peer-review process
+Implement changes suggested by JOSS <https://joss.theoj.org/> reviewers during peer-review process of R package paper
 
 ## Test environments
 
 * Windows 10 (local desktop), R 4.2.1
-* Ubuntu 16.04.6 LTS (travis-ci), R 4.1.0
-* Windows Server x64 (appveyor.com) R 4.1.0
-* win-builder (devel and release)
-* R-hub builder
+* MacOS 11.7, R 4.2.1
+* Microsoft Windows Server 2022, R 4.2.1
+* Ubuntu 20.04.5 LTS, R 4.2.1
 
 ## R CMD check results
 
