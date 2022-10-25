@@ -15,7 +15,7 @@ replace_all(x, first = TRUE)
 \item{first}{Replace first pole (`TRUE`) or second pole (`FALSE`)}
 }
 \description{
-To display the two poles of the constructs as vertex labels with different 
+To display the two poles of the constructs as vertex labels with different
 colors, the poles have to be printed twice. The helper function replaces all letters
 from one of the poles with blanks.
 }

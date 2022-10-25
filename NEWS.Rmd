@@ -5,6 +5,7 @@ output: html_document
 
 ## v0.6.1
 
+-   Code now compliant with tidyverse style guide using the `styler` package
 -   Add animated gif image with short software overview to README
 -   New `Sample output`tab added with extracts from the output for Sylvia's grid
 -   Additional test raising test coverage to over 90%
