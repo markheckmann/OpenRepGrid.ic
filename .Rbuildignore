@@ -17,3 +17,5 @@ dev$
 ^\.github$
 ^inst/extdata/software-animation\.gif$
 ^CRAN-SUBMISSION$
+^.zenodo.json
+^CITATION.cff

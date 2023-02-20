@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+message: If you use this software, please cite it as below.
+authors:
+  - family-names: Heckmann
+    given-names: Mark
+    orcid: https://orcid.org/0000-0002-0736-7417
+  - family-names: Burr
+    given-names: Viv
+    orcid: https://orcid.org/0000-0002-3784-1271
+  - family-names: King
+    given-names: Nigel
+    orcid: https://orcid.org/0000-0003-0585-7364
+title: OpenRepGrid.ic: A software for Interpretive Clustering
+version: v0.6.1
+date-released: 2023-02-20
+abstract: The OpenRepGrid.ic R package is a browser-based software to perform Interpretive Clustering (IC) for repertory grid data. The repertory grid is a person-centered data collection method. It is primarily used in clinical psychology and generates a mix of qualitative and quantitative data. IC is a method for clustering the attributes (so called constructs) resulting from a repertory grid interview by finding relational patterns between them. The IC method is described in more detail in our publication Burr, King, and Heckmann (2020). The package is part of the OpenRepgrid project, which contains several software packages for the analysis of repertory grid data.
+license: MIT
+type: software
+repository-code: https://github.com/markheckmann/OpenRepGrid.ic
+identifiers:
+- type: url
+  value: https://github.com/markheckmann/OpenRepGrid.ic
+keywords:
+- R package
+- repertory grid
+- repgrid
+- PCP
