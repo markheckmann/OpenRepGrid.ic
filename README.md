@@ -1,7 +1,7 @@
 [![](https://www.r-pkg.org/badges/version/OpenRepGrid.ic?color=success)](https://cran.r-project.org/package=OpenRepGrid.ic)
 [![Codecov test
 coverage](https://codecov.io/gh/markheckmann/OpenRepGrid.ic/branch/master/graph/badge.svg)](https://codecov.io/gh/markheckmann/OpenRepGrid.ic?branch=master)
-[![R-CMD-check](https://github.com/markheckmann/OpenRepGrid.ic/workflows/R-CMD-check/badge.svg)](https://github.com/markheckmann/OpenRepGrid.ic/actions)
+[![R-CMD-check](https://github.com/markheckmann/OpenRepGrid.ic/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/markheckmann/OpenRepGrid.ic/actions/workflows/R-CMD-check.yaml)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7655618.svg)](https://doi.org/10.5281/zenodo.7655618)
 
 # Interpretive Clustering
