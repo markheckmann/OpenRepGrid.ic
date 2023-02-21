@@ -3,6 +3,7 @@
 coverage](https://codecov.io/gh/markheckmann/OpenRepGrid.ic/branch/master/graph/badge.svg)](https://codecov.io/gh/markheckmann/OpenRepGrid.ic?branch=master)
 [![R-CMD-check](https://github.com/markheckmann/OpenRepGrid.ic/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/markheckmann/OpenRepGrid.ic/actions/workflows/R-CMD-check.yaml)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7655618.svg)](https://doi.org/10.5281/zenodo.7655618)
+[![DOI](https://joss.theoj.org/papers/10.21105/joss.03292/status.svg)](https://doi.org/10.21105/joss.03292)
 
 # Interpretive Clustering
 
@@ -191,7 +192,7 @@ insight into some of the complexity of Sylvia’s construing.
 In order to maximize the package’s usefulness for the research
 community, we welcome participation in the package’s development.
 Experienced R programmers are asked to make pull requests to the
-[`OpenRepGrid.ic` github
+[`OpenRepGrid.ic` GitHub
 repository](https://github.com/markheckmann/OpenRepGrid.ic), [report
 issues](https://github.com/markheckmann/OpenRepGrid.ic/issues), or
 commit code snippets. Non-technical oriented researchers are invited to
