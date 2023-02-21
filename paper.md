@@ -94,7 +94,7 @@ The third cluster includes the ‘(+) Verdant *vs* (-) dead, nothing thriving’
 
 # Contributing
 
-In order to maximize the package's usefulness for the research community, we welcome participation in the package's development. Experienced R programmers are asked to make pull requests to the [`OpenRepGrid.ic` github repository](https://github.com/markheckmann/OpenRepGrid.ic), [report issues](https://github.com/markheckmann/OpenRepGrid.ic/issues), or commit code snippets. Non-technical oriented researchers are invited to send us feature requests or suggestions for improvement.
+In order to maximize the package's usefulness for the research community, we welcome participation in the package's development. Experienced R programmers are asked to make pull requests to the [`OpenRepGrid.ic` GitHub repository](https://github.com/markheckmann/OpenRepGrid.ic), [report issues](https://github.com/markheckmann/OpenRepGrid.ic/issues), or commit code snippets. Non-technical oriented researchers are invited to send us feature requests or suggestions for improvement.
 
 
 # References
