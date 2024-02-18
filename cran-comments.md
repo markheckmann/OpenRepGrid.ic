@@ -1,13 +1,13 @@
 ## Submission info
 
-Implement changes suggested by JOSS <https://joss.theoj.org/> reviewers during peer-review process of R package paper
+Fix CRAN check comment. 
 
 ## Test environments
 
-* Windows 10 (local desktop), R 4.2.1
-* MacOS 11.7, R 4.2.1
-* Microsoft Windows Server 2022, R 4.2.1
-* Ubuntu 20.04.5 LTS, R 4.2.1
+* MacOS 14.3.1 (local desktop), R 4.3.1
+* MacOS 12.7.3, R 4.3.2
+* Microsoft Windows Server 2022, R 4.3.2
+* Ubuntu 20.04.3 LTS, R 4.3.2
 
 ## R CMD check results
 
