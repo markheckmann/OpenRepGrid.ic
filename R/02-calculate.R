@@ -180,7 +180,7 @@ replace_all <- function(x, first = TRUE) {
 #'
 #' @param n Number of colors.
 #' @param name Name of RColorBrewer qualitative palette.
-#' @param aplha Alpha color value for fill colors.
+#' @param alpha Alpha color value for fill colors.
 #' @return A list with a vector of border and fill colors.
 #' @keywords internal
 #' @md

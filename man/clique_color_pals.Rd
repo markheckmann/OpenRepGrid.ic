@@ -11,7 +11,7 @@ clique_color_pals(n, name = "Dark2", alpha = 0.1)
 
 \item{name}{Name of RColorBrewer qualitative palette.}
 
-\item{aplha}{Alpha color value for fill colors.}
+\item{alpha}{Alpha color value for fill colors.}
 }
 \value{
 A list with a vector of border and fill colors.

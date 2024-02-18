@@ -26,8 +26,7 @@
 #' @example inst/examples/01-process-excel-file.R
 #' @keywords package OpenRepGrid.ic
 #' @name OpenRepGrid.ic
-#' @docType package
-#' @importFrom magrittr "%>%"
+#' @importFrom magrittr %>%
 #' @importFrom dplyr filter select group_by case_when recode
 #' @rawNamespace import(igraph, except = c(compare, normalize))
 #' @rawNamespace import(graphics, except = box)
@@ -38,7 +37,7 @@
 #' @rawNamespace import(shinyWidgets, except = c(progressBar, alert))
 #' @import utils grDevices openxlsx stringr reshape2 formattable shinyjs rintrojs formattable shinyFeedback shinydashboardPlus shinythemes splines tidyverse
 #' @rawNamespace import(shinydashboard, except = c(dashboardPage, dashboardSidebar, box, dashboardHeader, taskItem, notificationItem, messageItem))
-NULL
+"_PACKAGE"
 
 
 #' Launch app in browser

@@ -2,6 +2,7 @@
 % Please edit documentation in R/OpenRepGrid.ic.R
 \docType{package}
 \name{OpenRepGrid.ic}
+\alias{OpenRepGrid.ic-package}
 \alias{OpenRepGrid.ic}
 \title{\pkg{OpenRepGrid.ic} -  Interpretive Clustering for Repertory Grids}
 \description{
@@ -62,6 +63,24 @@ s
 \references{
 Burr, V. King, N. & Heckmann, M. (2020) The qualitative analysis of repertory grid data: Interpretive Clustering,
     Qualitative Research in Psychology, \doi{10.1080/14780887.2020.1794088}
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/markheckmann/OpenRepGrid.ic}
+  \item Report bugs at \url{https://github.com/markheckmann/OpenRepGrid.ic/issues}
+}
+
+}
+\author{
+\strong{Maintainer}: Mark Heckmann \email{heckmann.mark@gmail.com} (\href{https://orcid.org/0000-0002-0736-7417}{ORCID}) [copyright holder]
+
+Authors:
+\itemize{
+  \item Viv Burr
+  \item Nigel King
+}
+
 }
 \keyword{OpenRepGrid.ic}
 \keyword{package}
