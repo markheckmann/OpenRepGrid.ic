@@ -3,6 +3,10 @@ title: "NEWS"
 output: html_document
 ---
 
+## v0.6.2
+
+-   Fixing CRAN comments, updating docs.
+
 ## v0.6.1
 
 -   Code now compliant with tidyverse style guide using the `styler` package
