@@ -1,15 +1,17 @@
-citHeader("To cite the OpenRepGrid.ic package in publications:")
-
-citEntry(entry = "Manual",
+bibentry(
+  bibtype = "Article",
   title = "OpenRepGrid.ic: A Software for Interpretive Clustering",
-  journal = "forthcoming",
   author = c(
     person("Mark", "Heckmann", email = "heckmann.mark@gmail.com", role = c("aut", "cre")),
     person("Viv", "Burr", role = "aut"),
     person("Nigel", "King", role = "aut")
-  ),
-	year = "2021",
-	note = "R package version 0.5.1",
-	url = "https://github.com/markheckmann/OpenRepGrid.ic",
-  textVersion = "Heckmann, Burr, & King (2020). OpenRepGrid.ic: A Software for Interpretive Clustering. R package version 0.5.1"
+  ),  
+  journal = "Journal of Open Source Software", 
+  year = 2023,
+  volume = 8,
+  number = 82,
+  pages = 3292,
+  note = "R package version 0.6.2",
+  doi = "10.21105/joss.03292",
+  url = "https://github.com/markheckmann/OpenRepGrid.ic"
 )
